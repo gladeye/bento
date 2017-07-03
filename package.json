@@ -5,10 +5,14 @@
   "repository": "https://github.com/gladeye/webpack-kit",
   "author": "Ken Vu <ken@gladeye.com>",
   "license": "MIT",
+  "scripts": {
+    "test:scaffold": "cd test; rimraf -rf ./* && yo ../scaffold/index.js"
+  },
   "peerDependencies": {
     "yo": "^2.0.0"
   },
   "devDependencies": {
+    "rimraf": "^2.6.1",
     "yeoman-generator": "^1.1.1"
   }
 }

@@ -10,13 +10,15 @@ module.exports = class extends Generator {
                 `! Working folder: ${chalk.bold.white(this.destinationRoot())}`
             )
         );
+
+        this.log(chalk.grey("---"));
     }
 
     prompting() {
         const prompt = this.prompt([
             {
                 type: "input",
-                name: "webpack",
+                name: "config",
                 message: `Where should the ${chalk.underline(
                     "config file"
                 )} be:`,
@@ -25,7 +27,7 @@ module.exports = class extends Generator {
 
             {
                 type: "input",
-                name: "base",
+                name: "input",
                 message: `Where should the ${chalk.underline(
                     "input folder"
                 )} be:`,
@@ -34,7 +36,7 @@ module.exports = class extends Generator {
 
             {
                 type: "input",
-                name: "base",
+                name: "output",
                 message: `Where should the ${chalk.underline(
                     "output folder"
                 )} be:`,
@@ -42,8 +44,17 @@ module.exports = class extends Generator {
             },
 
             {
+                type: "input",
+                name: "public",
+                message: `What should the ${chalk.underline(
+                    "public path"
+                )} be:`,
+                default: "/assets/"
+            },
+
+            {
                 type: "confirm",
-                name: "back-end",
+                name: "server",
                 message: `Does this project need to proxy to a back-end server, e.g PHP server:`,
                 default: false
             },
@@ -55,16 +66,74 @@ module.exports = class extends Generator {
                     "back-end server URL"
                 )}:`,
                 when: answers => {
-                    return answers["back-end"];
+                    return answers["server"];
                 },
                 default: "http://localhost:8080"
             }
-        ]);
+        ]).then(answers => {
+            this.log(chalk.grey("---"));
 
-        // prompt.ui.process.subscribe(function onEachAnswer() {
-        //     console.log(arguments);
-        // });
+            for (let key in answers) {
+                const value = answers[key];
 
-        return prompt;
+                let label,
+                    val = value;
+
+                switch (key) {
+                    case "config":
+                        label = "Config file";
+                        val = this.destinationPath(value);
+                        break;
+                    case "input":
+                        label = "Input folder";
+                        val = this.destinationPath(value);
+                        break;
+                    case "output":
+                        label = "Output folder";
+                        val = this.destinationPath(value);
+                        break;
+                    case "public":
+                        label = "Public path";
+                        val = `${chalk.grey("<URL>")}${value}`;
+                        break;
+                    case "proxy":
+                        label = "Back-end URL";
+                        break;
+                }
+
+                if (label) {
+                    this.log(
+                        chalk.grey(`> ${label}: ${chalk.bold.white(val)}`)
+                    );
+                }
+            }
+
+            this.log("");
+
+            return this.prompt([
+                {
+                    type: "confirm",
+                    name: "proceed",
+                    message: "Proceed:",
+                    default: true
+                }
+            ]).then(result => {
+                answers.proceed = result.proceed;
+                return answers;
+            });
+        });
+
+        return prompt.then(answers => {
+            if (!answers.proceed) return;
+            this.props = Object.assign({}, this.props, answers);
+        });
+    }
+
+    writing() {
+        this.fs.copyTpl(
+            this.templatePath("webpack.config.js.tpl"),
+            this.props.config,
+            this.props
+        );
     }
 };
