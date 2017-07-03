@@ -135,5 +135,11 @@ module.exports = class extends Generator {
             this.props.config,
             this.props
         );
+
+        this.fs.copy(this.templatePath("assets/**/*"), this.props.input, {
+            globOptions: {
+                dot: true
+            }
+        });
     }
 };
