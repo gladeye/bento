@@ -28,8 +28,8 @@ module.exports = config({
      * Entry
      * ------------------------------------------------------------------------
      * "main":      The point or points to enter the application.
-     *              Note: vendor static css files can be added to "main"
-     *              array, to improve HMR reload speed.
+     *              Note: vendor static css files can be added here instead of
+     *              using standard `import` to improve HMR reload speed.
      * @see https://webpack.js.org/configuration/entry-context/#context
      *
      */
@@ -47,6 +47,7 @@ module.exports = config({
      * "hash":      Hash length that will append to output files for
      *              long term caching.
      * @see https://webpack.js.org/guides/caching/#the-problem
+     *
      */
     "caching": {
         "hash": ".[hash:8]",
