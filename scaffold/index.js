@@ -136,10 +136,19 @@ module.exports = class extends Generator {
             this.props
         );
 
-        this.fs.copy(this.templatePath("assets/**/*"), this.props.input, {
-            globOptions: {
-                dot: true
+        this.fs.copy(
+            this.templatePath("assets/**/*"),
+            this.destinationPath(this.props.input),
+            {
+                globOptions: {
+                    dot: true
+                }
             }
-        });
+        );
+
+        this.fs.write(
+            this.destinationPath(`${this.props.output}/.gitkeep`),
+            ""
+        );
     }
 };
