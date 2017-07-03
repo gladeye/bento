@@ -1,0 +1,14 @@
+{
+  "name": "@gladeye/webpack-kit",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/gladeye/webpack-kit",
+  "author": "Ken Vu <ken@gladeye.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "yo": "^2.0.0"
+  },
+  "devDependencies": {
+    "yeoman-generator": "^1.1.1"
+  }
+}
