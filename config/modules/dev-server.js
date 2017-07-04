@@ -1,15 +1,12 @@
 const { config, read } = require("../utils"),
-    { argv } = require("yargs"),
     respMod = require("resp-modifier"),
     webpack = require("webpack"),
-    FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");
+    FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin"),
+    BrowserSyncPlugin = require("browser-sync-webpack-plugin");
 
 module.exports = config(function(instance) {
-    return instance.merge({
-        output: {
-            pathinfo: true
-        },
-        devServer: {
+    const backEnd = read("devServer.backEnd"),
+        devServer = {
             disableHostCheck: true,
             historyApiFallback: true,
             noInfo: true,
@@ -17,30 +14,50 @@ module.exports = config(function(instance) {
             hot: true,
             inline: true,
             quiet: true,
-            overlay: true
-            // proxy: {
-            //     "/": {
-            //         target: read('devServer.backEnd'),
-            //         changeOrigin: true,
-            //         autoRewrite: true
-            //     }
-            // },
-            // setup(app) {
-            //     app.use(
-            //         respMod({
-            //             rules: [
-            //                 {
-            //                     match: new RegExp(PHP_URL, "gi"),
-            //                     replace: `//localhost:${argv.port}`
-            //                 }
-            //             ]
-            //         })
-            //     );
-            // }
+            overlay: true,
+            port: read("ports.webpack")
+        };
+
+    if (backEnd) {
+        devServer.proxy = {
+            "/": {
+                target: backEnd,
+                changeOrigin: true,
+                autoRewrite: true
+            }
+        };
+
+        devServer.setup = function(app) {
+            app.use(
+                respMod({
+                    rules: [
+                        {
+                            match: new RegExp(backEnd, "gi"),
+                            replace: `//localhost:${read("ports.webpack")}`
+                        }
+                    ]
+                })
+            );
+        };
+    }
+
+    return instance.merge({
+        output: {
+            pathinfo: true
         },
+        devServer,
         plugins: [
             new webpack.HotModuleReplacementPlugin(),
-            new FriendlyErrorsWebpackPlugin()
+            new FriendlyErrorsWebpackPlugin(),
+            new BrowserSyncPlugin(
+                Object.assign({}, read("browsersync"), {
+                    port: read("ports.browsersync"),
+                    proxy: `http://localhost:${read("ports.webpack")}`
+                }),
+                {
+                    reload: false
+                }
+            )
         ]
     });
 });

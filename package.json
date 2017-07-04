@@ -10,21 +10,18 @@
     "test:config:build": "cd test; webpack",
     "test:config:serve": "cd test; webpack-dev-server"
   },
-  "peerDependencies": {
-    "yo": "^2.0.0"
-  },
+  "peerDependencies": {},
   "devDependencies": {
-    "rimraf": "^2.6.1",
-    "npm-run-all": "^4.0.2"
+    "npm-run-all": "^4.0.2",
+    "rimraf": "^2.6.1"
   },
   "dependencies": {
-    "object-path": "^0.11.4",
-    "webpack-config": "^7.0.0",
     "babel-core": "^6.25.0",
     "babel-loader": "^7.0.0",
     "babel-preset-env": "^1.5.2",
     "babel-preset-stage-2": "^6.24.1",
     "browser-sync": "^2.18.12",
+    "browser-sync-webpack-plugin": "^1.2.0",
     "clean-webpack-plugin": "^0.1.16",
     "copy-globs-webpack-plugin": "^0.2.0",
     "css-loader": "^0.28.4",
@@ -33,6 +30,8 @@
     "file-loader": "^0.11.2",
     "friendly-errors-webpack-plugin": "^1.6.1",
     "node-sass": "^4.5.3",
+    "object-path": "^0.11.4",
+    "openport": "^0.0.4",
     "optimize-css-assets-webpack-plugin": "^2.0.0",
     "postcss-loader": "^2.0.5",
     "resolve-url-loader": "^2.0.2",
@@ -42,8 +41,10 @@
     "url-loader": "^0.5.9",
     "webpack": "^2.6.1",
     "webpack-assets-manifest": "^0.7.0",
+    "webpack-config": "^7.0.0",
     "webpack-dev-server": "^2.4.5",
     "yargs": "^8.0.2",
-    "yeoman-generator": "^1.1.1"
+    "yeoman-generator": "^1.1.1",
+    "yo": "^2.0.0"
   }
 }

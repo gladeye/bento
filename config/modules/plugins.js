@@ -10,7 +10,7 @@ module.exports = config(instance => {
     instance.merge({
         plugins: [
             new CleanPlugin([`${path.join(read("paths.output"), "**/*")}`], {
-                root: read("root"),
+                root: read("paths.root"),
                 verbose: false
             }),
 

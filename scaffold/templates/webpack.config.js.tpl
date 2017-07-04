@@ -18,6 +18,7 @@ module.exports = config({
      *
      */
     "paths": {
+        "root": process.cwd(),
         "input": "<%= input %>",
         "output": "<%= output %>",
         "public": "<%= public %>"
@@ -68,9 +69,8 @@ module.exports = config({
      * ------------------------------------------------------------------------
      * Browserslist
      * ------------------------------------------------------------------------
-     * Define stack of supported browsers that will use for PostCSS
-     * `autoprefixer` and `babel-preset-env`
-     *
+     * "browsers":      Define stack of supported browsers that will use for
+     *                  PostCSS `autoprefixer` and `babel-preset-env`
      * @see https://github.com/ai/browserslist#queries
      *
      */
@@ -84,7 +84,7 @@ module.exports = config({
      * ------------------------------------------------------------------------
      * Babel
      * ------------------------------------------------------------------------
-     * babel-loader options can be defined here
+     * `babel-loader` options can be defined here
      *
      * @see https://github.com/babel/babel-loader
      * @see https://github.com/babel/babel-preset-env
@@ -109,18 +109,34 @@ module.exports = config({
 
     /**
      * ------------------------------------------------------------------------
+     * Browsersync
+     * ------------------------------------------------------------------------
+     * `browsersyncs` options can be defined here, notes that `port` and
+     * `proxy` will be ignored
+     *
+     * @see https://www.browsersync.io/docs/options#option-files
+     */
+    "browsersync": {
+        open: true,
+        ghostMode: false,
+        watchOptions: {
+            ignoreInitial: true,
+            ignored: "*.txt",
+            cwd: "@paths.root"
+        },
+        files: [
+            // "{app,resources/views}/**/*.php"
+        ]
+    },
+
+    /**
+     * ------------------------------------------------------------------------
      * Files
      * ------------------------------------------------------------------------
-     * "watch":     Additional files to watch and reload browser if
-     *              they've changed.
-     *
      * "copy":      Copy files that match the pattern to the output folder.
      *
      */
     "files": {
-        "watch": [
-            // "{app,resources/views}/**/*.php"
-        ],
         "copy": "+(images|media)/**/*"
     },
 
@@ -135,5 +151,5 @@ module.exports = config({
     "devServer": {
         "backEnd": <%- server ? ('"' + proxy + '"') : "false" %>
     }
-}, process.argv.indexOf('webpack-dev-server') >= 0);
+}, process.argv[1].indexOf('webpack-dev-server') >= 0);
 
