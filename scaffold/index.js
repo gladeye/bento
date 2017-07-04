@@ -41,12 +41,12 @@ module.exports = class extends Generator {
         this.props = {};
 
         this.log(
-            chalk.grey(
+            chalk.gray(
                 `! Project folder: ${chalk.bold.white(this.destinationRoot())}`
             )
         );
 
-        this.log(chalk.grey("---"));
+        this.log(chalk.gray("---"));
     }
 
     prompting() {
@@ -120,7 +120,7 @@ module.exports = class extends Generator {
             }
         ])
             .then(answers => {
-                this.log(chalk.grey("---"));
+                this.log(chalk.gray("---"));
 
                 for (let key in answers) {
                     const value = answers[key];
@@ -143,7 +143,7 @@ module.exports = class extends Generator {
                             break;
                         case "public":
                             label = "Public path";
-                            val = `${chalk.grey("<URL>")}${value}`;
+                            val = `${chalk.gray("<URL>")}${value}`;
                             break;
                         case "proxy":
                             label = "Back-end server";
@@ -152,7 +152,7 @@ module.exports = class extends Generator {
 
                     if (label) {
                         this.log(
-                            chalk.grey(`> ${label}: ${chalk.bold.white(val)}`)
+                            chalk.gray(`> ${label}: ${chalk.bold.white(val)}`)
                         );
                     }
                 }
@@ -200,5 +200,32 @@ module.exports = class extends Generator {
             this.destinationPath(`${this.props.output}/.gitkeep`),
             ""
         );
+    }
+
+    end() {
+        if (!this.props.proceed) return;
+
+        this.log("");
+
+        this.log(chalk("Scaffolding complete ✨"));
+
+        this.log("");
+
+        this.log(
+            `You should add these to package.json's ${chalk.bold('"scripts"')}`
+        );
+
+        this.log(chalk.gray("..."));
+        this.log(
+            `${chalk.bold.green('"start:webpack"')}: ${chalk.green(
+                `"webpack-dev-server --config ${this.props.config}"`
+            )}`
+        );
+        this.log(
+            `${chalk.bold.green('"build:webpack"')}: ${chalk.green(
+                `"NODE_ENV=production webpack --config ${this.props.config}"`
+            )}`
+        );
+        this.log(chalk.gray("..."));
     }
 };
