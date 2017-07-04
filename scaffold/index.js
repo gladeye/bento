@@ -1,4 +1,6 @@
 const Generator = require("yeoman-generator"),
+    pathIsInside = require("path-is-inside"),
+    path = require("path"),
     chalk = require("chalk");
 
 const presets = {
@@ -21,13 +23,26 @@ const select = function(key) {
     };
 };
 
+const inside = function(name, root) {
+    return function(value) {
+        const resolved = path.resolve(value);
+        const result = pathIsInside(resolved, root);
+        return (
+            result ||
+            `${name} must be inside ${chalk.bold(
+                root
+            )}, it's currently resolved to ${chalk.bold(resolved)}`
+        );
+    };
+};
+
 module.exports = class extends Generator {
     initializing() {
         this.props = {};
 
         this.log(
             chalk.grey(
-                `! Working folder: ${chalk.bold.white(this.destinationRoot())}`
+                `! Project folder: ${chalk.bold.white(this.destinationRoot())}`
             )
         );
 
@@ -59,7 +74,8 @@ module.exports = class extends Generator {
                 message: `Where should the ${chalk.underline(
                     "config file"
                 )} be:`,
-                default: "./webpack.config.js"
+                default: "./webpack.config.js",
+                validate: inside("Config file", this.destinationRoot())
             },
 
             {
@@ -68,7 +84,8 @@ module.exports = class extends Generator {
                 message: `Where should the ${chalk.underline(
                     "input folder"
                 )} be:`,
-                default: select("input")
+                default: select("input"),
+                validate: inside("Input folder", this.destinationRoot())
             },
 
             {
@@ -77,7 +94,8 @@ module.exports = class extends Generator {
                 message: `Where should the ${chalk.underline(
                     "output folder"
                 )} be:`,
-                default: select("output")
+                default: select("output"),
+                validate: inside("Output folder", this.destinationRoot())
             },
 
             {
