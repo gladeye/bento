@@ -5,7 +5,7 @@ const { config, read } = require("../utils"),
     BrowserSyncPlugin = require("browser-sync-webpack-plugin");
 
 module.exports = config(function(instance) {
-    const backEnd = read("devServer.backEnd"),
+    const backEnd = read("server"),
         devServer = {
             disableHostCheck: true,
             historyApiFallback: true,
@@ -19,20 +19,14 @@ module.exports = config(function(instance) {
         };
 
     if (backEnd) {
-        devServer.proxy = {
-            "/": {
-                target: backEnd,
-                changeOrigin: true,
-                autoRewrite: true
-            }
-        };
+        devServer.proxy = backEnd.proxy;
 
         devServer.setup = function(app) {
             app.use(
                 respMod({
                     rules: [
                         {
-                            match: new RegExp(backEnd, "gi"),
+                            match: new RegExp(backEnd.proxy["/"].target, "gi"),
                             replace: `//localhost:${read("ports.webpack")}`
                         }
                     ]

@@ -1,6 +1,26 @@
 const Generator = require("yeoman-generator"),
     chalk = require("chalk");
 
+const presets = {
+    spa: {
+        input: "./app/",
+        output: "./public/",
+        public: "/"
+    },
+
+    ssa: {
+        input: "./assets/",
+        output: "./public/assets/",
+        public: "/assets/"
+    }
+};
+
+const select = function(key) {
+    return function(answers) {
+        return presets[answers.kind][key];
+    };
+};
+
 module.exports = class extends Generator {
     initializing() {
         this.props = {};
@@ -15,7 +35,24 @@ module.exports = class extends Generator {
     }
 
     prompting() {
-        const prompt = this.prompt([
+        return this.prompt([
+            {
+                type: "list",
+                name: "kind",
+                message: "How should this project be described as:",
+                choices: [
+                    {
+                        name: "Single-page Application",
+                        value: "spa"
+                    },
+
+                    {
+                        name: "Server-side Application",
+                        value: "ssa"
+                    }
+                ]
+            },
+
             {
                 type: "input",
                 name: "config",
@@ -31,7 +68,7 @@ module.exports = class extends Generator {
                 message: `Where should the ${chalk.underline(
                     "input folder"
                 )} be:`,
-                default: "./assets/"
+                default: select("input")
             },
 
             {
@@ -40,7 +77,7 @@ module.exports = class extends Generator {
                 message: `Where should the ${chalk.underline(
                     "output folder"
                 )} be:`,
-                default: "./public/assets/"
+                default: select("output")
             },
 
             {
@@ -49,87 +86,82 @@ module.exports = class extends Generator {
                 message: `What should the ${chalk.underline(
                     "public path"
                 )} be:`,
-                default: "/assets/"
-            },
-
-            {
-                type: "confirm",
-                name: "server",
-                message: `Does this project need to proxy to a back-end server, e.g PHP server:`,
-                default: false
+                default: select("public")
             },
 
             {
                 type: "input",
                 name: "proxy",
                 message: `What is the ${chalk.underline(
-                    "back-end server URL"
-                )}:`,
+                    "URL"
+                )} of the back-end server:`,
                 when: answers => {
-                    return answers["server"];
+                    return answers.kind === "ssa";
                 },
                 default: "http://localhost:8080"
             }
-        ]).then(answers => {
-            this.log(chalk.grey("---"));
+        ])
+            .then(answers => {
+                this.log(chalk.grey("---"));
 
-            for (let key in answers) {
-                const value = answers[key];
+                for (let key in answers) {
+                    const value = answers[key];
 
-                let label,
-                    val = value;
+                    let label,
+                        val = value;
 
-                switch (key) {
-                    case "config":
-                        label = "Config file";
-                        val = this.destinationPath(value);
-                        break;
-                    case "input":
-                        label = "Input folder";
-                        val = this.destinationPath(value);
-                        break;
-                    case "output":
-                        label = "Output folder";
-                        val = this.destinationPath(value);
-                        break;
-                    case "public":
-                        label = "Public path";
-                        val = `${chalk.grey("<URL>")}${value}`;
-                        break;
-                    case "proxy":
-                        label = "Back-end URL";
-                        break;
+                    switch (key) {
+                        case "config":
+                            label = "Config file";
+                            val = this.destinationPath(value);
+                            break;
+                        case "input":
+                            label = "Input folder";
+                            val = this.destinationPath(value);
+                            break;
+                        case "output":
+                            label = "Output folder";
+                            val = this.destinationPath(value);
+                            break;
+                        case "public":
+                            label = "Public path";
+                            val = `${chalk.grey("<URL>")}${value}`;
+                            break;
+                        case "proxy":
+                            label = "Back-end server";
+                            break;
+                    }
+
+                    if (label) {
+                        this.log(
+                            chalk.grey(`> ${label}: ${chalk.bold.white(val)}`)
+                        );
+                    }
                 }
 
-                if (label) {
-                    this.log(
-                        chalk.grey(`> ${label}: ${chalk.bold.white(val)}`)
-                    );
-                }
-            }
+                this.log("");
 
-            this.log("");
-
-            return this.prompt([
-                {
-                    type: "confirm",
-                    name: "proceed",
-                    message: "Proceed:",
-                    default: true
-                }
-            ]).then(result => {
-                answers.proceed = result.proceed;
-                return answers;
+                return this.prompt([
+                    {
+                        type: "confirm",
+                        name: "proceed",
+                        message: "Proceed:",
+                        default: true
+                    }
+                ]).then(result => {
+                    answers.proceed = result.proceed;
+                    return answers;
+                });
+            })
+            .then(answers => {
+                if (!answers.proceed) return;
+                this.props = Object.assign({}, this.props, answers);
             });
-        });
-
-        return prompt.then(answers => {
-            if (!answers.proceed) return;
-            this.props = Object.assign({}, this.props, answers);
-        });
     }
 
     writing() {
+        if (!this.props.proceed) return;
+
         this.fs.copyTpl(
             this.templatePath("webpack.config.js.tpl"),
             this.props.config,

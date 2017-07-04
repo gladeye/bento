@@ -140,16 +140,41 @@ module.exports = config({
         "copy": "+(images|media)/**/*"
     },
 
+    <%if (kind === 'ssa') { %>
     /**
      * ------------------------------------------------------------------------
-     * Dev Server
+     * Back-end Server
      * ------------------------------------------------------------------------
-     * "backEnd":   A back-end URL to which all other requests outside
-     *              of `paths.public` will be proxied, e.g Wordpress
+     * "proxy":     Map of endpoints that should be proxied to a back-end
+     *              server. Note: currently, only a single value "/" is
+     *              supported.
      *
      */
-    "devServer": {
-        "backEnd": <%- server ? ('"' + proxy + '"') : "false" %>
+    "server": {
+        "proxy": {
+            "/": {
+                target: <%- JSON.stringify(proxy) %>,
+                changeOrigin: true,
+                autoRewrite: true
+            }
+        }
     }
+    <% } %>
+
+    <%if (kind === 'spa') { %>
+    /**
+     * ------------------------------------------------------------------------
+     * HTML Plugin options
+     * ------------------------------------------------------------------------
+     * `html-webpack-plugin` options can be defined here.
+     *
+     * @see https://github.com/jantimon/html-webpack-plugin#configuration
+     *
+     */
+    "html": {
+        showErrors: true
+    }
+    <% } %>
+
 }, process.argv[1].indexOf('webpack-dev-server') >= 0);
 
