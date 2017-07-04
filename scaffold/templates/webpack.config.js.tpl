@@ -1,4 +1,4 @@
-const { config } = require("webpack-kit");
+const { config } = require("@gladeye/webpack-kit");
 
 module.exports = config({
     /**
@@ -66,17 +66,44 @@ module.exports = config({
 
     /**
      * ------------------------------------------------------------------------
-     * Autoprefixer
+     * Browserslist
      * ------------------------------------------------------------------------
-     * "browsers":  Define stack of browsers that will use for CSS vendor
-     *              prefix as well as Babel polyfill
-     * @see https://github.com/postcss/autoprefixer#browsers
+     * Define stack of supported browsers that will use for PostCSS
+     * `autoprefixer` and `babel-preset-env`
+     *
+     * @see https://github.com/ai/browserslist#queries
+     *
+     */
+    "browserslist": {
+        "browsers": [
+            "last 1 version"
+        ]
+    },
+
+    /**
+     * ------------------------------------------------------------------------
+     * Babel
+     * ------------------------------------------------------------------------
+     * babel-loader options can be defined here
+     *
+     * @see https://github.com/babel/babel-loader
      * @see https://github.com/babel/babel-preset-env
      *
      */
-    "autoprefixer": {
-        "browsers": [
-            "last 1 version"
+    "babel": {
+        presets: [
+            [
+                "env",
+                {
+                    targets: {
+                        browsers: "@browserslist.browsers"
+                    },
+                    loose: true,
+                    modules: false,
+                    useBuiltIns: true
+                }
+            ],
+            "stage-2"
         ]
     },
 
@@ -108,5 +135,5 @@ module.exports = config({
     "devServer": {
         "backEnd": <%- server ? ('"' + proxy + '"') : "false" %>
     }
-}, !!process.argv.indexOf('webpack-dev-server'));
+}, process.argv.indexOf('webpack-dev-server') >= 0);
 

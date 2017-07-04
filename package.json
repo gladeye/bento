@@ -1,18 +1,49 @@
 {
   "name": "@gladeye/webpack-kit",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "config/index.js",
   "repository": "https://github.com/gladeye/webpack-kit",
   "author": "Ken Vu <ken@gladeye.com>",
   "license": "MIT",
   "scripts": {
-    "test:scaffold": "cd test; rimraf -rf ./* && yo ../scaffold/index.js"
+    "test:scaffold": "cd test; rimraf -rf ./* && yo ../scaffold/index.js",
+    "test:config:build": "cd test; webpack",
+    "test:config:serve": "cd test; webpack-dev-server"
   },
   "peerDependencies": {
     "yo": "^2.0.0"
   },
   "devDependencies": {
     "rimraf": "^2.6.1",
+    "npm-run-all": "^4.0.2"
+  },
+  "dependencies": {
+    "object-path": "^0.11.4",
+    "webpack-config": "^7.0.0",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.0.0",
+    "babel-preset-env": "^1.5.2",
+    "babel-preset-stage-2": "^6.24.1",
+    "browser-sync": "^2.18.12",
+    "clean-webpack-plugin": "^0.1.16",
+    "copy-globs-webpack-plugin": "^0.2.0",
+    "css-loader": "^0.28.4",
+    "cssnano": "^3.10.0",
+    "extract-text-webpack-plugin": "^2.1.2",
+    "file-loader": "^0.11.2",
+    "friendly-errors-webpack-plugin": "^1.6.1",
+    "node-sass": "^4.5.3",
+    "optimize-css-assets-webpack-plugin": "^2.0.0",
+    "postcss-loader": "^2.0.5",
+    "resolve-url-loader": "^2.0.2",
+    "resp-modifier": "^6.0.2",
+    "sass-loader": "^6.0.5",
+    "style-loader": "^0.18.2",
+    "url-loader": "^0.5.9",
+    "webpack": "^2.6.1",
+    "webpack-assets-manifest": "^0.7.0",
+    "webpack-dev-server": "^2.4.5",
+    "yargs": "^8.0.2",
     "yeoman-generator": "^1.1.1"
   }
 }
