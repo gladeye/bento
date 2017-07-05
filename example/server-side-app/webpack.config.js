@@ -1,4 +1,4 @@
-const { config } = require("@gladeye/webpack-kit");
+const { config } = require("@gladeye/bento");
 
 module.exports = config({
     /**
