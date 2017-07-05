@@ -10,7 +10,8 @@ Bento is an opinionated *webpack* starter kit that comes loaded with:
 - SASS w/ [PostCSS Autoprefixer](https://github.com/postcss/autoprefixer)
 - Vendor code splitting
 - Long-term caching
-- Sane front-end [folder structure](./example) scaffolding
+- Interactive scaffolding w/ [Yeoman](http://yeoman.io/)
+- Sensible front-end [folder structure](#folder-structure)
 
 ## Usage
 
@@ -20,7 +21,7 @@ Install:
 yarn add @gladeye/bento --dev
 ```
 
-Run the interactive scaffolding (make sure you have [yeoman](http://yeoman.io/) installed)
+Run the interactive scaffolding (make sure you have [Yeoman](http://yeoman.io/) installed)
 
 ```
 yo ./node_modules/@gladeye/bento/scaffold
@@ -35,7 +36,7 @@ Update your **package.json** with these settings:
 }
 ```
 
-Then simply do:
+Then simply:
 
 ```bash
 # start webpack-dev-server
@@ -45,4 +46,25 @@ yarn start:webpack
 yarn build:webpack
 ```
 
+### Folder structure
+
+Bento comes with a sensible, uncomplicated folder structure. It also ensures that webpack works seamlessly between `serve` mode and `build` mode
+
+```
+./
+├── fonts
+├── images
+├── media
+├── scripts
+│   └── main.js
+└── styles
+    └── main.scss
+```
+
 ### Webpack Config
+
+Coming soon
+
+## License
+
+MIT
