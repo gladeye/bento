@@ -212,20 +212,24 @@ module.exports = class extends Generator {
         this.log("");
 
         this.log(
-            `You should add these to package.json's ${chalk.bold('"scripts"')}`
+            `One last thing, update ${chalk.bold(
+                "package.json"
+            )} with the following settings:`
         );
 
         this.log(chalk.gray("..."));
+        this.log('"scripts": {');
         this.log(
-            `${chalk.bold.green('"start:webpack"')}: ${chalk.green(
+            `  ${chalk.bold.green('"start:webpack"')}: ${chalk.green(
                 `"webpack-dev-server --config ${this.props.config}"`
             )}`
         );
         this.log(
-            `${chalk.bold.green('"build:webpack"')}: ${chalk.green(
+            `  ${chalk.bold.green('"build:webpack"')}: ${chalk.green(
                 `"NODE_ENV=production webpack --config ${this.props.config}"`
             )}`
         );
+        this.log("}");
         this.log(chalk.gray("..."));
     }
 };
