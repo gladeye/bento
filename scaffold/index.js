@@ -207,7 +207,7 @@ module.exports = class extends Generator {
 
         this.log("");
 
-        this.log(chalk("Scaffolding complete ✨"));
+        this.log("Scaffolding complete ✨");
 
         this.log("");
 
