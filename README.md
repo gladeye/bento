@@ -18,7 +18,7 @@ Bento is an opinionated *webpack* starter kit that comes loaded with:
 Install:
 
 ```bash
-yarn add @gladeye/bento --dev
+yarn add @gladeye/bento@1.0.0-beta.1 --dev
 ```
 
 Run the interactive scaffolding (make sure you have [Yeoman](http://yeoman.io/) installed)
