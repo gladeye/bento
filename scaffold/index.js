@@ -1,7 +1,6 @@
 const Generator = require("yeoman-generator"),
-    pathIsInside = require("path-is-inside"),
-    path = require("path"),
-    chalk = require("chalk");
+    chalk = require("chalk"),
+    { select, inside, trailing } = require("./utils");
 
 const presets = {
     spa: {
@@ -15,25 +14,6 @@ const presets = {
         output: "./public/assets/",
         public: "/assets/"
     }
-};
-
-const select = function(key) {
-    return function(answers) {
-        return presets[answers.kind][key];
-    };
-};
-
-const inside = function(name, root) {
-    return function(value) {
-        const resolved = path.resolve(value);
-        const result = pathIsInside(resolved, root);
-        return (
-            result ||
-            `${name} must be inside ${chalk.bold(
-                root
-            )}, it's currently resolved to ${chalk.bold(resolved)}`
-        );
-    };
 };
 
 module.exports = class extends Generator {
@@ -84,8 +64,9 @@ module.exports = class extends Generator {
                 message: `Where should the ${chalk.underline(
                     "input folder"
                 )} be:`,
-                default: select("input"),
-                validate: inside("Input folder", this.destinationRoot())
+                default: select("input", presets),
+                validate: inside("Input folder", this.destinationRoot()),
+                filter: trailing("/")
             },
 
             {
@@ -94,8 +75,9 @@ module.exports = class extends Generator {
                 message: `Where should the ${chalk.underline(
                     "output folder"
                 )} be:`,
-                default: select("output"),
-                validate: inside("Output folder", this.destinationRoot())
+                default: select("output", presets),
+                validate: inside("Output folder", this.destinationRoot()),
+                filter: trailing("/")
             },
 
             {
@@ -104,7 +86,8 @@ module.exports = class extends Generator {
                 message: `What should the ${chalk.underline(
                     "public path"
                 )} be:`,
-                default: select("public")
+                default: select("public", presets),
+                filter: trailing("/")
             },
 
             {
@@ -200,6 +183,13 @@ module.exports = class extends Generator {
             this.destinationPath(`${this.props.output}/.gitkeep`),
             ""
         );
+
+        if (this.props.kind === "spa") {
+            this.fs.copy(
+                this.templatePath("index.ejs"),
+                this.destinationPath(`${this.props.input}/index.ejs`)
+            );
+        }
     }
 
     end() {

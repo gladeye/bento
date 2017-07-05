@@ -126,7 +126,11 @@ module.exports = config({
             cwd: "@{paths.root}"
         },
         files: [
+            <%if (kind === 'spa') { %>
+            "<%= input %>index.ejs"
+            <% } else { %>
             // "{app,resources/views}/**/*.php"
+            <% } %>
         ]
     },
 
@@ -174,6 +178,7 @@ module.exports = config({
      *
      */
     "html": {
+        template: "./index.ejs",
         showErrors: true
     }
     <% } %>
