@@ -1,5 +1,5 @@
 {
-  "name": "@gladeye/webpack-kit",
+  "name": "@gladeye/bento",
   "version": "1.0.0",
   "main": "config/index.js",
   "repository": "https://github.com/gladeye/webpack-kit",
