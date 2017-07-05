@@ -96,7 +96,7 @@ module.exports = config({
                 "env",
                 {
                     targets: {
-                        browsers: "@browserslist.browsers"
+                        browsers: "@{browserslist.browsers}"
                     },
                     loose: true,
                     modules: false,
@@ -123,7 +123,7 @@ module.exports = config({
         watchOptions: {
             ignoreInitial: true,
             ignored: "*.txt",
-            cwd: "@paths.root"
+            cwd: "@{paths.root}"
         },
         files: [
             // "{app,resources/views}/**/*.php"

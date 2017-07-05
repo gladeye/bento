@@ -20,11 +20,11 @@ module.exports.read = function(key, defaultValue) {
 module.exports.set = function(opts) {
     let json = JSON.stringify(opts);
     const pre = objectPath(opts),
-        matches = json.match(/"@([\w\.]+)"/g);
+        matches = json.match(/"@{([\w\.]+)}"/g);
 
     // replace any "@key" occurrences with the real value
     matches.forEach(match => {
-        const key = match.replace("@", "").replace(/"/g, ""),
+        const key = match.replace(/[@{}"]/g, ""),
             value = pre.get(key);
 
         json = json.replace(new RegExp(match, "g"), JSON.stringify(value));
