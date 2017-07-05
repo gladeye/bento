@@ -18,7 +18,12 @@ module.exports.config = function(options, isDevServer) {
 
                     // before we change the cwd value, let's resolve all the paths
                     ["input", "output"].forEach(key => {
-                        options.paths[key] = path.resolve(options.paths[key]);
+                        if (!options.paths.resolved)
+                            options.paths.resolved = {};
+
+                        options.paths.resolved[key] = path.resolve(
+                            options.paths[key]
+                        );
                     });
 
                     process.chdir(__dirname);

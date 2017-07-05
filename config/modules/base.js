@@ -3,7 +3,7 @@ const { config, select, read } = require("../utils"),
 
 module.exports = config(instance => {
     return instance.merge({
-        context: read("paths.input"),
+        context: read("paths.resolved.input"),
         entry: read("entry"),
 
         devtool: select({
@@ -12,7 +12,7 @@ module.exports = config(instance => {
         }),
 
         output: {
-            path: read("paths.output"),
+            path: read("paths.resolved.output"),
             publicPath: read("paths.public"),
             filename: `scripts/${read("filename").replace(
                 "hash",
@@ -23,7 +23,7 @@ module.exports = config(instance => {
         resolve: {
             extensions: ["*", ".js"],
             alias: {
-                "~": path.join(read("paths.input"), "scripts")
+                "~": path.join(read("paths.resolved.input"), "scripts")
             }
         }
     });

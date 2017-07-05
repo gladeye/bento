@@ -24,7 +24,7 @@ module.exports = config(instance => {
 
                 {
                     test: /\.scss$/,
-                    include: read("paths.input"),
+                    include: read("paths.resolved.input"),
                     use: ExtractTextPlugin.extract({
                         fallback: "style-loader",
                         publicPath: "../",

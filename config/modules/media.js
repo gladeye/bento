@@ -6,7 +6,7 @@ module.exports = config(instance => {
             rules: [
                 {
                     test: /\.(ttf|eot|woff2?|png|jpe?g|gif|svg)$/,
-                    include: read("paths.input"),
+                    include: read("paths.resolved.input"),
                     loader: "file-loader",
                     options: {
                         name: `[path]${read("filename")}.[ext]`

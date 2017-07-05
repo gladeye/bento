@@ -9,10 +9,13 @@ const WebpackAssetsManifest = require("webpack-assets-manifest");
 module.exports = config(instance => {
     instance.merge({
         plugins: [
-            new CleanPlugin([`${path.join(read("paths.output"), "**/*")}`], {
-                root: read("paths.root"),
-                verbose: false
-            }),
+            new CleanPlugin(
+                [`${path.join(read("paths.resolved.output"), "**/*")}`],
+                {
+                    root: read("paths.root"),
+                    verbose: false
+                }
+            ),
 
             new CopyGlobsPlugin({
                 pattern: read("files.copy"),
