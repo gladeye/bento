@@ -6,9 +6,11 @@
   "author": "Ken Vu <ken@gladeye.com>",
   "license": "MIT",
   "scripts": {
-    "test:scaffold": "cd test; rimraf -rf ./* && yo ../scaffold/index.js",
+    "test:scaffold": "cd test; rimraf -rf ./* && yo ../scaffold",
     "test:config:build": "cd test; webpack",
-    "test:config:serve": "cd test; webpack-dev-server"
+    "test:config:serve": "cd test; webpack-dev-server",
+    "scaffold:ssa": "cd example/server-side-app; yo ../../scaffold --default=ssa",
+    "scaffold:spa": "cd example/single-page-app; yo ../../scaffold --default=spa"
   },
   "peerDependencies": {},
   "devDependencies": {

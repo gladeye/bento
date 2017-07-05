@@ -4,19 +4,33 @@ const Generator = require("yeoman-generator"),
 
 const presets = {
     spa: {
+        config: "./webpack.config.js",
         input: "./app/",
         output: "./public/",
         public: "/"
     },
 
     ssa: {
+        config: "./webpack.config.js",
         input: "./assets/",
         output: "./public/assets/",
-        public: "/assets/"
+        public: "/assets/",
+        proxy: "http://localhost:8080"
     }
 };
 
+const def = function(key) {
+    return select(key, presets);
+};
+
 module.exports = class extends Generator {
+    constructor(args, opts) {
+        super(args, opts);
+
+        // This method adds support for a `--coffee` flag
+        this.option("default", { type: String });
+    }
+
     initializing() {
         this.props = {};
 
@@ -30,78 +44,90 @@ module.exports = class extends Generator {
     }
 
     prompting() {
-        return this.prompt([
-            {
-                type: "list",
-                name: "kind",
-                message: "How should this project be described as:",
-                choices: [
-                    {
-                        name: "Single-page Application",
-                        value: "spa"
-                    },
+        let prompt;
 
-                    {
-                        name: "Server-side Application",
-                        value: "ssa"
-                    }
-                ]
-            },
+        if (this.options.default && presets[this.options.default]) {
+            prompt = Promise.resolve(
+                Object.assign({}, presets[this.options.default], {
+                    kind: this.options.default
+                })
+            );
+        } else {
+            prompt = this.prompt([
+                {
+                    type: "list",
+                    name: "kind",
+                    message: "How should this project be described as:",
+                    choices: [
+                        {
+                            name: "Single-page Application",
+                            value: "spa"
+                        },
 
-            {
-                type: "input",
-                name: "config",
-                message: `Where should the ${chalk.underline(
-                    "config file"
-                )} be:`,
-                default: "./webpack.config.js",
-                validate: inside("Config file", this.destinationRoot())
-            },
-
-            {
-                type: "input",
-                name: "input",
-                message: `Where should the ${chalk.underline(
-                    "input folder"
-                )} be:`,
-                default: select("input", presets),
-                validate: inside("Input folder", this.destinationRoot()),
-                filter: trailing("/")
-            },
-
-            {
-                type: "input",
-                name: "output",
-                message: `Where should the ${chalk.underline(
-                    "output folder"
-                )} be:`,
-                default: select("output", presets),
-                validate: inside("Output folder", this.destinationRoot()),
-                filter: trailing("/")
-            },
-
-            {
-                type: "input",
-                name: "public",
-                message: `What should the ${chalk.underline(
-                    "public path"
-                )} be:`,
-                default: select("public", presets),
-                filter: trailing("/")
-            },
-
-            {
-                type: "input",
-                name: "proxy",
-                message: `What is the ${chalk.underline(
-                    "URL"
-                )} of the back-end server:`,
-                when: answers => {
-                    return answers.kind === "ssa";
+                        {
+                            name: "Server-side Application",
+                            value: "ssa"
+                        }
+                    ]
                 },
-                default: "http://localhost:8080"
-            }
-        ])
+
+                {
+                    type: "input",
+                    name: "config",
+                    message: `Where should the ${chalk.underline(
+                        "config file"
+                    )} be:`,
+                    default: def("config"),
+                    validate: inside("Config file", this.destinationRoot())
+                },
+
+                {
+                    type: "input",
+                    name: "input",
+                    message: `Where should the ${chalk.underline(
+                        "input folder"
+                    )} be:`,
+                    default: def("input"),
+                    validate: inside("Input folder", this.destinationRoot()),
+                    filter: trailing("/")
+                },
+
+                {
+                    type: "input",
+                    name: "output",
+                    message: `Where should the ${chalk.underline(
+                        "output folder"
+                    )} be:`,
+                    default: def("output"),
+                    validate: inside("Output folder", this.destinationRoot()),
+                    filter: trailing("/")
+                },
+
+                {
+                    type: "input",
+                    name: "public",
+                    message: `What should the ${chalk.underline(
+                        "public path"
+                    )} be:`,
+                    default: def("public"),
+                    filter: trailing("/")
+                },
+
+                {
+                    type: "input",
+                    name: "proxy",
+                    message: `What is the ${chalk.underline(
+                        "URL"
+                    )} of the back-end server:`,
+                    when: answers => {
+                        return answers.kind === "ssa";
+                    },
+                    default: def("proxy")
+                }
+            ]);
+        }
+
+        return prompt
             .then(answers => {
                 this.log(chalk.gray("---"));
 
