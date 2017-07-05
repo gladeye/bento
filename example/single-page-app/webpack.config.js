@@ -96,7 +96,7 @@ module.exports = config({
                 "env",
                 {
                     targets: {
-                        browsers: "@browserslist.browsers"
+                        browsers: "@{browserslist.browsers}"
                     },
                     loose: true,
                     modules: false,
@@ -114,6 +114,7 @@ module.exports = config({
      * `browsersyncs` options can be defined here, notes that `port` and
      * `proxy` will be ignored
      *
+     *
      * @see https://www.browsersync.io/docs/options#option-files
      */
     "browsersync": {
@@ -122,10 +123,12 @@ module.exports = config({
         watchOptions: {
             ignoreInitial: true,
             ignored: "*.txt",
-            cwd: "@paths.root"
+            cwd: "@{paths.root}"
         },
         files: [
-            // "{app,resources/views}/**/*.php"
+            
+            "./app/index.ejs"
+            
         ]
     },
 
@@ -134,6 +137,7 @@ module.exports = config({
      * Files
      * ------------------------------------------------------------------------
      * "copy":      Copy files that match the pattern to the output folder.
+     *              Note: glob path is relative to `paths.input`
      *
      */
     "files": {
@@ -153,6 +157,7 @@ module.exports = config({
      *
      */
     "html": {
+        template: "./index.ejs",
         showErrors: true
     }
     
