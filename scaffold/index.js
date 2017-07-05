@@ -221,7 +221,7 @@ module.exports = class extends Generator {
         this.log('"scripts": {');
         this.log(
             `  ${chalk.bold.green('"start:webpack"')}: ${chalk.green(
-                `"webpack-dev-server --config ${this.props.config}"`
+                `"webpack-dev-server --config ${this.props.config}",`
             )}`
         );
         this.log(
