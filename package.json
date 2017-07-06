@@ -6,6 +6,7 @@
   "author": "Ken Vu <ken@gladeye.com>",
   "license": "MIT",
   "scripts": {
+    "test": "jest",
     "test:scaffold": "cd test; rimraf -rf ./* && yo ../scaffold",
     "test:config:build": "cd test; webpack",
     "test:config:serve": "cd test; webpack-dev-server",
@@ -14,8 +15,11 @@
   },
   "peerDependencies": {},
   "devDependencies": {
+    "jest": "^20.0.4",
     "npm-run-all": "^4.0.2",
-    "rimraf": "^2.6.1"
+    "rimraf": "^2.6.1",
+    "yeoman-assert": "^3.0.0",
+    "yeoman-test": "^1.6.0"
   },
   "dependencies": {
     "babel-core": "^6.25.0",
