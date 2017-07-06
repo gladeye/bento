@@ -219,7 +219,21 @@ module.exports = class extends Generator {
     }
 
     end() {
-        if (!this.props.proceed) return;
+        if (!this.props.proceed) {
+            if (this.options.default) {
+                this.log("");
+
+                this.log(
+                    "Not happy with the default? Feel free to run in interactive mode."
+                );
+                this.log(
+                    chalk.green.bold(
+                        "yo ./node_modules/@gladeye/bento/scaffold"
+                    )
+                );
+            }
+            return;
+        }
 
         this.log("");
 
