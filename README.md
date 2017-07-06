@@ -1,5 +1,7 @@
 # Bento 🍱
 
+[![dependencies](https://david-dm.org/gladeye/bento.svg?theme=shields.io)](https://david-dm.org/gladeye/bento)
+
 Bento is an opinionated *webpack* starter kit that comes loaded with:
 
 - [Browsersync](https://www.browsersync.io/)
