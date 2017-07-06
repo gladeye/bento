@@ -1,6 +1,6 @@
 {
   "name": "@gladeye/bento",
-  "version": "1.0.0-beta.4",
+  "version": "1.0.0-beta.6",
   "main": "config/index.js",
   "repository": "https://github.com/gladeye/webpack-kit",
   "author": "Ken Vu <ken@gladeye.com>",
@@ -15,7 +15,9 @@
   "peerDependencies": {},
   "devDependencies": {
     "npm-run-all": "^4.0.2",
-    "rimraf": "^2.6.1",
+    "rimraf": "^2.6.1"
+  },
+  "dependencies": {
     "babel-core": "^6.25.0",
     "babel-loader": "^7.0.0",
     "babel-preset-env": "^1.5.2",
