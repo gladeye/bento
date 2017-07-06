@@ -77,4 +77,4 @@ It comes with two different flavours:
 
 ## License
 
-MIT
+MIT © [Gladeye](https://gladeye.com)
