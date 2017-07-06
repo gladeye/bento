@@ -3,13 +3,9 @@
 Bento is an opinionated *webpack* starter kit that comes loaded with:
 
 - [Browsersync](https://www.browsersync.io/)
-- Hot Module Reload w/ [Webpack Dev Server](https://github.com/webpack/webpack-dev-server)
-- Auto-generate `index.html` for Single-page Application (SPA)
-- Seamless integration with back-end server for Server-side Application (SSA)
-- ES6 Javascript w/ [preset-env](https://github.com/babel/babel-preset-env)
-- SASS w/ [PostCSS Autoprefixer](https://github.com/postcss/autoprefixer)
-- Vendor code splitting
-- Long-term caching
+- ES6 Javascript and SASS w/ [Webpack 3](https://webpack.js.org)
+- Out-of-the-box (hah!) support for Single-page Application (SPA)
+- Seamless integration with back-end server
 - Interactive scaffolding w/ [Yeoman](http://yeoman.io/)
 - Sensible front-end [folder structure](#folder-structure)
 
@@ -63,7 +59,19 @@ Bento comes with a sensible, uncomplicated folder structure. It also ensures tha
 
 ### Webpack Config
 
-Coming soon
+Bento main feature, packed will all the modern belts and whistles:
+
+- HMR w/ [Webpack Dev Server](https://github.com/webpack/webpack-dev-server)
+- ES6 Javascript w/ [preset-env](https://github.com/babel/babel-preset-env)
+- SASS w/ [PostCSS Autoprefixer](https://github.com/postcss/autoprefixer)
+- CSS extraction on build
+- Vendor code splitting
+- Long-term caching
+
+It comes with two different flavours:
+
+- Single-page Application ([docs](./example/single-page-app/webpack.config.js))
+- Server-side Application ([docs](./example/server-side-app/webpack.config.js))
 
 ## License
 
