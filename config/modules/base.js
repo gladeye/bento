@@ -1,5 +1,4 @@
-const { config, select, read } = require("../utils"),
-    path = require("path");
+const { config, select, read } = require("../utils");
 
 module.exports = config(instance => {
     return instance.merge({
@@ -20,11 +19,6 @@ module.exports = config(instance => {
             )}.js`
         },
 
-        resolve: {
-            extensions: ["*", ".js"],
-            alias: {
-                "~": path.join(read("paths.resolved.input"), "scripts")
-            }
-        }
+        resolve: read("resolve")
     });
 });

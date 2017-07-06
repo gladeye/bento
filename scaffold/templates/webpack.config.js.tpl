@@ -48,6 +48,26 @@ module.exports = config({
 
     /**
      * ------------------------------------------------------------------------
+     * Resolve
+     * ------------------------------------------------------------------------
+     * Webpack's `resolve` options can be defined here
+     *
+     * @see https://webpack.js.org/configuration/resolve/
+     *
+     * By default "~" is set to resolved to `scripts` folder, make it easier to
+     * import modules within there.
+     *
+     * @see https://webpack.js.org/configuration/resolve/#resolve-alias
+     *
+     */
+    "resolve": {
+        alias: {
+            "~": "@{paths.resolved.input}/scripts"
+        }
+    },
+
+    /**
+     * ------------------------------------------------------------------------
      * Caching
      * ------------------------------------------------------------------------
      * "hash":      Hash length that will append to output files for
