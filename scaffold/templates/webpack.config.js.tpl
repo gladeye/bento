@@ -5,11 +5,16 @@ module.exports = config({
      * ------------------------------------------------------------------------
      * Paths
      * ------------------------------------------------------------------------
-     * "input":     The base directory, an absolute path, for resolving
-     *              entry points and loaders from configuration.
+     * "root":      The base directory, an absolute path, that will be used
+     *              to resolved all other relative paths in here.
+     *
+     * "input":     The base directory for webpack to looking for resolving
+     *              entry points and loaders from configuration. It's relative
+     *              to `paths.root`
      * @see https://webpack.js.org/configuration/entry-context/#context
      *
-     * "output":    The output directory as an absolute path.
+     * "output":    The output directory on `build` command. It's relative to
+     *              `paths.root`
      * @see https://webpack.js.org/configuration/output/#output-path
      *
      * "public":    The public URL of the output directory when referenced
