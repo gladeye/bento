@@ -2,3 +2,4 @@ example
 test
 yarn.lock
 *.sublime-*
+__test__
