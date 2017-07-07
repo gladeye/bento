@@ -16,7 +16,7 @@ Bento is an opinionated *webpack* starter kit that comes loaded with:
 Looking for some pre-made Bento boilerplates? There are a few of them:
 
 - [React Bento](https://github.com/gladeye/react-bento)
-- [Plain Bento](https://github.com/gladeye/react-bento)
+- [Plain Bento](https://github.com/gladeye/plain-bento)
 - [Wordpress Bento](https://github.com/gladeye/blueprint)
 
 
