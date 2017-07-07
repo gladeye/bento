@@ -11,6 +11,15 @@ Bento is an opinionated *webpack* starter kit that comes loaded with:
 - Interactive scaffolding w/ [Yeoman](http://yeoman.io/)
 - Sensible front-end [folder structure](#folder-structure)
 
+## Pre-made boilerplates
+
+Looking for some pre-made Bento boilerplates? There are a few of them:
+
+- [React Bento](https://github.com/gladeye/react-bento)
+- [Plain Bento](https://github.com/gladeye/react-bento)
+- [Wordpress Bento](https://github.com/gladeye/blueprint)
+
+
 ## Usage
 
 Install:
