@@ -6,7 +6,7 @@ module.exports = config({
      * Environment
      * ------------------------------------------------------------------------
      * "value":     The environment value that should be used to determine
-     *              various aspects of webpack config.
+     *              various aspects of webpack config, eg `devtool` value
      *
      */
     env: {
@@ -27,8 +27,8 @@ module.exports = config({
      *              to `paths.root`
      * @see https://webpack.js.org/configuration/entry-context/#context
      *
-     * "output":    The output directory on `build` command. It's relative to
-     *              `paths.root`
+     * "output":    The output directory. It's relative to `paths.root`
+     *
      * @see https://webpack.js.org/configuration/output/#output-path
      *
      * "public":    The public URL of the output directory when referenced
@@ -68,7 +68,7 @@ module.exports = config({
      *
      * @see https://webpack.js.org/configuration/resolve/
      *
-     * By default "~" is set to resolved to `scripts` folder, make it easier to
+     * By default "~" is resolved to `scripts` folder, make it easier to
      * import modules within there.
      *
      * @see https://webpack.js.org/configuration/resolve/#resolve-alias
@@ -165,11 +165,11 @@ module.exports = config({
             cwd: "@{paths.root}"
         },
         files: [
-            <%if (kind === 'spa') { %>
-            "<%= input %>index.ejs"
-            <% } else { %>
+            <%_ if (kind === 'ssa') { _%>
             // "{app,resources/views}/**/*.php"
-            <% } %>
+            <%_ } else if (kind === 'spa') { _%>
+            "<%= input %>index.ejs"
+            <%_ } _%>
         ]
     },
 
@@ -227,9 +227,9 @@ module.exports = config({
      * Webpack config are constructed from these blocks,
      *
      * "list":      List of blocks that will construct webpack config, feel
-     *              free to add your own, each item should be a function
-     *              which will receive `config, options, utils` as arguments
-     *              check the existing block for usage.
+     *              free to add your own, each item must be a function
+     *              which will receive `config, options, utils` as arguments.
+     *              Check the existing blocks for usage.
      *              Note: Block item can return a Promise
      *
      * "timeout":   Wait time before throwing a timeout error if async block
