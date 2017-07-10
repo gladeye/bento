@@ -3,6 +3,20 @@ const { config } = require("@gladeye/bento");
 module.exports = config({
     /**
      * ------------------------------------------------------------------------
+     * Environment
+     * ------------------------------------------------------------------------
+     * "value":     The environment value that should be used to determine
+     *              various aspects of webpack config.
+     *
+     */
+    env: {
+        value: process.env.NODE_ENV || "development",
+        isProduction: process.env.NODE_ENV === "production",
+        isDevServer: process.argv[1].indexOf("webpack-dev-server") >= 0
+    },
+
+    /**
+     * ------------------------------------------------------------------------
      * Paths
      * ------------------------------------------------------------------------
      * "root":      The base directory, an absolute path, that will be used
@@ -171,7 +185,7 @@ module.exports = config({
         "copy": "+(images|media)/**/*"
     },
 
-    <%if (kind === 'ssa') { %>
+    <%_ if (kind === 'ssa') { _%>
     /**
      * ------------------------------------------------------------------------
      * Back-end Server
@@ -189,10 +203,8 @@ module.exports = config({
                 autoRewrite: true
             }
         }
-    }
-    <% } %>
-
-    <%if (kind === 'spa') { %>
+    },
+    <%_ } else if (kind === 'spa') { _%>
     /**
      * ------------------------------------------------------------------------
      * HTML Plugin options
@@ -205,8 +217,41 @@ module.exports = config({
     "html": {
         template: "./index.ejs",
         showErrors: true
-    }
-    <% } %>
+    },
+    <%_ } _%>
 
-}, process.argv[1].indexOf('webpack-dev-server') >= 0);
+    /**
+     * ------------------------------------------------------------------------
+     * Blocks
+     * ------------------------------------------------------------------------
+     * Webpack config are constructed from these blocks,
+     *
+     * "list":      List of blocks that will construct webpack config, feel
+     *              free to add your own, each item should be a function
+     *              which will receive `config, options, utils` as arguments
+     *              check the existing block for usage.
+     *              Note: Block item can return a Promise
+     *
+     * "timeout":   Wait time before throwing a timeout error if async block
+     *              hasn't been resolved or rejected.
+     *
+     */
+    blocks: {
+        timeout: 3000,
+        list: [
+            require("@gladeye/bento/config/blocks/ports"),
+            require("@gladeye/bento/config/blocks/name"),
+            require("@gladeye/bento/config/blocks/manifest"),
+            require("@gladeye/bento/config/blocks/base"),
+            require("@gladeye/bento/config/blocks/script"),
+            require("@gladeye/bento/config/blocks/style"),
+            require("@gladeye/bento/config/blocks/media"),
+            require("@gladeye/bento/config/blocks/plugins"),
+            <%_ if (kind === 'spa') { _%>
+            require("@gladeye/bento/config/blocks/html"),
+            <%_ } _%>
+            require("@gladeye/bento/config/blocks/dev-server")
+        ]
+    }
+});
 

@@ -6,9 +6,9 @@
   "author": "Ken Vu <ken@gladeye.com>",
   "license": "MIT",
   "scripts": {
-    "test:config": "jest __test__/config/**/*.test.js",
-    "test:scaffold": "jest __test__/scaffold/**/*.test.js",
-    "test:scaffold": "cd test; rimraf -rf ./* && yo ../scaffold",
+    "test:config:jest": "jest __test__/config/**/*.test.js",
+    "test:scaffold:jest": "jest __test__/scaffold/**/*.test.js",
+    "test:scaffold": "cd test; rimraf -rf ./* && yo ../scaffold && yarn link \"@gladeye/bento\"",
     "test:config:build": "cd test; webpack",
     "test:config:serve": "cd test; webpack-dev-server",
     "scaffold:ssa": "cd example/server-side-app; rimraf -rf ./* && yo ../../scaffold --default=ssa",
