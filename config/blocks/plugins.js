@@ -1,26 +1,25 @@
-const { config, read, format } = require("../utils"),
-    path = require("path"),
+const path = require("path"),
     webpack = require("webpack");
 
 const CleanPlugin = require("clean-webpack-plugin");
 const CopyGlobsPlugin = require("copy-globs-webpack-plugin");
 const WebpackAssetsManifest = require("webpack-assets-manifest");
 
-module.exports = config(instance => {
-    instance.merge({
+module.exports = function(config, options, { format }) {
+    config.merge({
         plugins: [
             new CleanPlugin(
-                [`${path.join(read("paths.resolved.output"), "**/*")}`],
+                [`${path.join(options.get("paths.output"), "**/*")}`],
                 {
-                    root: read("paths.root"),
+                    root: options.get("paths.root"),
                     verbose: false
                 }
             ),
 
             new CopyGlobsPlugin({
-                pattern: read("files.copy"),
-                output: `[path]${read("filename")}.[ext]`,
-                manifest: read("manifest")
+                pattern: options.get("files.copy"),
+                output: `[path]${options.get("filename")}.[ext]`,
+                manifest: options.get("manifest")
             }),
 
             new WebpackAssetsManifest({
@@ -28,7 +27,7 @@ module.exports = config(instance => {
                 space: 4,
                 writeToDisk: false,
                 sortManifest: true,
-                assets: read("manifest"),
+                assets: options.get("manifest"),
                 replacer: format
             }),
 
@@ -42,10 +41,10 @@ module.exports = config(instance => {
         ]
     });
 
-    if (read("env.isProduction")) {
+    if (options.get("env.isProduction")) {
         const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
-        instance.merge({
+        config.merge({
             plugins: [
                 new webpack.optimize.CommonsChunkPlugin({
                     name: "_vendor",
@@ -59,7 +58,7 @@ module.exports = config(instance => {
                 }),
 
                 new webpack.optimize.UglifyJsPlugin({
-                    sourceMap: read("enabled.sourceMap")
+                    sourceMap: options.get("enabled.sourceMap")
                 }),
 
                 new OptimizeCssAssetsPlugin({
@@ -72,6 +71,4 @@ module.exports = config(instance => {
             ]
         });
     }
-
-    return instance;
-});
+};

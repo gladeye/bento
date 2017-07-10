@@ -1,7 +1,5 @@
-const { config, read } = require("../utils");
-
-module.exports = config(instance => {
-    return instance.merge({
+module.exports = function(config, options) {
+    config.merge({
         module: {
             rules: [
                 {
@@ -9,10 +7,10 @@ module.exports = config(instance => {
                     exclude: /(node_modules)/,
                     use: {
                         loader: "babel-loader",
-                        options: read("babel")
+                        options: options.get("babel")
                     }
                 }
             ]
         }
     });
-});
+};

@@ -1,15 +1,13 @@
-const { config, read } = require("../utils");
-
-module.exports = config(instance => {
-    return instance.merge({
+module.exports = function(config, options) {
+    config.merge({
         module: {
             rules: [
                 {
                     test: /\.(ttf|eot|woff2?|png|jpe?g|gif|svg)$/,
-                    include: read("paths.resolved.input"),
+                    include: options.get("paths.input"),
                     loader: "file-loader",
                     options: {
-                        name: `[path]${read("filename")}.[ext]`
+                        name: `[path]${options.get("filename")}.[ext]`
                     }
                 },
                 {
@@ -17,10 +15,10 @@ module.exports = config(instance => {
                     include: /node_modules/,
                     loader: "file-loader",
                     options: {
-                        name: `vendor/${read("filename")}.[ext]`
+                        name: `vendor/${options.get("filename")}.[ext]`
                     }
                 }
             ]
         }
     });
-});
+};

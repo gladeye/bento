@@ -1,58 +1,10 @@
-const { config, set } = require("./utils"),
-    op = require("openport"),
-    path = require("path");
+const ConfigBuilder = require("./builder");
 
-module.exports.config = function(options, isDevServer) {
-    return config((instance, env) => {
-        return new Promise((resolve, reject) => {
-            op.find(
-                {
-                    startingPort: 3000,
-                    endingPort: 3999,
-                    count: 2
-                },
-                (err, ports) => {
-                    if (err) return reject(err);
+module.exports.config = function(options) {
+    const blocks = Object.assign({}, options.blocks);
+    delete options.blocks;
 
-                    const [browsersync, webpack] = ports;
-
-                    // before we change the cwd value, let's resolve all the paths
-                    ["input", "output"].forEach(key => {
-                        if (!options.paths.resolved)
-                            options.paths.resolved = {};
-
-                        options.paths.resolved[key] = path.resolve(
-                            options.paths[key]
-                        );
-                    });
-
-                    process.chdir(__dirname);
-
-                    set(
-                        Object.assign({}, options, {
-                            ports: {
-                                browsersync,
-                                webpack
-                            },
-                            env: {
-                                value: process.env.NODE_ENV || "development",
-                                isProduction:
-                                    process.env.NODE_ENV === "production"
-                            },
-                            filename: isDevServer
-                                ? "[name]"
-                                : `[name]${options.caching.hash}`,
-                            manifest: {}
-                        })
-                    );
-
-                    env.setAll({
-                        action: isDevServer ? "serve" : "build"
-                    });
-
-                    resolve(instance.extend("actions/[action].js"));
-                }
-            );
-        });
-    });
+    return ConfigBuilder.create(options)
+        .use(blocks.list, blocks.timeout)
+        .build();
 };

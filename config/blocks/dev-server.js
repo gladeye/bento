@@ -1,11 +1,12 @@
-const { config, read } = require("../utils"),
-    respMod = require("resp-modifier"),
+const respMod = require("resp-modifier"),
     webpack = require("webpack"),
     FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin"),
     BrowserSyncPlugin = require("browser-sync-webpack-plugin");
 
-module.exports = config(function(instance) {
-    const backEnd = read("server"),
+module.exports = function(config, options) {
+    if (!options.get("env.isDevServer")) return;
+
+    const backEnd = options.get("server"),
         devServer = {
             disableHostCheck: true,
             historyApiFallback: true,
@@ -15,7 +16,7 @@ module.exports = config(function(instance) {
             inline: true,
             quiet: true,
             overlay: true,
-            port: read("ports.webpack")
+            port: options.get("ports.webpack")
         };
 
     if (backEnd) {
@@ -27,7 +28,9 @@ module.exports = config(function(instance) {
                     rules: [
                         {
                             match: new RegExp(backEnd.proxy["/"].target, "gi"),
-                            replace: `//localhost:${read("ports.webpack")}`
+                            replace: `//localhost:${options.get(
+                                "ports.webpack"
+                            )}`
                         }
                     ]
                 })
@@ -35,7 +38,7 @@ module.exports = config(function(instance) {
         };
     }
 
-    return instance.merge({
+    config.merge({
         output: {
             pathinfo: true
         },
@@ -44,9 +47,9 @@ module.exports = config(function(instance) {
             new webpack.HotModuleReplacementPlugin(),
             new FriendlyErrorsWebpackPlugin(),
             new BrowserSyncPlugin(
-                Object.assign({}, read("browsersync"), {
-                    port: read("ports.browsersync"),
-                    proxy: `http://localhost:${read("ports.webpack")}`
+                Object.assign({}, options.get("browsersync"), {
+                    port: options.get("ports.browsersync"),
+                    proxy: `http://localhost:${options.get("ports.webpack")}`
                 }),
                 {
                     reload: false
@@ -54,4 +57,4 @@ module.exports = config(function(instance) {
             )
         ]
     });
-});
+};

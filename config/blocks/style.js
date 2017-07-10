@@ -1,8 +1,7 @@
-const { config, read } = require("../utils");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-module.exports = config(instance => {
-    return instance.merge({
+module.exports = function(config, options) {
+    config.merge({
         module: {
             rules: [
                 {
@@ -15,7 +14,7 @@ module.exports = config(instance => {
                             {
                                 loader: "css-loader",
                                 options: {
-                                    sourceMap: read("enabled.sourceMap")
+                                    sourceMap: options.get("enabled.sourceMap")
                                 }
                             }
                         ]
@@ -24,7 +23,7 @@ module.exports = config(instance => {
 
                 {
                     test: /\.scss$/,
-                    include: read("paths.resolved.input"),
+                    include: options.get("paths.input"),
                     use: ExtractTextPlugin.extract({
                         fallback: "style-loader",
                         publicPath: "../",
@@ -32,7 +31,7 @@ module.exports = config(instance => {
                             {
                                 loader: "css-loader",
                                 options: {
-                                    sourceMap: read("enabled.sourceMap")
+                                    sourceMap: options.get("enabled.sourceMap")
                                 }
                             },
 
@@ -41,7 +40,7 @@ module.exports = config(instance => {
                                 options: {
                                     ident: "postcss",
                                     plugins: () => {
-                                        const browsers = read(
+                                        const browsers = options.get(
                                             "browserslist.browsers"
                                         );
                                         return [
@@ -50,19 +49,19 @@ module.exports = config(instance => {
                                             })
                                         ];
                                     },
-                                    sourceMap: read("enabled.sourceMap")
+                                    sourceMap: options.get("enabled.sourceMap")
                                 }
                             },
                             {
                                 loader: "resolve-url-loader",
                                 options: {
-                                    sourceMap: read("enabled.sourceMap")
+                                    sourceMap: options.get("enabled.sourceMap")
                                 }
                             },
                             {
                                 loader: "sass-loader",
                                 options: {
-                                    sourceMap: read("enabled.sourceMap")
+                                    sourceMap: options.get("enabled.sourceMap")
                                 }
                             }
                         ]
@@ -73,12 +72,11 @@ module.exports = config(instance => {
 
         plugins: [
             new ExtractTextPlugin({
-                filename: `styles/${read("filename").replace(
-                    "hash:",
-                    "contenthash:"
-                )}.css`,
-                disable: !read("env.isProduction")
+                filename: `styles/${options
+                    .get("filename")
+                    .replace("hash:", "contenthash:")}.css`,
+                disable: !options.get("env.isProduction")
             })
         ]
     });
-});
+};

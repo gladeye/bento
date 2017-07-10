@@ -1,4 +1,4 @@
-const ConfigBuilder = require("../../../config/builder/ConfigBuilder");
+const ConfigBuilder = require("../../../config/builder");
 
 describe("ConfigBuilder", () => {
     describe(".use()", () => {
@@ -7,13 +7,15 @@ describe("ConfigBuilder", () => {
             ConfigBuilder.create({
                 paths: {
                     root,
-                    input: "@{paths.root}/foo",
-                    output: "@{paths.root}/baz"
+                    input: "./foo",
+                    output: "./baz"
                 }
             })
-                .use((config, options) => {
-                    options.set("foo", "baz");
-                })
+                .use([
+                    function(config, options) {
+                        options.set("foo", "baz");
+                    }
+                ])
                 .build((config, options) => {
                     expect(options.get("foo")).toEqual("baz");
                 });
@@ -28,11 +30,14 @@ describe("ConfigBuilder", () => {
                     output: "@{paths.root}/baz"
                 }
             })
-                .use(function(config, options) {
-                    const next = this.async();
-                    options.set("foo", "baz");
-                    setTimeout(next, 100);
-                })
+                .use([
+                    function(config, options) {
+                        options.set("foo", "baz");
+                        return new Promise(resolve => {
+                            setTimeout(resolve, 100);
+                        });
+                    }
+                ])
                 .build((config, options) => {
                     expect(options.get("foo")).toEqual("baz");
                     done();
@@ -46,8 +51,8 @@ describe("ConfigBuilder", () => {
             ConfigBuilder.create({
                 paths: {
                     root,
-                    input: "@{paths.root}/foo",
-                    output: "@{paths.root}/baz"
+                    input: "./foo",
+                    output: "./baz"
                 }
             })
                 .build((config, options) => {
