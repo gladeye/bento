@@ -1,6 +1,6 @@
 {
   "name": "@gladeye/bento",
-  "version": "1.0.0-beta.6",
+  "version": "1.0.0-rc.1",
   "main": "config/index.js",
   "repository": "https://github.com/gladeye/webpack-kit",
   "author": "Ken Vu <ken@gladeye.com>",
@@ -12,6 +12,7 @@
     "test:scaffold": "cd test; rimraf -rf ./* && yo ../scaffold && yarn link \"@gladeye/bento\"",
     "test:config:build": "cd test; webpack",
     "test:config:serve": "cd test; webpack-dev-server",
+    "scaffold": "run-s scaffold:*",
     "scaffold:ssa": "cd example/server-side-app; rimraf -rf ./* && yo ../../scaffold --default=ssa",
     "scaffold:spa": "cd example/single-page-app; rimraf -rf ./* && yo ../../scaffold --default=spa"
   },
