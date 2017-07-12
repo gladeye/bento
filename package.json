@@ -6,6 +6,7 @@
   "author": "Ken Vu <ken@gladeye.com>",
   "license": "MIT",
   "scripts": {
+    "test": "run-p test:*:jest",
     "test:config:jest": "jest __test__/config/**/*.test.js",
     "test:scaffold:jest": "rimraf -rf ./.tmp/* && jest __test__/scaffold/*.test.js",
     "test:scaffold": "cd test; rimraf -rf ./* && yo ../scaffold && yarn link \"@gladeye/bento\"",
