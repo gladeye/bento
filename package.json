@@ -2,7 +2,7 @@
   "name": "@gladeye/bento",
   "version": "1.0.0-rc.1",
   "main": "config/index.js",
-  "repository": "https://github.com/gladeye/webpack-kit",
+  "repository": "https://github.com/gladeye/bento",
   "author": "Ken Vu <ken@gladeye.com>",
   "license": "MIT",
   "scripts": {
