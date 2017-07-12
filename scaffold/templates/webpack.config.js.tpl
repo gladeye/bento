@@ -36,11 +36,11 @@ module.exports = config({
      * [3] @see https://webpack.js.org/configuration/output/#output-publicpath
      *
      */
-    "paths": {
-        "root": process.cwd(),
-        "input": "<%= input %>",
-        "output": "<%= output %>",
-        "public": "<%= public %>"
+    paths: {
+        root: process.cwd(),
+        input: "<%= input %>",
+        output: "<%= output %>",
+        public: "<%= public %>"
     },
 
     /**
@@ -54,8 +54,8 @@ module.exports = config({
      * [1] @see https://webpack.js.org/configuration/entry-context/#context
      *
      */
-    "entry": {
-        "main": [
+    entry: {
+        main: [
             // "normalize.css/normalize.css"
             "./scripts/main.js"
         ]
@@ -74,7 +74,7 @@ module.exports = config({
      * [2] @see https://webpack.js.org/configuration/resolve/#resolve-alias
      *
      */
-    "resolve": {
+    resolve: {
         alias: {
             "~": "@{paths.resolved.input}/scripts"
         }
@@ -90,19 +90,19 @@ module.exports = config({
      * [1] @see https://webpack.js.org/guides/caching/#the-problem
      *
      */
-    "caching": {
-        "hash": ".[hash:8]",
+    caching: {
+        hash: ".[hash:8]",
     },
 
     /**
      * ------------------------------------------------------------------------
      * Additional options
      * ------------------------------------------------------------------------
-     * "sourceMap": Enable / disable source map
+     * sourceMap: Enable / disable source map
      *
      */
-    "enabled": {
-        "sourceMap": true
+    enabled: {
+        sourceMap: true
     },
 
     /**
@@ -115,8 +115,8 @@ module.exports = config({
      * [1] @see https://github.com/ai/browserslist#queries
      *
      */
-    "browserslist": {
-        "browsers": [
+    browserslist: {
+        browsers: [
             "last 1 version"
         ]
     },
@@ -134,7 +134,7 @@ module.exports = config({
      * [2] @see https://github.com/babel/babel-preset-env
      *
      */
-    "babel": {
+    babel: {
         presets: [
             [
                 "env",
@@ -160,7 +160,7 @@ module.exports = config({
      *
      * @see https://www.browsersync.io/docs/options#option-files
      */
-    "browsersync": {
+    browsersync: {
         open: true,
         ghostMode: false,
         watchOptions: {
@@ -185,8 +185,8 @@ module.exports = config({
      *              Note: glob path is relative to `paths.input`
      *
      */
-    "files": {
-        "copy": "+(images|media)/**/*"
+    files: {
+        copy: "+(images|media)/**/*"
     },
 
     <%_ if (kind === 'ssa') { _%>
@@ -199,8 +199,8 @@ module.exports = config({
      *              supported.
      *
      */
-    "server": {
-        "proxy": {
+    server: {
+        proxy: {
             "/": {
                 target: <%- JSON.stringify(proxy) %>,
                 changeOrigin: true,
@@ -218,7 +218,7 @@ module.exports = config({
      * @see https://github.com/jantimon/html-webpack-plugin#configuration
      *
      */
-    "html": {
+    html: {
         template: "./index.ejs",
         showErrors: true
     },
