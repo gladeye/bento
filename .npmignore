@@ -3,3 +3,4 @@ test
 yarn.lock
 *.sublime-*
 __test__
+.tmp
