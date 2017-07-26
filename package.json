@@ -5,6 +5,9 @@
   "repository": "https://github.com/gladeye/bento",
   "author": "Ken Vu <ken@gladeye.com>",
   "license": "MIT",
+  "engines": {
+    "node": ">=7"
+  },
   "scripts": {
     "test": "run-p test:*:jest",
     "test:config:jest": "jest __test__/config/**/*.test.js",
