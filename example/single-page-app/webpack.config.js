@@ -91,7 +91,7 @@ module.exports = config({
      *
      */
     caching: {
-        hash: ".[hash:8]",
+        hash: ".[hash:8]"
     },
 
     /**
@@ -116,9 +116,7 @@ module.exports = config({
      *
      */
     browserslist: {
-        browsers: [
-            "last 1 version"
-        ]
+        browsers: ["last 1 version"]
     },
 
     /**
@@ -168,9 +166,7 @@ module.exports = config({
             ignored: "*.txt",
             cwd: "@{paths.root}"
         },
-        files: [
-            "./app/index.ejs"
-        ]
+        files: ["./app/index.ejs"]
     },
 
     /**
@@ -234,4 +230,3 @@ module.exports = config({
         ]
     }
 });
-
