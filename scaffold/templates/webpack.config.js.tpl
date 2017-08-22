@@ -166,13 +166,17 @@ module.exports = config({
         watchOptions: {
             ignoreInitial: true,
             ignored: "*.txt",
+            <%_ if (kind === 'ssa') { _%>
             cwd: "@{paths.root}"
+            <%_ } else if (kind === 'spa') { _%>
+            cwd: "@{paths.input}"
+            <%_ } _%>
         },
         files: [
             <%_ if (kind === 'ssa') { _%>
             // "{app,resources/views}/**/*.php"
             <%_ } else if (kind === 'spa') { _%>
-            "<%= input %>index.ejs"
+            "./index.ejs"
             <%_ } _%>
         ]
     },
