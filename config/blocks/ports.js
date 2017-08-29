@@ -7,12 +7,12 @@ module.exports = function(config, options) {
             {
                 startingPort: 3000,
                 endingPort: 3999,
-                count: 2
+                count: 3
             },
             (err, ports) => {
                 if (err) return reject(err);
 
-                const [browsersync, webpack] = ports;
+                const [browsersync, ui, webpack] = ports;
 
                 options.set("ports", {
                     browsersync,
