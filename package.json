@@ -1,6 +1,6 @@
 {
   "name": "@gladeye/bento",
-  "version": "1.0.0-rc.4",
+  "version": "1.0.0-rc.5",
   "main": "config/index.js",
   "repository": "https://github.com/gladeye/bento",
   "author": "Ken Vu <ken@gladeye.com>",
@@ -17,7 +17,8 @@
     "test:config:serve": "cd test; webpack-dev-server",
     "scaffold": "run-s scaffold:*",
     "scaffold:ssa": "cd example/server-side-app; rimraf -rf ./* && yo ../../scaffold --default=ssa",
-    "scaffold:spa": "cd example/single-page-app; rimraf -rf ./* && yo ../../scaffold --default=spa"
+    "scaffold:spa": "cd example/single-page-app; rimraf -rf ./* && yo ../../scaffold --default=spa",
+    "publish:beta": "npm publish --tag=beta --access public"
   },
   "peerDependencies": {},
   "devDependencies": {
