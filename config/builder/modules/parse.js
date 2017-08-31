@@ -3,7 +3,7 @@ const objectPath = require("object-path");
 module.exports = function(options) {
     let count = 1;
 
-    const fn = function() {
+    const fn = function(options) {
         let json = JSON.stringify(options);
         const pre = objectPath(options),
             matches = json.match(/"@{([\w\.]+)}["\/]/g);
