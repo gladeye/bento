@@ -2,6 +2,12 @@
 # yarn lockfile v1
 
 
+"@kenvunz/shoelace@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@kenvunz/shoelace/-/shoelace-1.0.0.tgz#3d7758f681538362cc3fbfe171b6a945d51c9f6f"
+  dependencies:
+    lodash.get "^4.4.2"
+
 abab@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/abab/-/abab-1.0.3.tgz#b81de5f7274ec4e756d797cd834f303642724e5d"
@@ -4087,7 +4093,7 @@ lodash.defaults@^4.0.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/lodash.defaults/-/lodash.defaults-4.2.0.tgz#d09178716ffea4dde9e5fb7b37f6f0802274580c"
 
-lodash.get@^4.0:
+lodash.get@^4.0, lodash.get@^4.4.2:
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/lodash.get/-/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
 
