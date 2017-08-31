@@ -1,9 +1,11 @@
-const path = require("path");
+const { join, resolve } = require("path");
 
 module.exports = function(options) {
     ["input", "output"].forEach(key => {
-        options.paths[key] = path.resolve(
-            path.join(options.paths.root, options.paths[key])
+        if (options.paths[key].indexOf(options.paths.root) === 0) return;
+
+        options.paths[key] = resolve(
+            join(options.paths.root, options.paths[key])
         );
     });
 
