@@ -22,7 +22,8 @@
       "cd example/server-side-app; rimraf -rf ./* && yo ../../scaffold --default=ssa",
     "scaffold:spa":
       "cd example/single-page-app; rimraf -rf ./* && yo ../../scaffold --default=spa",
-    "publish:beta": "yarn publish --tag beta --access public"
+    "prepublishOnly": "yarn test",
+    "push:beta": "npm publish --tag beta --access public"
   },
   "peerDependencies": {},
   "devDependencies": {
