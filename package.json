@@ -23,7 +23,9 @@
     "scaffold:spa":
       "cd examples/single-page-app; rimraf -rf ./* && yo ../../scaffold --default=spa",
     "prepublishOnly": "yarn test",
-    "push:beta": "npm publish --tag beta --access public"
+    "push:beta":
+      "npm publish --tag beta --access public --registry https://registry.npmjs.org/",
+    "push": "npm publish --access public --registry https://registry.npmjs.org/"
   },
   "peerDependencies": {
     "webpack": "3.x",
