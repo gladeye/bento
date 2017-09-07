@@ -76,6 +76,7 @@ module.exports = config({
      */
     resolve: {
         alias: {
+            "@": "@{paths.input}",
             "~": "@{paths.input}/scripts"
         }
     },
