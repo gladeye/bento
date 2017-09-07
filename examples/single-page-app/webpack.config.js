@@ -76,6 +76,7 @@ module.exports = config({
      */
     resolve: {
         alias: {
+            "@": "@{paths.input}",
             "~": "@{paths.input}/scripts"
         }
     },
@@ -102,7 +103,7 @@ module.exports = config({
      *
      */
     enabled: {
-        sourceMap: true
+        sourceMap: "@{env.isDevServer}"
     },
 
     /**
@@ -142,8 +143,6 @@ module.exports = config({
                     targets: {
                         browsers: "@{browserslist.browsers}"
                     },
-                    loose: true,
-                    modules: false,
                     useBuiltIns: true
                 }
             ],
