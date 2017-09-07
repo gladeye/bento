@@ -16,6 +16,7 @@ module.exports = function(config, options) {
 
                 options.set("ports", {
                     browsersync,
+                    ui,
                     webpack
                 });
 

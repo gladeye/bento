@@ -49,6 +49,9 @@ module.exports = function(config, options) {
             new BrowserSyncPlugin(
                 Object.assign({}, options.get("browsersync"), {
                     port: options.get("ports.browsersync"),
+                    ui: {
+                        port: options.get("ports.ui")
+                    },
                     proxy: `http://localhost:${options.get("ports.webpack")}`
                 }),
                 {
