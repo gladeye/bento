@@ -143,8 +143,6 @@ module.exports = config({
                     targets: {
                         browsers: "@{browserslist.browsers}"
                     },
-                    loose: true,
-                    modules: false,
                     useBuiltIns: true
                 }
             ],
