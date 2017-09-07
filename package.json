@@ -19,9 +19,9 @@
     "test:config:serve": "cd test; webpack-dev-server",
     "scaffold": "run-s scaffold:*",
     "scaffold:ssa":
-      "cd example/server-side-app; rimraf -rf ./* && yo ../../scaffold --default=ssa",
+      "cd examples/server-side-app; rimraf -rf ./* && yo ../../scaffold --default=ssa",
     "scaffold:spa":
-      "cd example/single-page-app; rimraf -rf ./* && yo ../../scaffold --default=spa",
+      "cd examples/single-page-app; rimraf -rf ./* && yo ../../scaffold --default=spa",
     "prepublishOnly": "yarn test",
     "push:beta": "npm publish --tag beta --access public"
   },

@@ -70,8 +70,6 @@ Bento comes with a sensible, uncomplicated folder structure. It also ensures tha
 
 ### Webpack Config
 
-Bento main feature, packed will all the modern belts and whistles:
-
 - HMR w/ [Webpack Dev Server](https://github.com/webpack/webpack-dev-server)
 - ES6 Javascript w/ [preset-env](https://github.com/babel/babel-preset-env)
 - SASS w/ [PostCSS Autoprefixer](https://github.com/postcss/autoprefixer)
@@ -81,8 +79,8 @@ Bento main feature, packed will all the modern belts and whistles:
 
 It comes with two different flavours:
 
-- Single-page Application ([docs](./example/single-page-app/webpack.config.js))
-- Server-side Application ([docs](./example/server-side-app/webpack.config.js))
+- Single-page Application ([docs](./examples/single-page-app/webpack.config.js))
+- Server-side Application ([docs](./examples/server-side-app/webpack.config.js))
 
 ## License
 
