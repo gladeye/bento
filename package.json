@@ -3,7 +3,7 @@
   "version": "1.0.0-rc.6",
   "main": "config/index.js",
   "repository": "https://github.com/gladeye/bento",
-  "author": "Ken Vu <ken@gladeye.com>",
+  "author": "Gladeye Team <point@gladeye.com>",
   "license": "MIT",
   "engines": {
     "node": ">=7"
@@ -11,14 +11,18 @@
   "scripts": {
     "test": "run-p test:*:jest",
     "test:config:jest": "jest __test__/config/**/*.test.js",
-    "test:scaffold:jest": "rimraf -rf ./.tmp/* && jest __test__/scaffold/*.test.js",
-    "test:scaffold": "cd test; rimraf -rf ./* && yo ../scaffold && yarn link \"@gladeye/bento\"",
+    "test:scaffold:jest":
+      "rimraf -rf ./.tmp/* && jest __test__/scaffold/*.test.js",
+    "test:scaffold":
+      "cd test; rimraf -rf ./* && yo ../scaffold && yarn link \"@gladeye/bento\"",
     "test:config:build": "cd test; webpack",
     "test:config:serve": "cd test; webpack-dev-server",
     "scaffold": "run-s scaffold:*",
-    "scaffold:ssa": "cd example/server-side-app; rimraf -rf ./* && yo ../../scaffold --default=ssa",
-    "scaffold:spa": "cd example/single-page-app; rimraf -rf ./* && yo ../../scaffold --default=spa",
-    "publish:beta": "npm publish --tag=beta --access public"
+    "scaffold:ssa":
+      "cd example/server-side-app; rimraf -rf ./* && yo ../../scaffold --default=ssa",
+    "scaffold:spa":
+      "cd example/single-page-app; rimraf -rf ./* && yo ../../scaffold --default=spa",
+    "publish:beta": "yarn publish --tag beta --access public"
   },
   "peerDependencies": {},
   "devDependencies": {
@@ -26,7 +30,9 @@
     "npm-run-all": "^4.0.2",
     "rimraf": "^2.6.1",
     "yeoman-assert": "^3.0.0",
-    "yeoman-test": "^1.6.0"
+    "yeoman-test": "^1.6.0",
+    "webpack": "^3.2.0",
+    "webpack-dev-server": "^2.7.1"
   },
   "dependencies": {
     "@kenvunz/shoelace": "^1.0.0",
@@ -55,11 +61,13 @@
     "sass-loader": "^6.0.5",
     "style-loader": "^0.18.2",
     "url-loader": "^0.5.9",
-    "webpack": "^3.2.0",
     "webpack-assets-manifest": "^1.0.0",
     "webpack-config": "^7.0.0",
-    "webpack-dev-server": "^2.7.1",
     "yargs": "^8.0.2",
     "yeoman-generator": "^1.1.1"
+  },
+  "peerDependencies": {
+    "webpack": "3.x",
+    "webpack-dev-server": "2.x"
   }
 }
