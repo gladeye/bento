@@ -11,32 +11,31 @@
   "scripts": {
     "test": "run-p test:*:jest",
     "test:config:jest": "jest __tests__/config/**/*.test.js",
-    "test:scaffold:jest":
-      "rimraf -rf ./.tmp/* && jest __tests__/scaffold/*.test.js",
-    "test:scaffold":
-      "cd test; rimraf -rf ./* && yo ../scaffold && yarn link \"@gladeye/bento\"",
+    "test:scaffold:jest": "rimraf -rf ./.tmp/* && jest __tests__/scaffold/*.test.js",
+    "test:scaffold": "cd test; rimraf -rf ./* && yo ../scaffold && yarn link \"@gladeye/bento\"",
     "test:config:build": "cd test; webpack",
     "test:config:serve": "cd test; webpack-dev-server",
     "scaffold": "run-s scaffold:*",
-    "scaffold:ssa":
-      "cd examples/server-side-app; rimraf -rf ./* && yo ../../scaffold --default=ssa",
-    "scaffold:spa":
-      "cd examples/single-page-app; rimraf -rf ./* && yo ../../scaffold --default=spa",
+    "scaffold:ssa": "cd examples/server-side-app; rimraf -rf ./* && yo ../../scaffold --default=ssa",
+    "scaffold:spa": "cd examples/single-page-app; rimraf -rf ./* && yo ../../scaffold --default=spa",
     "prepublishOnly": "yarn test",
     "push:beta": "npm publish --tag beta --access public"
   },
-  "peerDependencies": {},
+  "peerDependencies": {
+    "webpack": "3.x",
+    "webpack-dev-server": "2.x"
+  },
   "devDependencies": {
     "jest": "^20.0.4",
     "npm-run-all": "^4.0.2",
     "rimraf": "^2.6.1",
-    "yeoman-assert": "^3.0.0",
-    "yeoman-test": "^1.6.0",
     "webpack": "^3.2.0",
-    "webpack-dev-server": "^2.7.1"
+    "webpack-dev-server": "^2.7.1",
+    "yeoman-assert": "^3.0.0",
+    "yeoman-test": "^1.6.0"
   },
   "dependencies": {
-    "@kenvunz/shoelace": "^1.0.0",
+    "@kenvunz/shoelace": "^1.0.2",
     "babel-core": "^6.25.0",
     "babel-loader": "^7.0.0",
     "babel-preset-env": "^1.5.2",
@@ -66,9 +65,5 @@
     "webpack-config": "^7.0.0",
     "yargs": "^8.0.2",
     "yeoman-generator": "^1.1.1"
-  },
-  "peerDependencies": {
-    "webpack": "3.x",
-    "webpack-dev-server": "2.x"
   }
 }
