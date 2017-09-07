@@ -103,7 +103,7 @@ module.exports = config({
      *
      */
     enabled: {
-        sourceMap: true
+        sourceMap: "@{env.isDevServer}"
     },
 
     /**
