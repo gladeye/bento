@@ -10,9 +10,9 @@
   },
   "scripts": {
     "test": "run-p test:*:jest",
-    "test:config:jest": "jest __test__/config/**/*.test.js",
+    "test:config:jest": "jest __tests__/config/**/*.test.js",
     "test:scaffold:jest":
-      "rimraf -rf ./.tmp/* && jest __test__/scaffold/*.test.js",
+      "rimraf -rf ./.tmp/* && jest __tests__/scaffold/*.test.js",
     "test:scaffold":
       "cd test; rimraf -rf ./* && yo ../scaffold && yarn link \"@gladeye/bento\"",
     "test:config:build": "cd test; webpack",
