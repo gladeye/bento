@@ -4,7 +4,7 @@
 
 "@kenvunz/shoelace@^1.0.2":
   version "1.0.2"
-  resolved "https://npm.gladeye.org/@kenvunz%2fshoelace/-/shoelace-1.0.2.tgz#016d7dcfbb05f3b4d8b9bc9e2b245893b3dcee1c"
+  resolved "https://registry.yarnpkg.com/@kenvunz/shoelace/-/shoelace-1.0.2.tgz#016d7dcfbb05f3b4d8b9bc9e2b245893b3dcee1c"
   dependencies:
     lodash.get "^4.4.2"
 
