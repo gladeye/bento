@@ -11,6 +11,10 @@ export default class ConfigBuilder {
         this._timeout = options.blocks.timeout || 3000;
     }
 
+    get options() {
+        return this._options;
+    }
+
     build() {
         return new Promise((resolve, reject) => {
             let i = -1,
