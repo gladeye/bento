@@ -11,10 +11,8 @@
   "scripts": {
     "test": "jest",
     "scaffold": "run-s scaffold:*",
-    "scaffold:ssa":
-      "cd examples/server-side-app; rimraf -rf ./* && yo ../../scaffold --default=ssa",
-    "scaffold:spa":
-      "cd examples/single-page-app; rimraf -rf ./* && yo ../../scaffold --default=spa",
+    "scaffold:ssa": "cd examples/server-side-app; rimraf -rf ./* && yo ../../scaffold --default=ssa",
+    "scaffold:spa": "cd examples/single-page-app; rimraf -rf ./* && yo ../../scaffold --default=spa",
     "prepublishOnly": "yarn test && yarn build",
     "push:beta": "npm publish --tag beta --access public",
     "push": "npm publish --access public",
@@ -36,6 +34,7 @@
     "babel-plugin-module-resolver": "^2.7.1",
     "jest": "^21.0.1",
     "npm-run-all": "^4.0.2",
+    "pretty-format": "^21.0.2",
     "rimraf": "^2.6.1",
     "webpack": "^3.2.0",
     "webpack-dev-server": "^2.7.1",
@@ -76,6 +75,11 @@
     "yeoman-generator": "^1.1.1"
   },
   "jest": {
-    "testMatch": ["**/__tests__/**/*.test.js"]
+    "testMatch": [
+      "**/__tests__/**/*.test.js"
+    ],
+    "snapshotSerializers": [
+      "./__tests__/webpack-serialiser"
+    ]
   }
 }

@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`blocks/script matches snapshot 1`] = `
+Object {
+  "module": Object {
+    "rules": Array [
+      Object {
+        "exclude": /(node_modules)/,
+        "test": /\\.js$/,
+        "use": Object {
+          "loader": "babel-loader",
+          "options": undefined,
+        },
+      },
+    ],
+  },
+}
+`;
