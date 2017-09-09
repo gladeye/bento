@@ -40,7 +40,6 @@ export default class ConfigBuilder {
                 if (result === false || result instanceof Error)
                     return reject(err);
 
-
                 if (i === len) {
                     return resolve(result);
                 }
@@ -56,12 +55,13 @@ export default class ConfigBuilder {
                     );
                 }
 
-                if (result && result.then) {
+                if (result.then) {
                     const id = setTimeout(function() {
                         if (!async) return;
-
-                        throw new Error(
-                            `Timeout of ${timeout} ms exceeded. For async blocks, ensure the returned promise is resolved.`
+                        return reject(
+                            new Error(
+                                `[TimeoutError] ${timeout} ms exceeded. For async blocks, ensure the returned promise is resolved.`
+                            )
                         );
                     }, timeout);
 

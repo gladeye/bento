@@ -36,20 +36,24 @@ describe("ConfigBuilder", () => {
             });
         });
 
-        it("throws error if async block takes too long", () => {
-            const block = jest.fn(config => {
-                return new Promise((resolve, reject) => {
-                    setTimeout(resolve, 4000);
+        it("throws error when async block takes too long", () => {
+            const block = jest.fn(() => {
+                return new Promise(resolve => {
+                    setTimeout(resolve, 60);
                 });
             });
 
             const builder = ConfigBuilder.create({
                 blocks: {
+                    timeout: 50,
                     list: [block]
                 }
             });
 
-            expect(builder.build()).rejects.toMatch("Timeout");
+            return builder.build().catch(e => {
+                expect(e.message).toMatch(/\[TimeoutError\]/);
+            });
+        });
 
         it("throws error if a block doesn't return anything", () => {
             const block = jest.fn(() => {});
