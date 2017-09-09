@@ -1,17 +1,17 @@
 import pretty from "pretty-format";
 
-module.exports = {
-    print(val, serialise, indent) {
-        const value = pretty(val);
+const cwd = process.cwd();
 
-        return value.replace(new RegExp(process.cwd(), "g"), "<project>");
+module.exports = {
+    serialize(val) {
+        const value = pretty(val, {
+            callToJSON: false
+        });
+
+        return value.replace(new RegExp(cwd, "g"), "<project>");
     },
 
-    test(val) {
-        return (
-            val &&
-            val.hasOwnProperty("module") &&
-            val.module.hasOwnProperty("rules")
-        );
+    test() {
+        return true;
     }
 };
