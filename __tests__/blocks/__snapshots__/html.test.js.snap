@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`blocks/html matches snapshot 1`] = `
+Object {
+  "plugins": Array [
+    HtmlWebpackPlugin {
+      "options": Object {
+        "cache": true,
+        "chunks": "all",
+        "compile": true,
+        "excludeChunks": Array [],
+        "favicon": false,
+        "filename": "index.html",
+        "hash": false,
+        "inject": true,
+        "minify": false,
+        "showErrors": true,
+        "template": "<project>/node_modules/html-webpack-plugin/default_index.ejs",
+        "title": "Webpack App",
+        "xhtml": false,
+      },
+    },
+  ],
+}
+`;
