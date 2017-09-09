@@ -10,22 +10,24 @@
   },
   "scripts": {
     "test": "jest",
-    "test:config:jest": "jest __tests__/config/**/*.test.js",
     "scaffold": "run-s scaffold:*",
-    "scaffold:ssa": "cd examples/server-side-app; rimraf -rf ./* && yo ../../scaffold --default=ssa",
-    "scaffold:spa": "cd examples/single-page-app; rimraf -rf ./* && yo ../../scaffold --default=spa",
-    "prepublishOnly": "yarn test",
+    "scaffold:ssa":
+      "cd examples/server-side-app; rimraf -rf ./* && yo ../../scaffold --default=ssa",
+    "scaffold:spa":
+      "cd examples/single-page-app; rimraf -rf ./* && yo ../../scaffold --default=spa",
+    "prepublishOnly": "yarn test && yarn build",
     "push:beta": "npm publish --tag beta --access public",
     "push": "npm publish --access public",
     "build:babel": "babel ./config/src -d ./config/dst",
     "build": "yarn clean:dst && yarn build:babel",
     "start": "yarn start:babel",
     "start:babel": "yarn clean:dst && yarn build:babel -- --watch",
-    "clean:dst": "rimraf  dst/*"
+    "clean:dst": "rimraf  ./config/dst/*"
   },
   "peerDependencies": {
     "webpack": "3.x",
-    "webpack-dev-server": "2.x"
+    "webpack-dev-server": "2.x",
+    "webpack-merge": "4.1.x"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -37,6 +39,7 @@
     "rimraf": "^2.6.1",
     "webpack": "^3.2.0",
     "webpack-dev-server": "^2.7.1",
+    "webpack-merge": "^4.1.0",
     "yeoman-assert": "^3.0.0",
     "yeoman-test": "^1.6.0"
   },
@@ -71,5 +74,8 @@
     "webpack-config": "^7.0.0",
     "yargs": "^8.0.2",
     "yeoman-generator": "^1.1.1"
+  },
+  "jest": {
+    "testMatch": ["**/__tests__/**/*.test.js"]
   }
 }
