@@ -28,7 +28,7 @@ export default class ConfigBuilder {
                 options = this._options,
                 utils = { select: select(options) };
 
-            (function next(err) {
+            (function next(result) {
                 let async;
 
                 // Increment counter variable and skip any indices that
@@ -37,16 +37,23 @@ export default class ConfigBuilder {
                     ++i;
                 } while (!(i in modules) && i !== len);
 
-                if (err === false || err) return reject(err);
+                if (result === false || result instanceof Error)
+                    return reject(err);
 
-                if (i === len) return resolve(config);
 
-                let result;
+                if (i === len) {
+                    return resolve(result);
+                }
 
                 try {
-                    result = modules[i](config, options, utils);
+                    result = modules[i](result, options, utils);
                 } catch (e) {
                     return reject(e);
+                }
+                if (!result || typeof result !== "object") {
+                    throw new Error(
+                        "[InvalidValueError] Each block must either return a new config object or a promise that resolves a new config object."
+                    );
                 }
 
                 if (result && result.then) {
@@ -70,7 +77,7 @@ export default class ConfigBuilder {
                 if (!async) {
                     next(result);
                 }
-            })();
+            })(config);
         });
     }
 }
