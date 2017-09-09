@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`blocks/base matches snapshot when in development 1`] = `
+Object {
+  "context": "/Users/ken/Workspace/Javascript/@gladeye/bento/app",
+  "devtool": "cheap-module-eval-source-map",
+  "entry": Object {
+    "main": Array [
+      "./main.js",
+    ],
+  },
+  "output": Object {
+    "filename": "scripts/[name].js",
+    "path": "/Users/ken/Workspace/Javascript/@gladeye/bento/public",
+    "publicPath": "/",
+  },
+  "resolve": Object {},
+}
+`;
+
+exports[`blocks/base matches snapshot when in production 1`] = `
+Object {
+  "context": "/Users/ken/Workspace/Javascript/@gladeye/bento/app",
+  "devtool": undefined,
+  "entry": Object {
+    "main": Array [
+      "./main.js",
+    ],
+  },
+  "output": Object {
+    "filename": "scripts/[name].js",
+    "path": "/Users/ken/Workspace/Javascript/@gladeye/bento/public",
+    "publicPath": "/",
+  },
+  "resolve": Object {},
+}
+`;

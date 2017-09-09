@@ -8,7 +8,7 @@ export function parse(options) {
 
 export function resolve(options) {
     ["input", "output"].forEach(key => {
-        if (!options.paths) return;
+        if (!options.paths || !options.paths[key]) return;
         if (options.paths[key].indexOf(options.paths.root) === 0) return;
 
         options.paths[key] = res(join(options.paths.root, options.paths[key]));
