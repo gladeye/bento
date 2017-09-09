@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`blocks/style matches snapshot 1`] = `
+exports[`blocks/style matches snapshot when in development 1`] = `
 Object {
   "module": Object {
     "rules": Array [
@@ -28,7 +28,7 @@ Object {
         ],
       },
       Object {
-        "include": undefined,
+        "include": "<project>/app",
         "test": /\\.scss$/,
         "use": Array [
           Object {
@@ -78,6 +78,117 @@ Object {
       "id": 1,
       "options": Object {
         "disable": true,
+      },
+    },
+  ],
+}
+`;
+
+exports[`blocks/style matches snapshot when in production 1`] = `
+Object {
+  "module": Object {
+    "rules": Array [
+      Object {
+        "include": /node_modules/,
+        "test": /\\.css$/,
+        "use": Array [
+          Object {
+            "loader": "<project>/node_modules/extract-text-webpack-plugin/dist/loader.js",
+            "options": Object {
+              "omit": 1,
+              "publicPath": "../",
+              "remove": true,
+            },
+          },
+          Object {
+            "loader": "style-loader",
+          },
+          Object {
+            "loader": "css-loader",
+            "options": Object {
+              "sourceMap": undefined,
+            },
+          },
+        ],
+      },
+      Object {
+        "include": "<project>/app",
+        "test": /\\.scss$/,
+        "use": Array [
+          Object {
+            "loader": "<project>/node_modules/extract-text-webpack-plugin/dist/loader.js",
+            "options": Object {
+              "omit": 1,
+              "publicPath": "../",
+              "remove": true,
+            },
+          },
+          Object {
+            "loader": "style-loader",
+          },
+          Object {
+            "loader": "css-loader",
+            "options": Object {
+              "sourceMap": undefined,
+            },
+          },
+          Object {
+            "loader": "postcss-loader",
+            "options": Object {
+              "ident": "postcss",
+              "plugins": [Function plugins],
+              "sourceMap": undefined,
+            },
+          },
+          Object {
+            "loader": "resolve-url-loader",
+            "options": Object {
+              "sourceMap": undefined,
+            },
+          },
+          Object {
+            "loader": "sass-loader",
+            "options": Object {
+              "sourceMap": undefined,
+            },
+          },
+        ],
+      },
+    ],
+  },
+  "plugins": Array [
+    ExtractTextPlugin {
+      "filename": "styles/[name].css",
+      "id": 2,
+      "options": Object {
+        "disable": false,
+      },
+    },
+    OptimizeCssAssetsPlugin {
+      "lastCallInstance": LastCallWebpackPlugin {
+        "deleteAssetsMap": Object {},
+        "options": Object {
+          "assetProcessors": Array [
+            Object {
+              "phase": "compilation.optimize-assets",
+              "processor": [Function processor],
+              "regExp": /\\.css$/g,
+            },
+          ],
+          "canPrint": true,
+          "onEnd": [Function EMPTY_FUNC],
+          "onStart": [Function EMPTY_FUNC],
+        },
+      },
+      "options": Object {
+        "assetNameRegExp": /\\.css$/g,
+        "canPrint": true,
+        "cssProcessor": [Function creator],
+        "cssProcessorOptions": Object {
+          "discardComments": Object {
+            "removeAll": true,
+          },
+        },
       },
     },
   ],

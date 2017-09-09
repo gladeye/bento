@@ -2,7 +2,7 @@ import merge from "webpack-merge";
 import ExtractTextPlugin from "extract-text-webpack-plugin";
 
 export default function(config, options) {
-    return merge({
+    config = merge(config, {
         module: {
             rules: [
                 {
@@ -80,4 +80,22 @@ export default function(config, options) {
             })
         ]
     });
+
+    if (options.get("env.isProduction")) {
+        const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+
+        config = merge(config, {
+            plugins: [
+                new OptimizeCssAssetsPlugin({
+                    cssProcessor: require("cssnano"),
+                    cssProcessorOptions: {
+                        discardComments: { removeAll: true }
+                    },
+                    canPrint: true
+                })
+            ]
+        });
+    }
+
+    return config;
 }

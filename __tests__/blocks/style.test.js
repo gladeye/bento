@@ -3,22 +3,43 @@ import ConfigBuilder from "~/lib/ConfigBuilder";
 
 describe("blocks/style", () => {
     const options = {
+        filename: "[name]",
+
+        paths: {
+            root: process.cwd(),
+            input: "./app"
+        },
         blocks: {
-            babel: {},
             list: [style]
         }
     };
 
-    it("matches snapshot", () => {
+    it("matches snapshot when in development", () => {
         const builder = ConfigBuilder.create(
             Object.assign(
                 {},
                 {
                     env: {
-                        value: "development"
-                    },
+                        isProduction: false
+                    }
+                },
+                options
+            )
+        );
 
-                    filename: "[name]"
+        return builder.build().then(config => {
+            expect(config).toMatchSnapshot();
+        });
+    });
+
+    it("matches snapshot when in production", () => {
+        const builder = ConfigBuilder.create(
+            Object.assign(
+                {},
+                {
+                    env: {
+                        isProduction: true
+                    }
                 },
                 options
             )
