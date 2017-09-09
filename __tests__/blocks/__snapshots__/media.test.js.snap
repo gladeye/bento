@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`blocks/media matches snapshot 1`] = `
+Object {
+  "module": Object {
+    "rules": Array [
+      Object {
+        "include": "<project>/app",
+        "loader": "file-loader",
+        "options": Object {
+          "name": "[path][name].[ext]",
+        },
+        "test": /\\.(ttf|eot|woff2?|png|jpe?g|gif|svg)$/,
+      },
+      Object {
+        "include": /node_modules/,
+        "loader": "file-loader",
+        "options": Object {
+          "name": "vendor/[name].[ext]",
+        },
+        "test": /\\.(ttf|eot|woff2?|png|jpe?g|gif|svg)$/,
+      },
+    ],
+  },
+}
+`;
