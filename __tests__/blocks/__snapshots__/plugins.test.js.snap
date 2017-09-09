@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`blocks/plugins matches snapshot 1`] = `
+Object {
+  "plugins": Array [
+    CleanWebpackPlugin {
+      "options": Object {
+        "allowExternal": false,
+        "dry": false,
+        "root": "<project>",
+        "verbose": false,
+      },
+      "paths": Array [
+        "<project>/public/**/*",
+      ],
+    },
+     {
+      "disable": undefined,
+      "files": Array [],
+      "globOptions": Object {
+        "cwd": null,
+        "nodir": true,
+      },
+      "manifest": Object {},
+      "output": "[path][name].[ext]",
+      "pattern": "+(images|media)/**/*",
+      "watcher": null,
+    },
+    WebpackAssetsManifest {
+      "_events": Object {},
+      "_eventsCount": 0,
+      "_maxListeners": undefined,
+      "assets": Object {},
+      "compiler": null,
+      "domain": null,
+      "hmrRegex": null,
+      "options": Object {
+        "contextRelativeKeys": false,
+        "customize": null,
+        "fileExtRegex": /\\.\\w{2,4}\\.(?:map|gz)$|\\.\\w+$/i,
+        "merge": false,
+        "output": "manifest.json",
+        "publicPath": null,
+        "replacer": [Function anonymous],
+        "sortManifest": true,
+        "space": 4,
+        "writeToDisk": true,
+      },
+      "stats": null,
+    },
+    DefinePlugin {
+      "definitions": Object {
+        "process.env": Object {
+          "NODE_ENV": undefined,
+        },
+      },
+    },
+    NamedModulesPlugin {
+      "options": Object {},
+    },
+  ],
+}
+`;
