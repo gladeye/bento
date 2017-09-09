@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`blocks/script matches snapshot 1`] = `
+exports[`blocks/script matches snapshot when in development 1`] = `
 Object {
   "module": Object {
     "rules": Array [
@@ -9,10 +9,58 @@ Object {
         "test": /\\.js$/,
         "use": Object {
           "loader": "babel-loader",
-          "options": undefined,
+          "options": Object {},
         },
       },
     ],
   },
+}
+`;
+
+exports[`blocks/script matches snapshot when in production 1`] = `
+Object {
+  "module": Object {
+    "rules": Array [
+      Object {
+        "exclude": /(node_modules)/,
+        "test": /\\.js$/,
+        "use": Object {
+          "loader": "babel-loader",
+          "options": Object {},
+        },
+      },
+    ],
+  },
+  "plugins": Array [
+    CommonsChunkPlugin {
+      "async": undefined,
+      "children": undefined,
+      "chunkNames": Array [
+        "_manifest",
+      ],
+      "filenameTemplate": undefined,
+      "ident": "<project>/node_modules/webpack/lib/optimize/CommonsChunkPlugin.js0",
+      "minChunks": undefined,
+      "minSize": undefined,
+      "selectedChunks": undefined,
+    },
+    CommonsChunkPlugin {
+      "async": undefined,
+      "children": undefined,
+      "chunkNames": Array [
+        "_vendor",
+      ],
+      "filenameTemplate": undefined,
+      "ident": "<project>/node_modules/webpack/lib/optimize/CommonsChunkPlugin.js1",
+      "minChunks": [Function minChunks],
+      "minSize": undefined,
+      "selectedChunks": undefined,
+    },
+    UglifyJsPlugin {
+      "options": Object {
+        "sourceMap": undefined,
+      },
+    },
+  ],
 }
 `;
