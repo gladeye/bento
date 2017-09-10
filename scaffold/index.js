@@ -190,14 +190,16 @@ module.exports = class extends Generator {
         if (!this.props.proceed) return;
 
         this.fs.copyTpl(
-            this.templatePath("webpack.config.js.tpl"),
-            this.props.config,
+            this.templatePath("webpack.config.js"),
+            this.destinationPath(this.props.config),
             this.props
         );
 
-        this.fs.copy(
+        this.fs.copyTpl(
             this.templatePath("assets/**/*"),
             this.destinationPath(this.props.input),
+            this.props,
+            {},
             {
                 globOptions: {
                     dot: true
