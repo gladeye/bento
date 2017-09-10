@@ -22,8 +22,8 @@ describe("blocks/ports", () => {
 
         ports(null, options).then(() => {
             expect(options.get("ports")).toMatchObject({
-                browsersync: 3000,
-                ui: 3001,
+                browserSyncMain: 3000,
+                browserSyncMainUI: 3001,
                 webpack: 3002
             });
         });

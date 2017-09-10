@@ -4,8 +4,8 @@ import ConfigBuilder from "~/lib/ConfigBuilder";
 describe("blocks/devServer", () => {
     const options = {
         ports: {
-            browsersync: 3000,
-            ui: 3001,
+            browserSyncMain: 3000,
+            browserSyncUI: 3001,
             webpack: 3002
         },
         blocks: {

@@ -23,10 +23,10 @@ export default function(config, options) {
             new webpack.HotModuleReplacementPlugin(),
             new FriendlyErrorsWebpackPlugin(),
             new BrowserSyncPlugin(
-                Object.assign({}, options.get("browsersync"), {
-                    port: options.get("ports.browsersync"),
+                Object.assign({}, options.get("browserSync"), {
+                    port: options.get("ports.browserSyncMain"),
                     ui: {
-                        port: options.get("ports.ui")
+                        port: options.get("ports.browserSyncUI")
                     },
                     proxy: `http://localhost:${options.get("ports.webpack")}`
                 }),

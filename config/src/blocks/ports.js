@@ -13,11 +13,11 @@ export default function(config, options) {
             (err, ports) => {
                 if (err) return reject(err);
 
-                const [browsersync, ui, webpack] = ports;
+                const [browserSyncMain, browserSyncMainUI, webpack] = ports;
 
                 options.set("ports", {
-                    browsersync,
-                    ui,
+                    browserSyncMain,
+                    browserSyncMainUI,
                     webpack
                 });
 
