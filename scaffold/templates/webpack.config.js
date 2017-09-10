@@ -1,4 +1,4 @@
 const { build } = require("@gladeye/bento");
-const config = require("<%= input %>config/webpack");
+const options = require("<%= input %>config/webpack");
 
-module.exports = build(config);
+module.exports = build(options);
