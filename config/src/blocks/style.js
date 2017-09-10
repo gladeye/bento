@@ -42,7 +42,7 @@ export default function(config, options) {
                                     ident: "postcss",
                                     plugins: () => {
                                         const browsers = options.get(
-                                            "browserslist.browsers"
+                                            "autoprefixer.browsers"
                                         );
                                         return [
                                             require("autoprefixer")({
