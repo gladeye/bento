@@ -1,5 +1,5 @@
 import ConfigBuilder from "~/lib/ConfigBuilder";
 
-export function config(options) {
+export function build(options) {
     return ConfigBuilder.create(options).build();
 }
