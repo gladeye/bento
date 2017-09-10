@@ -9,13 +9,11 @@ describe("blocks/proxy", () => {
             webpack: 3002
         },
 
-        server: {
-            proxy: {
-                "/": {
-                    target: "http://localhost:8080",
-                    changeOrigin: true,
-                    autoRewrite: true
-                }
+        proxy: {
+            "/": {
+                target: "http://localhost:8080",
+                changeOrigin: true,
+                autoRewrite: true
             }
         },
         blocks: {

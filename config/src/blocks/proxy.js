@@ -10,7 +10,7 @@ export default function(config, options) {
                         rules: [
                             {
                                 match: new RegExp(
-                                    options.get("server").proxy["/"].target,
+                                    options.get("proxy")["/"].target,
                                     "gi"
                                 ),
                                 replace: `//localhost:${options.get(
