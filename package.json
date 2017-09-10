@@ -78,6 +78,6 @@
   },
   "jest": {
     "testMatch": ["**/__tests__/**/*.test.js"],
-    "snapshotSerializers": ["./__tests__/webpack-serialiser"]
+    "snapshotSerializers": ["./__tests__/__helpers__/serialisers"]
   }
 }

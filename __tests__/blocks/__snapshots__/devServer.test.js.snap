@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`blocks/devServer matches snapshot 1`] = `
+Object {
+  "devServer": Object {
+    "compress": false,
+    "disableHostCheck": true,
+    "historyApiFallback": true,
+    "hot": true,
+    "inline": true,
+    "noInfo": true,
+    "overlay": true,
+    "port": 3002,
+    "quiet": true,
+  },
+  "output": Object {
+    "pathinfo": true,
+  },
+  "plugins": Array [
+    HotModuleReplacementPlugin {
+      "fullBuildTimeout": 200,
+      "multiStep": undefined,
+      "options": Object {},
+      "requestTimeout": 10000,
+    },
+    FriendlyErrorsWebpackPlugin {
+      "compilationSuccessInfo": Object {},
+      "formatters": Array [
+        [Function format],
+        [Function format],
+        [Function format],
+      ],
+      "onErrors": undefined,
+      "shouldClearConsole": true,
+      "transformers": Array [
+        [Function transform],
+        [Function transform],
+        [Function transform],
+      ],
+    },
+    BrowserSyncPlugin {
+      "browserSync": Object {
+        "cleanup": [Function bound ],
+        "emitter": EventEmitter {
+          "_events": Object {},
+          "_eventsCount": 0,
+          "_maxListeners": 20,
+          "domain": null,
+        },
+        "exit": [Function exit],
+        "getOption": [Function bound ],
+        "init": [Function anonymous],
+        "instance": "BrowserSync {}",
+        "name": "bs-webpack-plugin",
+        "notify": [Function anonymous],
+        "pause": [Function anonymous],
+        "reload": [Function browserSyncReload],
+        "resume": [Function anonymous],
+        "stream": [Function browserSyncThroughStream],
+        "use": [Function bound ],
+        "watch": [Function watch],
+      },
+      "browserSyncOptions": Object {
+        "port": 3000,
+        "proxy": "http://localhost:3002",
+        "ui": Object {
+          "port": 3001,
+        },
+      },
+      "isBrowserSyncRunning": false,
+      "isWebpackWatching": false,
+      "options": Object {
+        "callback": undefined,
+        "name": "bs-webpack-plugin",
+        "reload": false,
+      },
+    },
+  ],
+}
+`;
