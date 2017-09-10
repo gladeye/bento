@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`blocks/proxy matches snapshot 1`] = `
-Object {
-  "devServer": Object {
-    "setup": [Function setup],
-  },
-}
-`;

@@ -1,7 +1,7 @@
-import proxy from "~/blocks/proxy";
+import backEnd from "~/blocks/backEnd";
 import ConfigBuilder from "~/lib/ConfigBuilder";
 
-describe("blocks/proxy", () => {
+describe("blocks/backEnd", () => {
     const options = {
         ports: {
             browsersync: 3000,
@@ -17,8 +17,9 @@ describe("blocks/proxy", () => {
             }
         },
         blocks: {
-            list: [proxy]
-        }
+            list: [backEnd]
+        },
+        html: {}
     };
 
     it("matches snapshot", () => {

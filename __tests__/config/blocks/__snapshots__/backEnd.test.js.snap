@@ -1,7 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`blocks/html matches snapshot 1`] = `
+exports[`blocks/backEnd matches snapshot 1`] = `
 Object {
+  "devServer": Object {
+    "setup": [Function setup],
+  },
   "plugins": Array [
     HtmlWebpackPlugin {
       "options": Object {
