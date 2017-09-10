@@ -1,0 +1,172 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`webpack.config.js options to build webpack.config.js matches snapshot for Server Side Application 1`] = `
+Object {
+  "babel": Object {
+    "presets": Array [
+      Array [
+        "env",
+        Object {
+          "targets": Object {
+            "browsers": "@{autoprefixer.browsers}",
+          },
+          "useBuiltIns": true,
+        },
+      ],
+      "stage-2",
+    ],
+  },
+  "blocks": Object {
+    "list": Array [
+      [Function ports],
+      [Function filename],
+      [Function base],
+      [Function script],
+      [Function style],
+      [Function media],
+      [Function plugins],
+      [Function devServer],
+      [Function backEnd],
+    ],
+    "timeout": 3000,
+  },
+  "browserSync": Object {
+    "files": Array [],
+    "ghostMode": false,
+    "open": true,
+    "watchOptions": Object {
+      "cwd": "@{paths.root}",
+      "ignoreInitial": true,
+      "ignored": "*.txt",
+    },
+  },
+  "caching": Object {
+    "hash": ".[hash:8]",
+  },
+  "enabled": Object {
+    "sourceMap": "@{env.isDevServer}",
+  },
+  "entry": Object {
+    "main": Array [
+      "./scripts/main.js",
+    ],
+  },
+  "env": Object {
+    "isDevServer": false,
+    "isProduction": false,
+    "value": "test",
+  },
+  "files": Object {
+    "copy": "+(images|media)/**/*",
+  },
+  "paths": Object {
+    "input": "./assets/",
+    "output": "./public/assets/",
+    "public": "/assets/",
+    "root": "<tmp>",
+  },
+  "proxy": Object {
+    "/": Object {
+      "autoRewrite": true,
+      "changeOrigin": true,
+      "target": "http://localhost:8080",
+    },
+  },
+  "resolve": Object {
+    "alias": Object {
+      "@": "@{paths.input}",
+      "~": "@{paths.input}/scripts",
+    },
+  },
+  "scss": Object {
+    "browsers": Array [
+      "last 1 version",
+    ],
+  },
+}
+`;
+
+exports[`webpack.config.js options to build webpack.config.js matches snapshot for Single Page Application 1`] = `
+Object {
+  "babel": Object {
+    "presets": Array [
+      Array [
+        "env",
+        Object {
+          "targets": Object {
+            "browsers": "@{autoprefixer.browsers}",
+          },
+          "useBuiltIns": true,
+        },
+      ],
+      "stage-2",
+    ],
+  },
+  "blocks": Object {
+    "list": Array [
+      [Function ports],
+      [Function filename],
+      [Function base],
+      [Function script],
+      [Function style],
+      [Function media],
+      [Function plugins],
+      [Function devServer],
+      [Function backEnd],
+    ],
+    "timeout": 3000,
+  },
+  "browserSync": Object {
+    "files": Array [
+      "./index.ejs",
+    ],
+    "ghostMode": false,
+    "open": true,
+    "watchOptions": Object {
+      "cwd": "@{paths.input}",
+      "ignoreInitial": true,
+      "ignored": "*.txt",
+    },
+  },
+  "caching": Object {
+    "hash": ".[hash:8]",
+  },
+  "enabled": Object {
+    "sourceMap": "@{env.isDevServer}",
+  },
+  "entry": Object {
+    "main": Array [
+      "./scripts/main.js",
+    ],
+  },
+  "env": Object {
+    "isDevServer": false,
+    "isProduction": false,
+    "value": "test",
+  },
+  "files": Object {
+    "copy": "+(images|media)/**/*",
+  },
+  "html": Object {
+    "showErrors": true,
+    "template": "./index.ejs",
+  },
+  "paths": Object {
+    "input": "./app/",
+    "output": "./public/",
+    "public": "/",
+    "root": "<tmp>",
+  },
+  "resolve": Object {
+    "alias": Object {
+      "@": "@{paths.input}",
+      "~": "@{paths.input}/scripts",
+    },
+  },
+  "scss": Object {
+    "browsers": Array [
+      "last 1 version",
+    ],
+  },
+}
+`;

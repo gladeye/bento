@@ -20,8 +20,7 @@ module.exports = {
         timeout: 3000,
         list: [
             require("@gladeye/bento/config/dst/blocks/ports"),
-            require("@gladeye/bento/config/dst/blocks/name"),
-            require("@gladeye/bento/config/dst/blocks/manifest"),
+            require("@gladeye/bento/config/dst/blocks/filename"),
             require("@gladeye/bento/config/dst/blocks/base"),
             require("@gladeye/bento/config/dst/blocks/script"),
             require("@gladeye/bento/config/dst/blocks/style"),

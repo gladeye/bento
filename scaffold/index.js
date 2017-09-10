@@ -27,8 +27,13 @@ module.exports = class extends Generator {
     constructor(args, opts) {
         super(args, opts);
 
-        // This method adds support for a `--coffee` flag
         this.option("default", { type: String });
+        this.option("confirm", { type: Boolean });
+        this.option("quiet", { type: Boolean });
+        this.log = message => {
+            if (this.options.quiet) return;
+            this.env.adapter.log(message);
+        };
     }
 
     initializing() {
@@ -167,6 +172,11 @@ module.exports = class extends Generator {
                 }
 
                 this.log("");
+
+                if (!this.options.confirm) {
+                    answers.proceed = true;
+                    return answers;
+                }
 
                 return this.prompt([
                     {
