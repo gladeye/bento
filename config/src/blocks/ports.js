@@ -1,6 +1,6 @@
 import op from "openport";
 
-export default function(config, options) {
+export default function ports(config, options) {
     if (!options.get("env.isDevServer")) return;
 
     return new Promise((resolve, reject) => {

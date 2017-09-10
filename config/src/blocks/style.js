@@ -1,7 +1,7 @@
 import merge from "webpack-merge";
 import ExtractTextPlugin from "extract-text-webpack-plugin";
 
-export default function(config, options) {
+export default function style(config, options) {
     config = merge(config, {
         module: {
             rules: [

@@ -1,4 +1,4 @@
-export default function(config, options) {
+export default function filename(config, options) {
     const isDevServer = options.get("env.isDevServer"),
         isProduction = options.get("env.isProduction"),
         hash = options.get("caching.hash");

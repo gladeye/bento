@@ -5,7 +5,7 @@ import CleanPlugin from "clean-webpack-plugin";
 import CopyGlobsPlugin from "copy-globs-webpack-plugin";
 import WebpackAssetsManifest from "webpack-assets-manifest";
 
-export default function(config, options, { manifest }) {
+export default function plugins(config, options, { manifest }) {
     return merge(config, {
         plugins: [
             new CleanPlugin(

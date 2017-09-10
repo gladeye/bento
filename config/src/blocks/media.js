@@ -1,6 +1,6 @@
 import merge from "webpack-merge";
 
-export default function(config, options) {
+export default function media(config, options) {
     return merge(config, {
         module: {
             rules: [

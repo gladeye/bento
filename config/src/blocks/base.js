@@ -1,6 +1,6 @@
 import merge from "webpack-merge";
 
-export default function(config, options, { select }) {
+export default function base(config, options, { select }) {
     return merge(config, {
         context: options.get("paths.input"),
         entry: options.get("entry"),

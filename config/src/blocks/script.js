@@ -1,7 +1,7 @@
 import merge from "webpack-merge";
 import webpack from "webpack";
 
-export default function(config, options) {
+export default function script(config, options) {
     config = merge(config, {
         module: {
             rules: [

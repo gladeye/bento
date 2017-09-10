@@ -3,7 +3,7 @@ import webpack from "webpack";
 import FriendlyErrorsWebpackPlugin from "friendly-errors-webpack-plugin";
 import BrowserSyncPlugin from "browser-sync-webpack-plugin";
 
-export default function(config, options) {
+export default function devServer(config, options) {
     return merge(config, {
         output: {
             pathinfo: true
