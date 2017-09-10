@@ -7,11 +7,11 @@ Object {
       "options": Object {
         "allowExternal": false,
         "dry": false,
-        "root": "<project>",
+        "root": "<cwd>",
         "verbose": false,
       },
       "paths": Array [
-        "<project>/public/**/*",
+        "<cwd>/public/**/*",
       ],
     },
      {

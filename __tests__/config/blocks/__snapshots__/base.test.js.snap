@@ -2,7 +2,7 @@
 
 exports[`blocks/base matches snapshot when in development 1`] = `
 Object {
-  "context": "<project>/app",
+  "context": "<cwd>/app",
   "devtool": "cheap-module-eval-source-map",
   "entry": Object {
     "main": Array [
@@ -11,7 +11,7 @@ Object {
   },
   "output": Object {
     "filename": "scripts/[name].js",
-    "path": "<project>/public",
+    "path": "<cwd>/public",
     "publicPath": "/",
   },
   "resolve": Object {},
@@ -20,7 +20,7 @@ Object {
 
 exports[`blocks/base matches snapshot when in production 1`] = `
 Object {
-  "context": "<project>/app",
+  "context": "<cwd>/app",
   "devtool": undefined,
   "entry": Object {
     "main": Array [
@@ -29,7 +29,7 @@ Object {
   },
   "output": Object {
     "filename": "scripts/[name].js",
-    "path": "<project>/public",
+    "path": "<cwd>/public",
     "publicPath": "/",
   },
   "resolve": Object {},

@@ -5,7 +5,7 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "include": "<project>/app",
+        "include": "<cwd>/app",
         "loader": "file-loader",
         "options": Object {
           "name": "[path][name].[ext]",
