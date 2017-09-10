@@ -1,5 +1,5 @@
 import filename from "~/blocks/filename";
-import { createOptions } from "../utils";
+import { createOptions } from "../../utils";
 
 describe("blocks/filename", () => {
     it("works as expected in dev-server mode", () => {

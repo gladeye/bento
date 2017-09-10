@@ -1,4 +1,4 @@
-import { createOptions } from "../utils";
+import { createOptions } from "../../utils";
 
 describe("blocks/ports", () => {
     it("works as expected", () => {
