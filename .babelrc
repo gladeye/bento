@@ -13,7 +13,6 @@
         [
             "module-resolver",
             {
-                "root": ["./config/src/"],
                 "alias": {
                     "~": "./config/src/"
                 }
