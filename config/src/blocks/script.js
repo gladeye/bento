@@ -21,14 +21,14 @@ export default function script(config, options) {
         config = merge(config, {
             plugins: [
                 new webpack.optimize.CommonsChunkPlugin({
-                    name: "_manifest"
-                }),
-
-                new webpack.optimize.CommonsChunkPlugin({
                     name: "_vendor",
                     minChunks: function(module) {
                         return /node_modules/.test(module.resource);
                     }
+                }),
+
+                new webpack.optimize.CommonsChunkPlugin({
+                    name: "_manifest"
                 }),
 
                 new webpack.optimize.UglifyJsPlugin({
