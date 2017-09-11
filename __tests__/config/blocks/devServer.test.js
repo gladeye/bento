@@ -3,6 +3,9 @@ import ConfigBuilder from "~/lib/ConfigBuilder";
 
 describe("blocks/devServer", () => {
     const options = {
+        env: {
+            isDevServer: true
+        },
         ports: {
             browserSyncMain: 3000,
             browserSyncUI: 3001,

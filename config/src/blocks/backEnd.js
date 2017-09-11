@@ -1,7 +1,7 @@
 import merge from "webpack-merge";
 
 export default function backEnd(config, options) {
-    if (options.get("proxy")) {
+    if (options.get("proxy") && options.get("env.isDevServer")) {
         config = merge(config, {
             devServer: {
                 setup(app) {

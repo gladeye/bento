@@ -2,9 +2,6 @@
 
 exports[`blocks/backEnd matches snapshot 1`] = `
 Object {
-  "devServer": Object {
-    "setup": [Function setup],
-  },
   "plugins": Array [
     HtmlWebpackPlugin {
       "options": Object {

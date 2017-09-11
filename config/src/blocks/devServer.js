@@ -4,6 +4,8 @@ import FriendlyErrorsWebpackPlugin from "friendly-errors-webpack-plugin";
 import BrowserSyncPlugin from "browser-sync-webpack-plugin";
 
 export default function devServer(config, options) {
+    if (!options.get("env.isDevServer")) return config;
+
     return merge(config, {
         output: {
             pathinfo: true
