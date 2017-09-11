@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`webpack.config.js Server Side Application build options matches snapshot 1`] = `
+exports[`webpack Server Side Application build options matches snapshot 1`] = `
 Object {
   "babel": Object {
     "presets": Array [
@@ -86,7 +86,7 @@ Object {
 }
 `;
 
-exports[`webpack.config.js Server Side Application webpack bundles correctly 1`] = `
+exports[`webpack Server Side Application webpack bundles correctly 1`] = `
 Object {
   "children": Array [
     Object {
@@ -163,7 +163,7 @@ Object {
 }
 `;
 
-exports[`webpack.config.js Single Page Application build options matches snapshot 1`] = `
+exports[`webpack Single Page Application build options matches snapshot 1`] = `
 Object {
   "babel": Object {
     "presets": Array [
@@ -248,7 +248,7 @@ Object {
 }
 `;
 
-exports[`webpack.config.js Single Page Application webpack bundles correctly 1`] = `
+exports[`webpack Single Page Application webpack bundles correctly 1`] = `
 Object {
   "children": Array [
     Object {
