@@ -9,8 +9,8 @@
     "node": ">=7"
   },
   "scripts": {
-    "test": "jest",
-    "test:scaffold:webpack": "jest __tests__/scaffold/webpack.config.test.js",
+    "test": "jest --testPathIgnorePatterns /scaffold/",
+    "test:scaffold:build": "jest __tests__/scaffold/webpack.build.test.js",
     "scaffold": "run-s scaffold:*",
     "scaffold:ssa":
       "cd examples/server-side-app; rimraf -rf ./* && yo ../../scaffold --default=ssa",
