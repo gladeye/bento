@@ -4,7 +4,7 @@ import tree from "directory-tree";
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
 
-describe("webpack.config.js", () => {
+describe("webpack", () => {
     let env;
     beforeEach(() => {
         env = process.env.NODE_ENV;
