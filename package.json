@@ -23,7 +23,10 @@
     "build": "yarn clean:dst && yarn build:babel",
     "start": "yarn start:babel",
     "start:babel": "yarn clean:dst && yarn build:babel -- --watch",
-    "clean:dst": "rimraf  ./config/dst/*"
+    "clean:dst": "rimraf  ./config/dst/*",
+    "prepublishOnly": "yarn test",
+    "push:next": "npm publish --tag beta --access public",
+    "push": "npm publish --access public"
   },
   "peerDependencies": {
     "webpack": "3.x",
