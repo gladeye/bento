@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`webpack.config.js options to build webpack.config.js matches snapshot for Server Side Application 1`] = `
+exports[`webpack.config.js Single Page Application build options matches snapshot 1`] = `
 Object {
   "babel": Object {
     "presets": Array [
@@ -8,93 +8,7 @@ Object {
         "env",
         Object {
           "targets": Object {
-            "browsers": "@{autoprefixer.browsers}",
-          },
-          "useBuiltIns": true,
-        },
-      ],
-      "stage-2",
-    ],
-  },
-  "blocks": Object {
-    "list": Array [
-      [Function ports],
-      [Function filename],
-      [Function base],
-      [Function script],
-      [Function style],
-      [Function media],
-      [Function plugins],
-      [Function devServer],
-      [Function backEnd],
-    ],
-    "timeout": 3000,
-  },
-  "browserSync": Object {
-    "files": Array [],
-    "ghostMode": false,
-    "open": true,
-    "watchOptions": Object {
-      "cwd": "@{paths.root}",
-      "ignoreInitial": true,
-      "ignored": "*.txt",
-    },
-  },
-  "caching": Object {
-    "hash": ".[hash:8]",
-  },
-  "enabled": Object {
-    "sourceMap": "@{env.isDevServer}",
-  },
-  "entry": Object {
-    "main": Array [
-      "./scripts/main.js",
-    ],
-  },
-  "env": Object {
-    "isDevServer": false,
-    "isProduction": false,
-    "value": "test",
-  },
-  "files": Object {
-    "copy": "+(images|media)/**/*",
-  },
-  "paths": Object {
-    "input": "./assets/",
-    "output": "./public/assets/",
-    "public": "/assets/",
-    "root": "<tmp>",
-  },
-  "proxy": Object {
-    "/": Object {
-      "autoRewrite": true,
-      "changeOrigin": true,
-      "target": "http://localhost:8080",
-    },
-  },
-  "resolve": Object {
-    "alias": Object {
-      "@": "@{paths.input}",
-      "~": "@{paths.input}/scripts",
-    },
-  },
-  "scss": Object {
-    "browsers": Array [
-      "last 1 version",
-    ],
-  },
-}
-`;
-
-exports[`webpack.config.js options to build webpack.config.js matches snapshot for Single Page Application 1`] = `
-Object {
-  "babel": Object {
-    "presets": Array [
-      Array [
-        "env",
-        Object {
-          "targets": Object {
-            "browsers": "@{autoprefixer.browsers}",
+            "browsers": "@{scss.browsers}",
           },
           "useBuiltIns": true,
         },
@@ -155,7 +69,7 @@ Object {
     "input": "./app/",
     "output": "./public/",
     "public": "/",
-    "root": "<tmp>",
+    "root": "<cwd>",
   },
   "resolve": Object {
     "alias": Object {
@@ -168,5 +82,74 @@ Object {
       "last 1 version",
     ],
   },
+}
+`;
+
+exports[`webpack.config.js Single Page Application webpack bundles correctly 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "extension": "",
+      "name": ".gitkeep",
+      "path": "<cwd>/public/.gitkeep",
+      "size": 0,
+      "type": "file",
+    },
+    Object {
+      "extension": ".html",
+      "name": "index.html",
+      "path": "<cwd>/public/index.html",
+      "size": 381,
+      "type": "file",
+    },
+    Object {
+      "extension": ".json",
+      "name": "manifest.json",
+      "path": "<cwd>/public/manifest.json",
+      "size": 161,
+      "type": "file",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "extension": ".js",
+          "name": "_vendor.20406bf8.js",
+          "path": "<cwd>/public/scripts/_vendor.20406bf8.js",
+          "size": 1388,
+          "type": "file",
+        },
+        Object {
+          "extension": ".js",
+          "name": "main.f6d607fe.js",
+          "path": "<cwd>/public/scripts/main.f6d607fe.js",
+          "size": 157929,
+          "type": "file",
+        },
+      ],
+      "name": "scripts",
+      "path": "<cwd>/public/scripts",
+      "size": 159317,
+      "type": "directory",
+    },
+    Object {
+      "children": Array [
+        Object {
+          "extension": ".css",
+          "name": "main.d41d8cd9.css",
+          "path": "<cwd>/public/styles/main.d41d8cd9.css",
+          "size": 0,
+          "type": "file",
+        },
+      ],
+      "name": "styles",
+      "path": "<cwd>/public/styles",
+      "size": 0,
+      "type": "directory",
+    },
+  ],
+  "name": "public",
+  "path": "<cwd>/public",
+  "size": 159859,
+  "type": "directory",
 }
 `;

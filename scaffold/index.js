@@ -29,11 +29,6 @@ module.exports = class extends Generator {
 
         this.option("default", { type: String });
         this.option("confirm", { type: Boolean });
-        this.option("quiet", { type: Boolean });
-        this.log = message => {
-            if (this.options.quiet) return;
-            this.env.adapter.log(message);
-        };
     }
 
     initializing() {
