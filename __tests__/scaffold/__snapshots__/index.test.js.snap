@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Scaffolding Server Side Application folder structure matches the snapshot 1`] = `
+"
+./
+├── /assets
+|  ├── /config
+|  |  └── /webpack
+|  |     ├── backEnd.js
+|  |     ├── base.js
+|  |     ├── blocks.js
+|  |     ├── devServer.js
+|  |     ├── index.js
+|  |     └── transpiler.js
+|  ├── /fonts
+|  ├── /images
+|  ├── /media
+|  ├── /scripts
+|  |  └── main.js
+|  └── /styles
+|     └── main.scss
+├── /public
+|  └── /assets
+└── webpack.config.js
+
+directory: 10 file: 9 symboliclink: 1 
+
+[2K[1G"
+`;
+
+exports[`Scaffolding Single Page Application folder structure matches the snapshot 1`] = `
+"
+./
+├── /app
+|  ├── /config
+|  |  └── /webpack
+|  |     ├── backEnd.js
+|  |     ├── base.js
+|  |     ├── blocks.js
+|  |     ├── devServer.js
+|  |     ├── index.js
+|  |     └── transpiler.js
+|  ├── /fonts
+|  ├── /images
+|  ├── index.ejs
+|  ├── /media
+|  ├── /scripts
+|  |  └── main.js
+|  └── /styles
+|     └── main.scss
+├── /public
+└── webpack.config.js
+
+directory: 9 file: 10 symboliclink: 1 
+
+[2K[1G"
+`;
