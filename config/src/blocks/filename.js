@@ -7,4 +7,6 @@ export default function filename(config, options) {
         "filename",
         isDevServer || !isProduction ? "[name]" : `[name]${hash}`
     );
+
+    return config;
 }

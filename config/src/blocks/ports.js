@@ -1,7 +1,7 @@
 import op from "openport";
 
 export default function ports(config, options) {
-    if (!options.get("env.isDevServer")) return;
+    if (!options.get("env.isDevServer")) return config;
 
     return new Promise((resolve, reject) => {
         op.find(
@@ -21,7 +21,7 @@ export default function ports(config, options) {
                     webpack
                 });
 
-                resolve();
+                resolve(config);
             }
         );
     });
