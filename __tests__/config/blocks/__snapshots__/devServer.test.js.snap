@@ -23,21 +23,6 @@ Object {
       "options": Object {},
       "requestTimeout": 10000,
     },
-    FriendlyErrorsWebpackPlugin {
-      "compilationSuccessInfo": Object {},
-      "formatters": Array [
-        [Function format],
-        [Function format],
-        [Function format],
-      ],
-      "onErrors": undefined,
-      "shouldClearConsole": true,
-      "transformers": Array [
-        [Function transform],
-        [Function transform],
-        [Function transform],
-      ],
-    },
     BrowserSyncPlugin {
       "browserSync": Object {
         "cleanup": [Function bound ],

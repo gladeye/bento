@@ -1,6 +1,5 @@
 import merge from "webpack-merge";
 import webpack from "webpack";
-import FriendlyErrorsWebpackPlugin from "friendly-errors-webpack-plugin";
 import BrowserSyncPlugin from "browser-sync-webpack-plugin";
 
 export default function devServer(config, options) {
@@ -23,7 +22,6 @@ export default function devServer(config, options) {
         },
         plugins: [
             new webpack.HotModuleReplacementPlugin(),
-            new FriendlyErrorsWebpackPlugin(),
             new BrowserSyncPlugin(
                 Object.assign({}, options.get("browserSync"), {
                     port: options.get("ports.browserSyncMain"),
