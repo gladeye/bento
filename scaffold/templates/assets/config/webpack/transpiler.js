@@ -32,7 +32,7 @@ module.exports = {
                 "env",
                 {
                     targets: {
-                        browsers: "@{autoprefixer.browsers}"
+                        browsers: "@{scss.browsers}"
                     },
                     useBuiltIns: true
                 }
