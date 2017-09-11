@@ -1,5 +1,168 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`webpack.config.js Server Side Application build options matches snapshot 1`] = `
+Object {
+  "babel": Object {
+    "presets": Array [
+      Array [
+        "env",
+        Object {
+          "targets": Object {
+            "browsers": "@{scss.browsers}",
+          },
+          "useBuiltIns": true,
+        },
+      ],
+      "stage-2",
+    ],
+  },
+  "blocks": Object {
+    "list": Array [
+      [Function ports],
+      [Function filename],
+      [Function base],
+      [Function script],
+      [Function style],
+      [Function media],
+      [Function plugins],
+      [Function devServer],
+      [Function backEnd],
+    ],
+    "timeout": 3000,
+  },
+  "browserSync": Object {
+    "files": Array [],
+    "ghostMode": false,
+    "open": true,
+    "watchOptions": Object {
+      "cwd": "@{paths.root}",
+      "ignoreInitial": true,
+      "ignored": "*.txt",
+    },
+  },
+  "caching": Object {
+    "hash": ".[hash:8]",
+  },
+  "enabled": Object {
+    "sourceMap": "@{env.isDevServer}",
+  },
+  "entry": Object {
+    "main": Array [
+      "./scripts/main.js",
+    ],
+  },
+  "env": Object {
+    "isDevServer": false,
+    "isProduction": true,
+    "value": "production",
+  },
+  "files": Object {
+    "copy": "+(images|media)/**/*",
+  },
+  "paths": Object {
+    "input": "./assets/",
+    "output": "./public/assets/",
+    "public": "/assets/",
+    "root": "<cwd>",
+  },
+  "proxy": Object {
+    "/": Object {
+      "autoRewrite": true,
+      "changeOrigin": true,
+      "target": "http://localhost:8080",
+    },
+  },
+  "resolve": Object {
+    "alias": Object {
+      "@": "@{paths.input}",
+      "~": "@{paths.input}/scripts",
+    },
+  },
+  "scss": Object {
+    "browsers": Array [
+      "last 1 version",
+    ],
+  },
+}
+`;
+
+exports[`webpack.config.js Server Side Application webpack bundles correctly 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "extension": "",
+          "name": ".gitkeep",
+          "path": "<cwd>/public/assets/.gitkeep",
+          "size": 0,
+          "type": "file",
+        },
+        Object {
+          "extension": ".json",
+          "name": "manifest.json",
+          "path": "<cwd>/public/assets/manifest.json",
+          "size": 222,
+          "type": "file",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "extension": ".js",
+              "name": "_manifest.4203d2e9.js",
+              "path": "<cwd>/public/assets/scripts/_manifest.4203d2e9.js",
+              "size": 1408,
+              "type": "file",
+            },
+            Object {
+              "extension": ".js",
+              "name": "_vendor.d2ca492b.js",
+              "path": "<cwd>/public/assets/scripts/_vendor.d2ca492b.js",
+              "size": 152531,
+              "type": "file",
+            },
+            Object {
+              "extension": ".js",
+              "name": "main.e47ea44d.js",
+              "path": "<cwd>/public/assets/scripts/main.e47ea44d.js",
+              "size": 11045,
+              "type": "file",
+            },
+          ],
+          "name": "scripts",
+          "path": "<cwd>/public/assets/scripts",
+          "size": 164984,
+          "type": "directory",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "extension": ".css",
+              "name": "main.d41d8cd9.css",
+              "path": "<cwd>/public/assets/styles/main.d41d8cd9.css",
+              "size": 0,
+              "type": "file",
+            },
+          ],
+          "name": "styles",
+          "path": "<cwd>/public/assets/styles",
+          "size": 0,
+          "type": "directory",
+        },
+      ],
+      "name": "assets",
+      "path": "<cwd>/public/assets",
+      "size": 165206,
+      "type": "directory",
+    },
+  ],
+  "name": "public",
+  "path": "<cwd>/public",
+  "size": 165206,
+  "type": "directory",
+}
+`;
+
 exports[`webpack.config.js Single Page Application build options matches snapshot 1`] = `
 Object {
   "babel": Object {
@@ -55,8 +218,8 @@ Object {
   },
   "env": Object {
     "isDevServer": false,
-    "isProduction": false,
-    "value": "test",
+    "isProduction": true,
+    "value": "production",
   },
   "files": Object {
     "copy": "+(images|media)/**/*",
@@ -99,36 +262,43 @@ Object {
       "extension": ".html",
       "name": "index.html",
       "path": "<cwd>/public/index.html",
-      "size": 381,
+      "size": 458,
       "type": "file",
     },
     Object {
       "extension": ".json",
       "name": "manifest.json",
       "path": "<cwd>/public/manifest.json",
-      "size": 161,
+      "size": 222,
       "type": "file",
     },
     Object {
       "children": Array [
         Object {
           "extension": ".js",
-          "name": "_vendor.20406bf8.js",
-          "path": "<cwd>/public/scripts/_vendor.20406bf8.js",
-          "size": 1388,
+          "name": "_manifest.d521cfe0.js",
+          "path": "<cwd>/public/scripts/_manifest.d521cfe0.js",
+          "size": 1401,
           "type": "file",
         },
         Object {
           "extension": ".js",
-          "name": "main.f6d607fe.js",
-          "path": "<cwd>/public/scripts/main.f6d607fe.js",
-          "size": 157929,
+          "name": "_vendor.d2ca492b.js",
+          "path": "<cwd>/public/scripts/_vendor.d2ca492b.js",
+          "size": 152531,
+          "type": "file",
+        },
+        Object {
+          "extension": ".js",
+          "name": "main.e47ea44d.js",
+          "path": "<cwd>/public/scripts/main.e47ea44d.js",
+          "size": 11045,
           "type": "file",
         },
       ],
       "name": "scripts",
       "path": "<cwd>/public/scripts",
-      "size": 159317,
+      "size": 164977,
       "type": "directory",
     },
     Object {
@@ -149,7 +319,7 @@ Object {
   ],
   "name": "public",
   "path": "<cwd>/public",
-  "size": 159859,
+  "size": 165657,
   "type": "directory",
 }
 `;

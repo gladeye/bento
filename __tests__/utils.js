@@ -39,6 +39,21 @@ scaffold.restore = function() {
     shelljs.cd(cwd);
 };
 
+export function scaffolder(args) {
+    let tmpDir;
+
+    return function(silent = true) {
+        if (tmpDir) {
+            shelljs.cd(tmpDir);
+            return Promise.resolve(tmpDir);
+        }
+
+        return scaffold(args, silent).then(dir => {
+            return (tmpDir = dir);
+        });
+    };
+}
+
 export function bundle(config) {
     return new Promise((resolve, reject) => {
         webpack(config, (err, stats) => {
