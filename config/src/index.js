@@ -7,12 +7,40 @@ export function build(options) {
 export function bundle(options) {
     const WebpackController = require("~/lib/WebpackController");
 
-    return ConfigBuilder.create(options)
-        .build()
+    return build(options).then(config => {
+        return WebpackController.create(config).bundle();
+    });
+}
+
+export function serve(options, cb) {
+    const WebpackController = require("~/lib/WebpackController"),
+        BrowserSyncController = require("~/lib/BrowserSyncController"),
+        WebpackDevServerController = require("~/lib/WebpackDevServerController");
+
+    return build(options)
         .then(config => {
+            WebpackDevServerController.addEntryPoints(config, config.devServer);
             return WebpackController.create(config).bundle();
         })
-        .catch(e => {
-            console.error(e);
+        .then(webpackCtl => {
+            return Promise.all([
+                BrowserSyncController.create(webpackCtl.config).started,
+                WebpackDevServerController.create(
+                    webpackCtl.compiler,
+                    webpackCtl.config.devServer
+                ).started
+            ]);
+        })
+        .then(([browserSyncCtl, devServerCtl]) => {
+            // returns a promise which never resolves unless `done` is called
+            return new Promise(resolve => {
+                if (!cb) return resolve();
+                cb(devServerCtl.server, function done() {
+                    Promise.all([
+                        browserSyncCtl.stop(),
+                        devServerCtl.stop()
+                    ]).then(resolve);
+                });
+            });
         });
 }

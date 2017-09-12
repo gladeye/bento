@@ -18,6 +18,7 @@ export default function devServer(config, options) {
             inline: true,
             quiet: true,
             overlay: true,
+            host: "localhost",
             port: options.get("ports.webpack")
         },
         plugins: [

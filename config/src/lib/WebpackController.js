@@ -27,7 +27,8 @@ export default class WebpackController {
         return new Promise((resolve, reject) => {
             this._compiler = webpack(this._config, (err, stats) => {
                 if (err) return reject(err);
-                return resolve((this._stats = stats));
+                this._stats = stats;
+                return resolve(this);
             });
         });
     }
