@@ -1,7 +1,6 @@
-import { scaffold } from "../utils";
-import shelljs from "shelljs";
+import { scaffold, tree } from "../utils";
 
-describe("Scaffolding", () => {
+describe("scaffold/index.js", () => {
     afterEach(() => {
         scaffold.restore();
     });
@@ -9,16 +8,8 @@ describe("Scaffolding", () => {
     describe("Single Page Application", () => {
         it("folder structure matches the snapshot", () => {
             return scaffold("--default spa --no-confirm").then(dir => {
-                const result = shelljs.exec(
-                    "tree ./ --ignore node_modules/ -f -l 4",
-                    {
-                        cwd: dir,
-                        silent: true
-                    }
-                );
-
-                const output = result.stdout.replace(dir, "./");
-                expect(output).toMatchSnapshot();
+                const result = tree("./ --ignore node_modules/ -f -l 4", dir);
+                expect(result.stdout).toMatchSnapshot();
             });
         });
     });
@@ -26,16 +17,8 @@ describe("Scaffolding", () => {
     describe("Server Side Application", () => {
         it("folder structure matches the snapshot", () => {
             return scaffold("--default ssa --no-confirm").then(dir => {
-                const result = shelljs.exec(
-                    "tree ./ --ignore node_modules/ -f -l 4",
-                    {
-                        cwd: dir,
-                        silent: true
-                    }
-                );
-
-                const output = result.stdout.replace(dir, "./");
-                expect(output).toMatchSnapshot();
+                const result = tree("./ --ignore node_modules/ -f -l 4", dir);
+                expect(result.stdout).toMatchSnapshot();
             });
         });
     });

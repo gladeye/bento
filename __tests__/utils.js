@@ -3,7 +3,6 @@ import tmp from "tmp";
 import shelljs from "shelljs";
 import { join, resolve } from "path";
 import { realpathSync } from "fs";
-import webpack from "webpack";
 
 const cwd = join(resolve(__dirname, "../"));
 
@@ -35,10 +34,6 @@ export function scaffold(args, silent = true) {
     });
 }
 
-scaffold.restore = function() {
-    shelljs.cd(cwd);
-};
-
 export function scaffolder(args) {
     let tmpDir;
 
@@ -54,11 +49,17 @@ export function scaffolder(args) {
     };
 }
 
-export function bundle(config) {
-    return new Promise((resolve, reject) => {
-        webpack(config, (err, stats) => {
-            if (err) return reject(err);
-            resolve(stats);
-        });
+scaffolder.restore = scaffold.restore = function() {
+    shelljs.cd(cwd);
+};
+
+export function tree(args, cwd) {
+    const output = shelljs.exec(`npx tree ${args}`, {
+        cwd,
+        silent: true
     });
+
+    output.stdout = output.stdout.replace(cwd, "./");
+
+    return output;
 }
