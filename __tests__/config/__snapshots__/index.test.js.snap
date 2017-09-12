@@ -1,0 +1,244 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`config/index.js builds webpack config that matches the snapshot 1`] = `
+Object {
+  "context": "<cwd>/app",
+  "devtool": undefined,
+  "entry": Object {
+    "main": Array [
+      "./scripts/main.js",
+    ],
+  },
+  "module": Object {
+    "rules": Array [
+      Object {
+        "exclude": /(node_modules)/,
+        "test": /\\.js$/,
+        "use": Object {
+          "loader": "babel-loader",
+          "options": Object {
+            "presets": Array [
+              Array [
+                "env",
+                Object {
+                  "targets": Object {
+                    "browsers": Array [
+                      "last 1 version",
+                    ],
+                  },
+                  "useBuiltIns": true,
+                },
+              ],
+              "stage-2",
+            ],
+          },
+        },
+      },
+      Object {
+        "include": /node_modules/,
+        "test": /\\.css$/,
+        "use": Array [
+          Object {
+            "loader": "<cwd>/node_modules/@gladeye/bento/node_modules/extract-text-webpack-plugin/dist/loader.js",
+            "options": Object {
+              "omit": 1,
+              "publicPath": "../",
+              "remove": true,
+            },
+          },
+          Object {
+            "loader": "style-loader",
+          },
+          Object {
+            "loader": "css-loader",
+            "options": Object {
+              "sourceMap": false,
+            },
+          },
+        ],
+      },
+      Object {
+        "include": "<cwd>/app",
+        "test": /\\.scss$/,
+        "use": Array [
+          Object {
+            "loader": "<cwd>/node_modules/@gladeye/bento/node_modules/extract-text-webpack-plugin/dist/loader.js",
+            "options": Object {
+              "omit": 1,
+              "publicPath": "../",
+              "remove": true,
+            },
+          },
+          Object {
+            "loader": "style-loader",
+          },
+          Object {
+            "loader": "css-loader",
+            "options": Object {
+              "sourceMap": false,
+            },
+          },
+          Object {
+            "loader": "postcss-loader",
+            "options": Object {
+              "ident": "postcss",
+              "plugins": [Function plugins],
+              "sourceMap": false,
+            },
+          },
+          Object {
+            "loader": "resolve-url-loader",
+            "options": Object {
+              "sourceMap": false,
+            },
+          },
+          Object {
+            "loader": "sass-loader",
+            "options": Object {
+              "sourceMap": false,
+            },
+          },
+        ],
+      },
+      Object {
+        "include": "<cwd>/app",
+        "loader": "file-loader",
+        "options": Object {
+          "name": "[path][name].[ext]",
+        },
+        "test": /\\.(ttf|eot|woff2?|png|jpe?g|gif|svg)$/,
+      },
+      Object {
+        "include": /node_modules/,
+        "loader": "file-loader",
+        "options": Object {
+          "name": "vendor/[name].[ext]",
+        },
+        "test": /\\.(ttf|eot|woff2?|png|jpe?g|gif|svg)$/,
+      },
+    ],
+  },
+  "output": Object {
+    "filename": "scripts/[name].js",
+    "path": "<cwd>/public",
+    "publicPath": "/",
+  },
+  "plugins": Array [
+    ExtractTextPlugin {
+      "filename": "styles/[name].css",
+      "id": 1,
+      "options": Object {
+        "disable": true,
+      },
+    },
+    CleanWebpackPlugin {
+      "options": Object {
+        "allowExternal": false,
+        "dry": false,
+        "root": "<cwd>",
+        "verbose": false,
+      },
+      "paths": Array [
+        "<cwd>/public/**/*",
+      ],
+    },
+     {
+      "disable": undefined,
+      "files": Array [],
+      "globOptions": Object {
+        "cwd": null,
+        "nodir": true,
+      },
+      "manifest": Object {},
+      "output": "[path][name].[ext]",
+      "pattern": "+(images|media)/**/*",
+      "watcher": null,
+    },
+    WebpackAssetsManifest {
+      "_events": Object {},
+      "_eventsCount": 0,
+      "_maxListeners": undefined,
+      "assets": Object {},
+      "compiler": null,
+      "domain": null,
+      "hmrRegex": null,
+      "options": Object {
+        "contextRelativeKeys": false,
+        "customize": null,
+        "fileExtRegex": /\\.\\w{2,4}\\.(?:map|gz)$|\\.\\w+$/i,
+        "merge": false,
+        "output": "manifest.json",
+        "publicPath": null,
+        "replacer": [Function anonymous],
+        "sortManifest": true,
+        "space": 4,
+        "writeToDisk": true,
+      },
+      "stats": null,
+    },
+    DefinePlugin {
+      "definitions": Object {
+        "process.env": Object {
+          "NODE_ENV": "\\"test\\"",
+        },
+      },
+    },
+    NamedModulesPlugin {
+      "options": Object {},
+    },
+    HtmlWebpackPlugin {
+      "options": Object {
+        "cache": true,
+        "chunks": "all",
+        "compile": true,
+        "excludeChunks": Array [],
+        "favicon": false,
+        "filename": "index.html",
+        "hash": false,
+        "inject": true,
+        "minify": false,
+        "showErrors": true,
+        "template": "./index.ejs",
+        "title": "Webpack App",
+        "xhtml": false,
+      },
+    },
+  ],
+  "resolve": Object {
+    "alias": Object {
+      "@": "<cwd>/app",
+      "~": "<cwd>/app/scripts",
+    },
+  },
+}
+`;
+
+exports[`config/index.js bundles using webpack correctly 1`] = `
+"
+./
+├── /app
+|  ├── /config
+|  |  └── /webpack
+|  ├── /fonts
+|  ├── /images
+|  ├── index.ejs
+|  ├── /media
+|  ├── /scripts
+|  |  └── main.js
+|  └── /styles
+|     └── main.scss
+├── /public
+|  ├── index.html
+|  ├── manifest.json
+|  ├── /scripts
+|  |  ├── _manifest.d521cfe0.js
+|  |  ├── _vendor.d2ca492b.js
+|  |  └── main.e47ea44d.js
+|  └── /styles
+|     └── main.d41d8cd9.css
+└── webpack.config.js
+
+directory: 11 file: 10 symboliclink: 1 
+
+[2K[1G"
+`;
