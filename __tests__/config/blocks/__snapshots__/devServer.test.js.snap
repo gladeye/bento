@@ -6,6 +6,7 @@ Object {
     "compress": false,
     "disableHostCheck": true,
     "historyApiFallback": true,
+    "host": "localhost",
     "hot": true,
     "inline": true,
     "noInfo": true,
