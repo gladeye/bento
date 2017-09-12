@@ -12,10 +12,15 @@ export default class ConfigBuilder {
         this._options = parse(resolve(options));
         this._blocks = options.blocks.list || [];
         this._timeout = options.blocks.timeout || 3000;
+        this._config = null;
     }
 
     get options() {
         return this._options;
+    }
+
+    get config() {
+        return this._config;
     }
 
     build() {
@@ -81,6 +86,8 @@ export default class ConfigBuilder {
                     next(result);
                 }
             })(config);
+        }).then(config => {
+            return (this._config = config);
         });
     }
 }
