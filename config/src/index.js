@@ -20,7 +20,11 @@ export function serve(options, cb) {
     return build(options)
         .then(config => {
             WebpackDevServerController.addEntryPoints(config, config.devServer);
-            return WebpackController.create(config).bundle();
+
+            const webpackCtl = WebpackController.create(config);
+            webpackCtl.bundle();
+
+            return webpackCtl;
         })
         .then(webpackCtl => {
             return Promise.all([
@@ -34,7 +38,7 @@ export function serve(options, cb) {
         .then(([browserSyncCtl, devServerCtl]) => {
             // returns a promise which never resolves unless `done` is called
             return new Promise(resolve => {
-                if (!cb) return resolve();
+                if (!cb) return;
                 cb(devServerCtl.server, function done() {
                     Promise.all([
                         browserSyncCtl.stop(),
