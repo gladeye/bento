@@ -3,6 +3,7 @@ import tmp from "tmp";
 import shelljs from "shelljs";
 import { join, resolve } from "path";
 import { realpathSync } from "fs";
+import req, { Test } from "supertest";
 
 const cwd = join(resolve(__dirname, "../"));
 
@@ -62,4 +63,19 @@ export function tree(args, cwd) {
     output.stdout = output.stdout.replace(cwd, "./");
 
     return output;
+}
+
+export function request(app) {
+    if (!Test.prototype.test) {
+        Test.prototype.test = function() {
+            return new Promise(resolve => {
+                this.end((err, res) => {
+                    if (err) throw err;
+                    resolve(res);
+                });
+            });
+        };
+    }
+
+    return req(app);
 }

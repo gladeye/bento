@@ -1,6 +1,6 @@
 import { join } from "path";
-import { scaffolder, tree } from "../utils";
-import { build, bundle } from "~/index";
+import { scaffolder, tree, request } from "../utils";
+import { build, bundle, serve } from "~/index";
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
 
@@ -40,5 +40,40 @@ describe("config/index.js", () => {
             .catch(e => {
                 console.error(e);
             });
+    });
+
+    it("serves using webpack-dev-server correctly", () => {
+        return scaffold().then(dir => {
+            const options = require(join(dir, "./app/config/webpack"));
+            options.env = Object.assign(options.env, {
+                value: "development",
+                isProduction: false,
+                isDevServer: true
+            });
+
+            options.browserSync = Object.assign(options.browserSync, {
+                open: false,
+                logLevel: "silent"
+            });
+
+            return serve(options, (server, done) => {
+                const req = request(server.app);
+
+                Promise.all([
+                    req
+                        .get("/")
+                        .accept("html")
+                        .expect(200)
+                        .test(),
+                    req
+                        .get("/scripts/main.js")
+                        .expect("Content-Type", /javascript/)
+                        .expect(200)
+                        .test()
+                ]).then(() => {
+                    done();
+                });
+            });
+        });
     });
 });
