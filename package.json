@@ -1,6 +1,6 @@
 {
   "name": "@gladeye/bento",
-  "version": "1.1.0",
+  "version": "1.1.0-beta.1",
   "main": "config/dst/index.js",
   "repository": "https://github.com/gladeye/bento",
   "author": "Gladeye Team <point@gladeye.com>",
@@ -25,7 +25,7 @@
     "start": "yarn start:babel",
     "start:babel": "yarn clean:dst && yarn build:babel -- --watch",
     "clean:dst": "rimraf  ./config/dst/*",
-    "push:next": "npm publish --tag beta --access public"
+    "push:beta": "npm publish --tag beta --access public"
   },
   "peerDependencies": {
     "webpack": "3.x",
