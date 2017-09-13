@@ -22,3 +22,8 @@ export function select(options) {
         return cases[options.get("env.value")];
     };
 }
+
+export function caught(e) {
+    if (process.env.NODE_ENV === "test") throw e;
+    console.error(e);
+}

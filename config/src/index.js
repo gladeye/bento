@@ -1,9 +1,10 @@
 import ConfigBuilder from "~/lib/ConfigBuilder";
+import { caught } from "~/lib/utils";
 
 export function build(options) {
     return ConfigBuilder.create(options)
         .build()
-        .catch(e => console.error(e));
+        .catch(caught);
 }
 
 export function bundle(options) {
@@ -13,7 +14,7 @@ export function bundle(options) {
         .then(config => {
             return WebpackController.create(config).bundle();
         })
-        .catch(e => console.error(e));
+        .catch(caught);
 }
 
 export function serve(options, cb) {
@@ -51,5 +52,5 @@ export function serve(options, cb) {
                 });
             });
         })
-        .catch(e => console.error(e));
+        .catch(caught);
 }
