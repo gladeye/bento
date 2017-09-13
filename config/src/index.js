@@ -1,15 +1,19 @@
 import ConfigBuilder from "~/lib/ConfigBuilder";
 
 export function build(options) {
-    return ConfigBuilder.create(options).build();
+    return ConfigBuilder.create(options)
+        .build()
+        .catch(e => console.error(e));
 }
 
 export function bundle(options) {
     const WebpackController = require("~/lib/WebpackController");
 
-    return build(options).then(config => {
-        return WebpackController.create(config).bundle();
-    });
+    return build(options)
+        .then(config => {
+            return WebpackController.create(config).bundle();
+        })
+        .catch(e => console.error(e));
 }
 
 export function serve(options, cb) {
@@ -46,5 +50,6 @@ export function serve(options, cb) {
                     ]).then(resolve);
                 });
             });
-        });
+        })
+        .catch(e => console.error(e));
 }
