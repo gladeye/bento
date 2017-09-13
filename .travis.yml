@@ -8,5 +8,5 @@ node_js:
 install:
   - yarn install
 script:
-  - yarn link
+  - yarn build
   - yarn test
