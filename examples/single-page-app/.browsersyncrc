@@ -1,0 +1,12 @@
+{
+    "open": true,
+    "ghostMode": false,
+    "watchOptions": {
+        "ignoreInitial": true,
+        "ignored": "*.txt",
+        "cwd": "."
+    },
+    "files": [
+        "./index.ejs"
+    ]
+}
