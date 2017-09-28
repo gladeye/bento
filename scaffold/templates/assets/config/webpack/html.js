@@ -2,7 +2,7 @@ module.exports = {
     <%_ if (kind === 'ssa') { _%>
     /**
      * ------------------------------------------------------------------------
-     * Back-end proxy
+     * Back-end Proxy
      * ------------------------------------------------------------------------
      * For Server Side Application, map of endpoints that should be proxied to
      * a back-end server.
@@ -20,7 +20,7 @@ module.exports = {
     <%_ } else if (kind === 'spa') { _%>
     /**
      * ------------------------------------------------------------------------
-     * Back-end HTML
+     * Index HTML
      * ------------------------------------------------------------------------
      * Typically for Single Page Application, specify a template to generate
      * the index.html file

@@ -24,7 +24,7 @@ export default function devServer(config, options) {
         plugins: [
             new webpack.HotModuleReplacementPlugin(),
             new BrowserSyncPlugin(
-                Object.assign({}, options.get("browserSync"), {
+                Object.assign({}, options.get("browsersync"), {
                     port: options.get("ports.browserSyncMain"),
                     ui: {
                         port: options.get("ports.browserSyncUI")

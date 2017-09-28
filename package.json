@@ -13,10 +13,8 @@
     "test:config:index": "jest __tests__/config/index.test.js --forceExit",
     "test:scaffold:index": "jest __tests__/scaffold/index.test.js",
     "scaffold": "run-s scaffold:*",
-    "scaffold:ssa":
-      "cd examples/server-side-app; rimraf -rf ./* && yo ../../scaffold --default=ssa",
-    "scaffold:spa":
-      "cd examples/single-page-app; rimraf -rf ./* && yo ../../scaffold --default=spa",
+    "scaffold:ssa": "cd examples/server-side-app; rimraf -rf ./* && yo ../../scaffold --default=ssa",
+    "scaffold:spa": "cd examples/single-page-app; rimraf -rf ./* && yo ../../scaffold --default=spa",
     "prepublishOnly": "yarn test",
     "push:beta": "npm publish --tag beta --access public",
     "push": "npm publish --access public",
@@ -24,8 +22,7 @@
     "build": "yarn clean:dst && yarn build:babel",
     "start": "yarn start:babel",
     "start:babel": "yarn clean:dst && yarn build:babel -- --watch",
-    "clean:dst": "rimraf  ./config/dst/*",
-    "push:beta": "npm publish --tag beta --access public"
+    "clean:dst": "rimraf  ./config/dst/*"
   },
   "peerDependencies": {
     "webpack": "3.x",
@@ -37,6 +34,7 @@
     "babel-jest": "^21.0.0",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-module-resolver": "^2.7.1",
+    "babel-preset-stage-2": "^6.24.1",
     "jest": "^21.0.1",
     "npm-run-all": "^4.0.2",
     "pretty-format": "^21.0.2",
@@ -55,9 +53,9 @@
     "babel-core": "^6.25.0",
     "babel-loader": "^7.0.0",
     "babel-preset-env": "^1.6.0",
-    "babel-preset-stage-2": "^6.24.1",
     "browser-sync": "^2.18.12",
     "browser-sync-webpack-plugin": "^1.2.0",
+    "browserslist": "^2.4.0",
     "clean-webpack-plugin": "^0.1.16",
     "copy-globs-webpack-plugin": "^0.2.0",
     "css-loader": "^0.28.4",
@@ -65,6 +63,7 @@
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^0.11.2",
     "html-webpack-plugin": "^2.29.0",
+    "lodash": "^4.17.4",
     "node-sass": "^4.5.3",
     "object-path": "^0.11.4",
     "openport": "^0.0.4",
@@ -81,7 +80,11 @@
     "yeoman-generator": "^1.1.1"
   },
   "jest": {
-    "testMatch": ["**/__tests__/**/*.test.js"],
-    "snapshotSerializers": ["./__tests__/__helpers__/serialisers"]
+    "testMatch": [
+      "**/__tests__/**/*.test.js"
+    ],
+    "snapshotSerializers": [
+      "./__tests__/__helpers__/serialisers"
+    ]
   }
 }

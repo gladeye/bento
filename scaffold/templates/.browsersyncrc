@@ -1,0 +1,16 @@
+{
+    "open": true,
+    "ghostMode": false,
+    "watchOptions": {
+        "ignoreInitial": true,
+        "ignored": "*.txt",
+        "cwd": "."
+    },
+    "files": [
+        <%_ if (kind === 'ssa') { _%>
+        // "{app,resources/views}/**/*.php"
+        <%_ } else if (kind === 'spa') { _%>
+        "./index.ejs"
+        <%_ } _%>
+    ]
+}

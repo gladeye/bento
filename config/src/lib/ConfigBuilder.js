@@ -1,4 +1,4 @@
-import { parse, resolve, select } from "~/lib/utils";
+import { transform, select } from "~/lib/utils";
 import ManifestKeeper from "~/lib/ManifestKeeper";
 
 export default class ConfigBuilder {
@@ -9,7 +9,7 @@ export default class ConfigBuilder {
     manifest = new ManifestKeeper();
 
     constructor(options = {}) {
-        this._options = parse(resolve(options));
+        this._options = transform(options);
         this._blocks = options.blocks.list || [];
         this._timeout = options.blocks.timeout || 3000;
         this._config = null;

@@ -41,11 +41,13 @@ export default function style(config, options) {
                                 options: {
                                     ident: "postcss",
                                     plugins: () => {
+                                        const autoprefixer = require("autoprefixer");
                                         const browsers = options.get(
-                                            "scss.browsers"
+                                            "browserslist"
                                         );
+
                                         return [
-                                            require("autoprefixer")({
+                                            autoprefixer({
                                                 browsers
                                             })
                                         ];
