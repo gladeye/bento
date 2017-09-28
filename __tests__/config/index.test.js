@@ -51,10 +51,10 @@ describe("config/index.js", () => {
                 isDevServer: true
             });
 
-            options.browserSync = Object.assign(options.browserSync, {
+            options.browsersync = {
                 open: false,
                 logLevel: "silent"
-            });
+            };
 
             return serve(options, (server, done) => {
                 const req = request(server.app);

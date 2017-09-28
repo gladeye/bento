@@ -8,7 +8,10 @@ describe("scaffold/index.js", () => {
     describe("Single Page Application", () => {
         it("folder structure matches the snapshot", () => {
             return scaffold("--default spa --no-confirm").then(dir => {
-                const result = tree("./ --ignore node_modules/ -f -l 4", dir);
+                const result = tree(
+                    `./ --ignore "node_modules/, .gitkeep" -a -f -l 4`,
+                    dir
+                );
                 expect(result.stdout).toMatchSnapshot();
             });
         });

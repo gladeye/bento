@@ -6,12 +6,10 @@ exports[`scaffold/index.js Server Side Application folder structure matches the 
 ├── /assets
 |  ├── /config
 |  |  └── /webpack
-|  |     ├── backEnd.js
 |  |     ├── base.js
 |  |     ├── blocks.js
-|  |     ├── devServer.js
-|  |     ├── index.js
-|  |     └── transpiler.js
+|  |     ├── html.js
+|  |     └── index.js
 |  ├── /fonts
 |  ├── /images
 |  ├── /media
@@ -23,7 +21,7 @@ exports[`scaffold/index.js Server Side Application folder structure matches the 
 |  └── /assets
 └── webpack.config.js
 
-directory: 10 file: 9 symboliclink: 1 
+directory: 10 file: 7 symboliclink: 1 
 
 [2K[1G"
 `;
@@ -31,15 +29,16 @@ directory: 10 file: 9 symboliclink: 1
 exports[`scaffold/index.js Single Page Application folder structure matches the snapshot 1`] = `
 "
 ./
+├── .babelrc
+├── .browserslistrc
+├── .browsersyncrc
 ├── /app
 |  ├── /config
 |  |  └── /webpack
-|  |     ├── backEnd.js
 |  |     ├── base.js
 |  |     ├── blocks.js
-|  |     ├── devServer.js
-|  |     ├── index.js
-|  |     └── transpiler.js
+|  |     ├── html.js
+|  |     └── index.js
 |  ├── /fonts
 |  ├── /images
 |  ├── index.ejs
@@ -51,7 +50,7 @@ exports[`scaffold/index.js Single Page Application folder structure matches the 
 ├── /public
 └── webpack.config.js
 
-directory: 9 file: 10 symboliclink: 1 
+directory: 9 file: 15 symboliclink: 1 
 
 [2K[1G"
 `;

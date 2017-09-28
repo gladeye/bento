@@ -23,13 +23,14 @@ Object {
                 Object {
                   "targets": Object {
                     "browsers": Array [
-                      "last 1 version",
+                      "> 1%",
+                      "last 2 versions",
+                      "Firefox ESR",
                     ],
                   },
                   "useBuiltIns": true,
                 },
               ],
-              "stage-2",
             ],
           },
         },
