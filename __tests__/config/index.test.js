@@ -2,7 +2,7 @@ import { join } from "path";
 import { scaffolder, tree, request } from "../utils";
 import { build, bundle, serve } from "~/index";
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 120000;
 
 describe("config/index.js", () => {
     const scaffold = scaffolder("--default spa --no-confirm");
