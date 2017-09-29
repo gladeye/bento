@@ -6,7 +6,7 @@ export default function base(config, options, { select }) {
         entry: options.get("entry"),
 
         devtool: select({
-            development: "cheap-module-eval-source-map",
+            default: "cheap-module-eval-source-map",
             production: options.get("enabled.sourceMap") ? "source-map" : false
         }),
 

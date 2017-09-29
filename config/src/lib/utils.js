@@ -60,9 +60,12 @@ export function transform(
     return options;
 }
 
-export function select(options) {
+export function select(options, defaultKey = "default") {
     return function(cases) {
-        return cases[options.get("env.value")];
+        let key = options.get("env.value");
+        if (!cases.hasOwnProperty(key)) key = defaultKey;
+
+        return cases[key];
     };
 }
 

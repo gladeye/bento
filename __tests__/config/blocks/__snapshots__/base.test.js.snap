@@ -21,7 +21,7 @@ Object {
 exports[`blocks/base matches snapshot when in production 1`] = `
 Object {
   "context": "<cwd>/app",
-  "devtool": undefined,
+  "devtool": false,
   "entry": Object {
     "main": Array [
       "./main.js",
