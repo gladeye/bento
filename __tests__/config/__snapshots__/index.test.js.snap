@@ -3,7 +3,7 @@
 exports[`config/index.js builds webpack config that matches the snapshot 1`] = `
 Object {
   "context": "<cwd>/app",
-  "devtool": undefined,
+  "devtool": "cheap-module-eval-source-map",
   "entry": Object {
     "main": Array [
       "./scripts/main.js",
@@ -12,7 +12,9 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /(node_modules)/,
+        "include": Array [
+          "<cwd>/app",
+        ],
         "test": /\\.js$/,
         "use": Object {
           "loader": "babel-loader",
@@ -37,7 +39,9 @@ Object {
         },
       },
       Object {
-        "include": /node_modules/,
+        "include": Array [
+          /node_modules/,
+        ],
         "test": /\\.css$/,
         "use": Array [
           Object {
@@ -60,7 +64,9 @@ Object {
         ],
       },
       Object {
-        "include": "<cwd>/app",
+        "include": Array [
+          "<cwd>/app",
+        ],
         "test": /\\.scss$/,
         "use": Array [
           Object {
@@ -103,7 +109,9 @@ Object {
         ],
       },
       Object {
-        "include": "<cwd>/app",
+        "include": Array [
+          "<cwd>/app",
+        ],
         "loader": "file-loader",
         "options": Object {
           "name": "[path][name].[ext]",
@@ -111,7 +119,9 @@ Object {
         "test": /\\.(ttf|eot|woff2?|png|jpe?g|gif|svg)$/,
       },
       Object {
-        "include": /node_modules/,
+        "include": Array [
+          /node_modules/,
+        ],
         "loader": "file-loader",
         "options": Object {
           "name": "vendor/[name].[ext]",

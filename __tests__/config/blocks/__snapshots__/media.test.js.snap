@@ -5,7 +5,9 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "include": "<cwd>/app",
+        "include": Array [
+          "<cwd>/app",
+        ],
         "loader": "file-loader",
         "options": Object {
           "name": "[path][name].[ext]",
@@ -13,7 +15,9 @@ Object {
         "test": /\\.(ttf|eot|woff2?|png|jpe?g|gif|svg)$/,
       },
       Object {
-        "include": /node_modules/,
+        "include": Array [
+          /node_modules/,
+        ],
         "loader": "file-loader",
         "options": Object {
           "name": "vendor/[name].[ext]",
