@@ -1,6 +1,6 @@
 {
   "name": "@gladeye/bento",
-  "version": "1.1.0-beta.4",
+  "version": "1.1.0-beta.5",
   "main": "config/dst/index.js",
   "repository": "https://github.com/gladeye/bento",
   "author": "Gladeye Team <point@gladeye.com>",
@@ -17,7 +17,7 @@
       "cd examples/server-side-app; rimraf -rf ./* && yo ../../scaffold --default=ssa",
     "scaffold:spa":
       "cd examples/single-page-app; rimraf -rf ./* && yo ../../scaffold --default=spa",
-    "prepublishOnly": "yarn test",
+    "prepublishOnly": "yarn build && yarn test",
     "push:beta": "npm publish --tag beta --access public",
     "push": "npm publish --access public",
     "build:babel": "babel ./config/src -d ./config/dst",
