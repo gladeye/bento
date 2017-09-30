@@ -17,6 +17,7 @@ Object {
         "use": Object {
           "loader": "babel-loader",
           "options": Object {
+            "babelrc": false,
             "presets": Array [
               Array [
                 "env",

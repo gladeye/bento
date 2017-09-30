@@ -46,6 +46,7 @@ export function browserslist(options) {
 export function babel(options) {
     if (!options.paths || !options.paths.input) return options;
     options.babel = merge(babelrc(options.paths.input), options.babel || {});
+    options.babel.babelrc = false;
     return options;
 }
 
