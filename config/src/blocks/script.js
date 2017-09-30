@@ -7,7 +7,7 @@ export default function script(config, options) {
             rules: [
                 {
                     test: /\.js$/,
-                    exclude: /(node_modules)/,
+                    include: [options.get("paths.input")],
                     use: {
                         loader: "babel-loader",
                         options: options.get("babel")

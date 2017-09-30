@@ -7,7 +7,7 @@ export default function style(config, options) {
             rules: [
                 {
                     test: /\.css$/,
-                    include: /node_modules/,
+                    include: [/node_modules/],
                     use: ExtractTextPlugin.extract({
                         fallback: "style-loader",
                         publicPath: "../",
@@ -24,7 +24,7 @@ export default function style(config, options) {
 
                 {
                     test: /\.scss$/,
-                    include: options.get("paths.input"),
+                    include: [options.get("paths.input")],
                     use: ExtractTextPlugin.extract({
                         fallback: "style-loader",
                         publicPath: "../",

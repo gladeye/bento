@@ -5,7 +5,9 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /(node_modules)/,
+        "include": Array [
+          undefined,
+        ],
         "test": /\\.js$/,
         "use": Object {
           "loader": "babel-loader",
@@ -22,7 +24,9 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "exclude": /(node_modules)/,
+        "include": Array [
+          undefined,
+        ],
         "test": /\\.js$/,
         "use": Object {
           "loader": "babel-loader",

@@ -5,7 +5,9 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "include": /node_modules/,
+        "include": Array [
+          /node_modules/,
+        ],
         "test": /\\.css$/,
         "use": Array [
           Object {
@@ -28,7 +30,9 @@ Object {
         ],
       },
       Object {
-        "include": "<cwd>/app",
+        "include": Array [
+          "<cwd>/app",
+        ],
         "test": /\\.scss$/,
         "use": Array [
           Object {
@@ -89,7 +93,9 @@ Object {
   "module": Object {
     "rules": Array [
       Object {
-        "include": /node_modules/,
+        "include": Array [
+          /node_modules/,
+        ],
         "test": /\\.css$/,
         "use": Array [
           Object {
@@ -112,7 +118,9 @@ Object {
         ],
       },
       Object {
-        "include": "<cwd>/app",
+        "include": Array [
+          "<cwd>/app",
+        ],
         "test": /\\.scss$/,
         "use": Array [
           Object {
