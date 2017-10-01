@@ -39,6 +39,10 @@ describe("blocks/style", () => {
                 {
                     env: {
                         isProduction: true
+                    },
+
+                    enabled: {
+                        extractCSS: "@{env.isProduction}"
                     }
                 },
                 options

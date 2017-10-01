@@ -101,7 +101,8 @@ module.exports = {
      *
      */
     enabled: {
-        sourceMap: "@{env.isDevServer}"
+        sourceMap: "@{env.isDevServer}",
+        extractCSS: "@{env.isProduction}"
     },
 
     /**

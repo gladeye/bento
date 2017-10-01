@@ -78,7 +78,7 @@ export default function style(config, options) {
                 filename: `styles/${options
                     .get("filename")
                     .replace("hash:", "contenthash:")}.css`,
-                disable: !options.get("env.isProduction")
+                disable: !options.get("enabled.extractCSS")
             })
         ]
     });
