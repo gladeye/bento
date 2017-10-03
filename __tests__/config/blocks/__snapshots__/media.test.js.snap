@@ -13,7 +13,7 @@ Object {
           Object {
             "loader": "file-loader",
             "options": Object {
-              "name": "vendor/[name].[ext]",
+              "name": "[path][name].[ext]",
             },
           },
         ],

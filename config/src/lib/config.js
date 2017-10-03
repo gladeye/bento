@@ -43,6 +43,7 @@ export const base = {
     enabled: {
         sourceMap: "@{env.isDevServer}",
         extractCSS: "@{env.isProduction}",
+        magicImporter: true,
         writeManifest: true
     },
 

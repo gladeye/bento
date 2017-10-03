@@ -24,13 +24,11 @@ Object {
           Object {
             "loader": "css-loader",
             "options": Object {
-              "ident": "postcss",
-              "plugins": [Function plugins],
               "sourceMap": undefined,
             },
           },
           Object {
-            "loader": "css-loader",
+            "loader": "postcss-loader",
             "options": Object {
               "ident": "postcss",
               "plugins": [Function plugins],
@@ -38,18 +36,17 @@ Object {
             },
           },
           Object {
-            "loader": "css-loader",
+            "loader": "resolve-url-loader",
             "options": Object {
-              "ident": "postcss",
-              "plugins": [Function plugins],
               "sourceMap": undefined,
             },
           },
           Object {
-            "loader": "css-loader",
+            "loader": "sass-loader",
             "options": Object {
-              "ident": "postcss",
-              "plugins": [Function plugins],
+              "importer": Array [
+                [Function importer],
+              ],
               "sourceMap": undefined,
             },
           },
@@ -75,8 +72,6 @@ Object {
           Object {
             "loader": "css-loader",
             "options": Object {
-              "ident": "postcss",
-              "plugins": [Function plugins],
               "sourceMap": undefined,
             },
           },
@@ -120,13 +115,11 @@ Object {
           Object {
             "loader": "css-loader",
             "options": Object {
-              "ident": "postcss",
-              "plugins": [Function plugins],
               "sourceMap": undefined,
             },
           },
           Object {
-            "loader": "css-loader",
+            "loader": "postcss-loader",
             "options": Object {
               "ident": "postcss",
               "plugins": [Function plugins],
@@ -134,18 +127,17 @@ Object {
             },
           },
           Object {
-            "loader": "css-loader",
+            "loader": "resolve-url-loader",
             "options": Object {
-              "ident": "postcss",
-              "plugins": [Function plugins],
               "sourceMap": undefined,
             },
           },
           Object {
-            "loader": "css-loader",
+            "loader": "sass-loader",
             "options": Object {
-              "ident": "postcss",
-              "plugins": [Function plugins],
+              "importer": Array [
+                [Function importer],
+              ],
               "sourceMap": undefined,
             },
           },
@@ -171,8 +163,6 @@ Object {
           Object {
             "loader": "css-loader",
             "options": Object {
-              "ident": "postcss",
-              "plugins": [Function plugins],
               "sourceMap": undefined,
             },
           },
