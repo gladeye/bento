@@ -25,7 +25,7 @@ export default function plugins(config, options, { manifest }) {
             new WebpackAssetsManifest({
                 output: "manifest.json",
                 space: 4,
-                writeToDisk: true,
+                writeToDisk: options.get("enabled.writeManifest"),
                 sortManifest: true,
                 assets: manifest.data,
                 replacer: manifest.formatter()

@@ -15,6 +15,9 @@ describe("blocks/plugins", () => {
         },
         blocks: {
             list: [plugins]
+        },
+        enabled: {
+            writeManifest: true
         }
     };
 
