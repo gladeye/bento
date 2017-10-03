@@ -1,19 +1,11 @@
 import merge from "webpack-merge";
 import webpack from "webpack";
+import { mainScript } from "~/rules";
 
 export default function script(config, options) {
     config = merge(config, {
         module: {
-            rules: [
-                {
-                    test: /\.js$/,
-                    include: [options.get("paths.input")],
-                    use: {
-                        loader: "babel-loader",
-                        options: options.get("babel")
-                    }
-                }
-            ]
+            rules: [mainScript(options)]
         }
     });
 

@@ -8,21 +8,29 @@ Object {
         "include": Array [
           "<cwd>/app",
         ],
-        "loader": "file-loader",
-        "options": Object {
-          "name": "[path][name].[ext]",
-        },
         "test": /\\.(ttf|eot|woff2?|png|jpe?g|gif|svg)$/,
+        "use": Array [
+          Object {
+            "loader": "file-loader",
+            "options": Object {
+              "name": "vendor/[name].[ext]",
+            },
+          },
+        ],
       },
       Object {
         "include": Array [
-          /node_modules/,
+          "<cwd>/app",
         ],
-        "loader": "file-loader",
-        "options": Object {
-          "name": "vendor/[name].[ext]",
-        },
         "test": /\\.(ttf|eot|woff2?|png|jpe?g|gif|svg)$/,
+        "use": Array [
+          Object {
+            "loader": "file-loader",
+            "options": Object {
+              "name": "vendor/[name].[ext]",
+            },
+          },
+        ],
       },
     ],
   },

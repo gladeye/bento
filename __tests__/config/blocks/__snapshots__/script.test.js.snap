@@ -9,10 +9,12 @@ Object {
           undefined,
         ],
         "test": /\\.js$/,
-        "use": Object {
-          "loader": "babel-loader",
-          "options": Object {},
-        },
+        "use": Array [
+          Object {
+            "loader": "babel-loader",
+            "options": Object {},
+          },
+        ],
       },
     ],
   },
@@ -28,10 +30,12 @@ Object {
           undefined,
         ],
         "test": /\\.js$/,
-        "use": Object {
-          "loader": "babel-loader",
-          "options": Object {},
-        },
+        "use": Array [
+          Object {
+            "loader": "babel-loader",
+            "options": Object {},
+          },
+        ],
       },
     ],
   },
