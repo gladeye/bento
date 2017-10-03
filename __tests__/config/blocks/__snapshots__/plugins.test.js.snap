@@ -11,7 +11,7 @@ Object {
         "verbose": false,
       },
       "paths": Array [
-        "<cwd>/public/**/*",
+        "<cwd>/public",
       ],
     },
      {
