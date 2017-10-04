@@ -1,6 +1,6 @@
 {
   "name": "@gladeye/bento",
-  "version": "1.1.0-beta.9",
+  "version": "1.1.0-beta.10",
   "main": "config/dst/index.js",
   "repository": "https://github.com/gladeye/bento",
   "author": "Gladeye Team <point@gladeye.com>",
@@ -28,8 +28,7 @@
   },
   "peerDependencies": {
     "webpack": "3.x",
-    "webpack-dev-server": "2.x",
-    "webpack-merge": "4.1.x"
+    "webpack-dev-server": "2.x"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -46,8 +45,7 @@
     "tmp": "^0.0.33",
     "tree-cli": "^0.4.12",
     "webpack": "^3.2.0",
-    "webpack-dev-server": "^2.7.1",
-    "webpack-merge": "^4.1.0"
+    "webpack-dev-server": "^2.7.1"
   },
   "dependencies": {
     "@kenvunz/shoelace": "^1.0.2",
@@ -80,7 +78,8 @@
     "url-loader": "^0.5.9",
     "webpack-assets-manifest": "^1.0.0",
     "yargs": "^8.0.2",
-    "yeoman-generator": "^1.1.1"
+    "yeoman-generator": "^1.1.1",
+    "webpack-merge": "^4.1.0"
   },
   "jest": {
     "testMatch": ["**/__tests__/**/*.test.js"],
