@@ -9,8 +9,12 @@ describe("blocks/backEnd", () => {
             webpack: 3002
         },
 
+        env: {
+            isDevServer: true
+        },
+
         proxy: {
-            "/": {
+            "**": {
                 target: "http://localhost:8080",
                 changeOrigin: true,
                 autoRewrite: true

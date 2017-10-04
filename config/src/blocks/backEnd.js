@@ -4,9 +4,9 @@ import respMod from "resp-modifier";
 export default function backEnd(config, options) {
     if (options.get("proxy") && options.get("env.isDevServer")) {
         config = merge(config, {
-            proxy: options.get("proxy"),
             devServer: {
-                before(app) {
+                proxy: options.get("proxy"),
+                setup(app) {
                     app.use(
                         respMod({
                             rules: [

@@ -2,6 +2,16 @@
 
 exports[`blocks/backEnd matches snapshot 1`] = `
 Object {
+  "devServer": Object {
+    "proxy": Object {
+      "**": Object {
+        "autoRewrite": true,
+        "changeOrigin": true,
+        "target": "http://localhost:8080",
+      },
+    },
+    "setup": [Function setup],
+  },
   "plugins": Array [
     HtmlWebpackPlugin {
       "options": Object {

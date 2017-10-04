@@ -58,6 +58,47 @@ describe("config/index.js", () => {
         });
 
         test(scaffold, "./assets");
+
+        it("serves using webpack-dev-server correctly", () => {
+            return scaffold().then(dir => {
+                const options = require(join(dir, `./assets/config/webpack`));
+                options.env = Object.assign(options.env, {
+                    value: "development",
+                    isProduction: false,
+                    isDevServer: true
+                });
+
+                options.browsersync = {
+                    open: false,
+                    logLevel: "silent"
+                };
+
+                options.proxy = {
+                    "**": {
+                        target: "http://gladeye.com/"
+                    }
+                };
+
+                return serve(options, (server, done) => {
+                    const req = request(server.app);
+
+                    Promise.all([
+                        req
+                            .get("/")
+                            .accept("html")
+                            .expect(301)
+                            .test(),
+                        req
+                            .get("/scripts/main.js")
+                            .expect("Content-Type", /javascript/)
+                            .expect(200)
+                            .test()
+                    ]).then(() => {
+                        done();
+                    });
+                });
+            });
+        });
     });
 });
 
