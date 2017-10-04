@@ -7,8 +7,8 @@ export default class ManifestKeeper {
         this.data = data;
     }
 
-    formatter() {
-        return (key, value) => {
+    formatter(publicPath = "") {
+        return function replacer(key, value) {
             if (typeof value === "string") {
                 return value;
             }
@@ -35,7 +35,9 @@ export default class ManifestKeeper {
                 if (sourcePath === targetPath) {
                     return;
                 }
-                manifest[`${targetPath}/${src}`] = manifest[src];
+                manifest[`${targetPath}/${src}`] = `${publicPath}${manifest[
+                    src
+                ]}`;
                 delete manifest[src];
             });
             return manifest;

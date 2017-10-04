@@ -24,7 +24,10 @@ export default function plugins(config, options, { manifest }) {
                 writeToDisk: options.get("enabled.writeManifest"),
                 sortManifest: true,
                 assets: manifest.data,
-                replacer: manifest.formatter()
+                replacer: manifest.formatter(options.get("paths.public")),
+                customize(key) {
+                    return key.indexOf(".map") < 0;
+                }
             }),
 
             new webpack.DefinePlugin({
