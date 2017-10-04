@@ -6,7 +6,7 @@ export default function backEnd(config, options) {
         config = merge(config, {
             devServer: {
                 proxy: options.get("proxy"),
-                setup(app) {
+                before(app) {
                     app.use(
                         respMod({
                             rules: [
