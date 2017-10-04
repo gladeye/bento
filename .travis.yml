@@ -9,5 +9,4 @@ install:
   - yarn install
 script:
   - yarn build
-  - cat /home/travis/build/gladeye/bento/node_modules/sass-loader/lib/loader.js
   - yarn test
