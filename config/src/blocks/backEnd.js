@@ -12,7 +12,7 @@ export default function backEnd(config, options) {
                             rules: [
                                 {
                                     match: new RegExp(
-                                        options.get("proxy")["/"].target,
+                                        options.get("proxy")["**"].target,
                                         "gi"
                                     ),
                                     replace: `//localhost:${options.get(

@@ -69,11 +69,11 @@ module.exports = merge(config, {
      * ------------------------------------------------------------------------
      * For Server Side Application, map of endpoints that should be proxied to
      * a back-end server.
-     * Note: currently, only "/" is supported.
+     * Note: currently, only "**" is supported.
      *
      */
     proxy: {
-        "/": {
+        "**": {
             target: <%- JSON.stringify(proxy) %>,
             changeOrigin: true,
             autoRewrite: true
