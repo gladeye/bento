@@ -1,6 +1,252 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`config/index.js builds webpack config that matches the snapshot 1`] = `
+exports[`config/index.js Server Side Application builds webpack config that matches the snapshot 1`] = `
+Object {
+  "context": "<cwd>/assets",
+  "devtool": "cheap-module-eval-source-map",
+  "entry": Object {
+    "main": Array [
+      "./scripts/main.js",
+    ],
+  },
+  "module": Object {
+    "rules": Array [
+      Object {
+        "include": Array [
+          "<cwd>/assets",
+        ],
+        "test": /\\.js$/,
+        "use": Array [
+          Object {
+            "loader": "babel-loader",
+            "options": Object {
+              "babelrc": false,
+              "presets": Array [
+                Array [
+                  "env",
+                  Object {
+                    "targets": Object {
+                      "browsers": Array [
+                        "> 1%",
+                        "last 2 versions",
+                        "Firefox ESR",
+                      ],
+                    },
+                    "useBuiltIns": true,
+                  },
+                ],
+              ],
+            },
+          },
+        ],
+      },
+      Object {
+        "include": Array [
+          "<cwd>/assets",
+        ],
+        "test": /\\.scss$/,
+        "use": Array [
+          Object {
+            "loader": "<cwd>/node_modules/@gladeye/bento/node_modules/extract-text-webpack-plugin/dist/loader.js",
+            "options": Object {
+              "omit": 1,
+              "publicPath": "../",
+              "remove": true,
+            },
+          },
+          Object {
+            "loader": "style-loader",
+          },
+          Object {
+            "loader": "css-loader",
+            "options": Object {
+              "sourceMap": false,
+            },
+          },
+          Object {
+            "loader": "postcss-loader",
+            "options": Object {
+              "ident": "postcss",
+              "plugins": [Function plugins],
+              "sourceMap": false,
+            },
+          },
+          Object {
+            "loader": "resolve-url-loader",
+            "options": Object {
+              "sourceMap": false,
+            },
+          },
+          Object {
+            "loader": "sass-loader",
+            "options": Object {
+              "importer": Array [
+                [Function importer],
+              ],
+              "sourceMap": false,
+            },
+          },
+        ],
+      },
+      Object {
+        "include": Array [
+          /node_modules/,
+        ],
+        "test": /\\.css$/,
+        "use": Array [
+          Object {
+            "loader": "<cwd>/node_modules/@gladeye/bento/node_modules/extract-text-webpack-plugin/dist/loader.js",
+            "options": Object {
+              "omit": 1,
+              "publicPath": "../",
+              "remove": true,
+            },
+          },
+          Object {
+            "loader": "style-loader",
+          },
+          Object {
+            "loader": "css-loader",
+            "options": Object {
+              "sourceMap": false,
+            },
+          },
+        ],
+      },
+      Object {
+        "include": Array [
+          "<cwd>/assets",
+        ],
+        "test": /\\.(ttf|eot|woff2?|png|jpe?g|gif|svg)$/,
+        "use": Array [
+          Object {
+            "loader": "file-loader",
+            "options": Object {
+              "name": "[path][name].[ext]",
+            },
+          },
+        ],
+      },
+      Object {
+        "include": Array [
+          "<cwd>/assets",
+        ],
+        "test": /\\.(ttf|eot|woff2?|png|jpe?g|gif|svg)$/,
+        "use": Array [
+          Object {
+            "loader": "file-loader",
+            "options": Object {
+              "name": "vendor/[name].[ext]",
+            },
+          },
+        ],
+      },
+    ],
+  },
+  "output": Object {
+    "filename": "scripts/[name].js",
+    "path": "<cwd>/public/assets",
+    "publicPath": "/assets/",
+  },
+  "plugins": Array [
+    ExtractTextPlugin {
+      "filename": "styles/[name].css",
+      "id": 1,
+      "options": Object {
+        "disable": true,
+      },
+    },
+    CleanWebpackPlugin {
+      "options": Object {
+        "allowExternal": false,
+        "dry": false,
+        "root": "<cwd>",
+        "verbose": false,
+      },
+      "paths": Array [
+        "<cwd>/public/assets",
+      ],
+    },
+     {
+      "disable": undefined,
+      "files": Array [],
+      "globOptions": Object {
+        "cwd": null,
+        "nodir": true,
+      },
+      "manifest": Object {},
+      "output": "[path][name].[ext]",
+      "pattern": "+(images|media)/**/*",
+      "watcher": null,
+    },
+    WebpackAssetsManifest {
+      "_events": Object {},
+      "_eventsCount": 0,
+      "_maxListeners": undefined,
+      "assets": Object {},
+      "compiler": null,
+      "domain": null,
+      "hmrRegex": null,
+      "options": Object {
+        "contextRelativeKeys": false,
+        "customize": null,
+        "fileExtRegex": /\\.\\w{2,4}\\.(?:map|gz)$|\\.\\w+$/i,
+        "merge": false,
+        "output": "manifest.json",
+        "publicPath": null,
+        "replacer": [Function anonymous],
+        "sortManifest": true,
+        "space": 4,
+        "writeToDisk": true,
+      },
+      "stats": null,
+    },
+    DefinePlugin {
+      "definitions": Object {
+        "process.env": Object {
+          "NODE_ENV": "\\"test\\"",
+        },
+      },
+    },
+    NamedModulesPlugin {
+      "options": Object {},
+    },
+  ],
+  "resolve": Object {
+    "alias": Object {
+      "@": "<cwd>/assets",
+      "~": "<cwd>/assets/scripts",
+    },
+  },
+}
+`;
+
+exports[`config/index.js Server Side Application bundles using webpack correctly 1`] = `
+"
+./
+├── /assets
+|  ├── /config
+|  |  └── /webpack
+|  ├── /fonts
+|  ├── /images
+|  ├── /media
+|  ├── /scripts
+|  |  └── main.js
+|  └── /styles
+|     └── main.scss
+├── /public
+|  └── /assets
+|     ├── manifest.json
+|     ├── /scripts
+|     └── /styles
+└── webpack.config.js
+
+directory: 12 file: 4 symboliclink: 1 
+
+[2K[1G"
+`;
+
+exports[`config/index.js Single Page Application builds webpack config that matches the snapshot 1`] = `
 Object {
   "context": "<cwd>/app",
   "devtool": "cheap-module-eval-source-map",
@@ -238,7 +484,7 @@ Object {
 }
 `;
 
-exports[`config/index.js bundles using webpack correctly 1`] = `
+exports[`config/index.js Single Page Application bundles using webpack correctly 1`] = `
 "
 ./
 ├── /app

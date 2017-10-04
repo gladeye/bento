@@ -5,16 +5,67 @@ import { build, bundle, serve } from "~/index";
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 120000;
 
 describe("config/index.js", () => {
-    const scaffold = scaffolder("--default spa --no-confirm");
+    describe("Single Page Application", () => {
+        const scaffold = scaffolder("--default spa --no-confirm");
 
-    afterEach(() => {
-        scaffolder.restore();
+        afterEach(() => {
+            scaffolder.restore();
+        });
+
+        test(scaffold, "./app");
+
+        it("serves using webpack-dev-server correctly", () => {
+            return scaffold().then(dir => {
+                const options = require(join(dir, `./app/config/webpack`));
+                options.env = Object.assign(options.env, {
+                    value: "development",
+                    isProduction: false,
+                    isDevServer: true
+                });
+
+                options.browsersync = {
+                    open: false,
+                    logLevel: "silent"
+                };
+
+                return serve(options, (server, done) => {
+                    const req = request(server.app);
+
+                    Promise.all([
+                        req
+                            .get("/")
+                            .accept("html")
+                            .expect(200)
+                            .test(),
+                        req
+                            .get("/scripts/main.js")
+                            .expect("Content-Type", /javascript/)
+                            .expect(200)
+                            .test()
+                    ]).then(() => {
+                        done();
+                    });
+                });
+            });
+        });
     });
 
+    describe("Server Side Application", () => {
+        const scaffold = scaffolder("--default ssa --no-confirm");
+
+        afterEach(() => {
+            scaffolder.restore();
+        });
+
+        test(scaffold, "./assets");
+    });
+});
+
+function test(scaffold, path) {
     it("builds webpack config that matches the snapshot", () => {
         return scaffold()
             .then(dir => {
-                const options = require(join(dir, "./app/config/webpack"));
+                const options = require(join(dir, `${path}/config/webpack`));
                 return build(options);
             })
             .then(config => {
@@ -25,7 +76,7 @@ describe("config/index.js", () => {
     it("bundles using webpack correctly", () => {
         return scaffold()
             .then(dir => {
-                const options = require(join(dir, "./app/config/webpack"));
+                const options = require(join(dir, `${path}/config/webpack`));
                 options.env = Object.assign(options.env, {
                     value: "production",
                     isProduction: true
@@ -41,39 +92,4 @@ describe("config/index.js", () => {
                 console.error(e);
             });
     });
-
-    it("serves using webpack-dev-server correctly", () => {
-        return scaffold().then(dir => {
-            const options = require(join(dir, "./app/config/webpack"));
-            options.env = Object.assign(options.env, {
-                value: "development",
-                isProduction: false,
-                isDevServer: true
-            });
-
-            options.browsersync = {
-                open: false,
-                logLevel: "silent"
-            };
-
-            return serve(options, (server, done) => {
-                const req = request(server.app);
-
-                Promise.all([
-                    req
-                        .get("/")
-                        .accept("html")
-                        .expect(200)
-                        .test(),
-                    req
-                        .get("/scripts/main.js")
-                        .expect("Content-Type", /javascript/)
-                        .expect(200)
-                        .test()
-                ]).then(() => {
-                    done();
-                });
-            });
-        });
-    });
-});
+}
