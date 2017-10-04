@@ -1,4 +1,5 @@
 import merge from "webpack-merge";
+import respMod from "resp-modifier";
 
 export default function backEnd(config, options) {
     if (options.get("proxy") && options.get("env.isDevServer")) {
