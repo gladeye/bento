@@ -15,7 +15,7 @@ export default function backEnd(config, options) {
                                         options.get("proxy")["**"].target,
                                         "gi"
                                     ),
-                                    replace: `//localhost:${options.get(
+                                    replace: `http://localhost:${options.get(
                                         "ports.webpack"
                                     )}`
                                 }
