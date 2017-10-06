@@ -19,9 +19,7 @@ Object {
         ],
       },
       Object {
-        "include": Array [
-          "<cwd>/app",
-        ],
+        "include": /node_modules/,
         "test": /\\.(ttf|eot|woff2?|png|jpe?g|gif|svg)$/,
         "use": Array [
           Object {

@@ -14,39 +14,20 @@ Object {
         "<cwd>/public",
       ],
     },
-     {
-      "disable": undefined,
-      "files": Array [],
-      "globOptions": Object {
-        "cwd": null,
-        "nodir": true,
-      },
-      "manifest": Object {},
-      "output": "[path][name].[ext]",
-      "pattern": "+(images|media)/**/*",
-      "watcher": null,
+    Object {
+      "apply": [Function apply],
     },
-    WebpackAssetsManifest {
-      "_events": Object {},
-      "_eventsCount": 0,
-      "_maxListeners": undefined,
-      "assets": Object {},
-      "compiler": null,
-      "domain": null,
-      "hmrRegex": null,
-      "options": Object {
-        "contextRelativeKeys": false,
-        "customize": [Function customize],
-        "fileExtRegex": /\\.\\w{2,4}\\.(?:map|gz)$|\\.\\w+$/i,
-        "merge": false,
-        "output": "manifest.json",
-        "publicPath": null,
-        "replacer": [Function replacer],
-        "sortManifest": true,
-        "space": 4,
-        "writeToDisk": true,
+    ManifestPlugin {
+      "opts": Object {
+        "basePath": "",
+        "fileName": "manifest.json",
+        "filter": null,
+        "generate": [Function generate],
+        "map": null,
+        "seed": Object {},
+        "transformExtensions": /^(gz|map)$/i,
+        "writeToFileEmit": true,
       },
-      "stats": null,
     },
     DefinePlugin {
       "definitions": Object {

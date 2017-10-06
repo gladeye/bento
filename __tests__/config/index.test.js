@@ -1,5 +1,6 @@
 import { join } from "path";
-import { scaffolder, tree, request } from "../utils";
+import shelljs from "shelljs";
+import { scaffolder, request } from "../utils";
 import { build, bundle, serve } from "~/index";
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 120000;
@@ -12,7 +13,7 @@ describe("config/index.js", () => {
             scaffolder.restore();
         });
 
-        test(scaffold, "./app");
+        test(scaffold, "./app", "./public/manifest.json");
 
         it("serves using webpack-dev-server correctly", () => {
             return scaffold().then(dir => {
@@ -57,7 +58,7 @@ describe("config/index.js", () => {
             scaffolder.restore();
         });
 
-        test(scaffold, "./assets");
+        test(scaffold, "./assets", "./public/assets/manifest.json");
 
         it("serves using webpack-dev-server correctly", () => {
             return scaffold().then(dir => {
@@ -102,7 +103,7 @@ describe("config/index.js", () => {
     });
 });
 
-function test(scaffold, path) {
+function test(scaffold, path, manifest) {
     it("builds webpack config that matches the snapshot", () => {
         return scaffold()
             .then(dir => {
@@ -117,6 +118,12 @@ function test(scaffold, path) {
     it("bundles using webpack correctly", () => {
         return scaffold()
             .then(dir => {
+                shelljs.cp(
+                    "-R",
+                    join(__dirname, "__fixtures__/build/*"),
+                    join(dir, path)
+                );
+
                 const options = require(join(dir, `${path}/config/webpack`));
                 options.env = Object.assign(options.env, {
                     value: "production",
@@ -126,8 +133,8 @@ function test(scaffold, path) {
                 return bundle(options).then(() => dir);
             })
             .then(dir => {
-                const output = tree("./public -f -l 3", dir);
-                expect(output.stdout).toMatchSnapshot();
+                const json = require(join(dir, manifest));
+                expect(json).toMatchSnapshot();
             })
             .catch(e => {
                 console.error(e);

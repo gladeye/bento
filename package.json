@@ -13,10 +13,8 @@
     "test:config:index": "jest __tests__/config/index.test.js --forceExit",
     "test:scaffold:index": "jest __tests__/scaffold/index.test.js",
     "scaffold": "run-s scaffold:*",
-    "scaffold:ssa":
-      "cd examples/server-side-app; rimraf -rf ./* && yo ../../scaffold --default=ssa",
-    "scaffold:spa":
-      "cd examples/single-page-app; rimraf -rf ./* && yo ../../scaffold --default=spa",
+    "scaffold:ssa": "cd examples/server-side-app; rimraf -rf ./* && yo ../../scaffold --default=ssa",
+    "scaffold:spa": "cd examples/single-page-app; rimraf -rf ./* && yo ../../scaffold --default=spa",
     "prepublishOnly": "yarn build && yarn test",
     "push:beta": "npm publish --tag beta --access public",
     "push": "npm publish --access public",
@@ -42,6 +40,7 @@
     "tree-cli": "^0.4.12"
   },
   "dependencies": {
+    "@kenvunz/copy-webpack-plugin": "^4.1.1",
     "@kenvunz/shoelace": "^1.0.2",
     "autoprefixer": "^7.1.4",
     "babel-core": "^6.25.0",
@@ -51,7 +50,6 @@
     "browser-sync-webpack-plugin": "^1.2.0",
     "browserslist": "^2.4.0",
     "clean-webpack-plugin": "^0.1.16",
-    "copy-globs-webpack-plugin": "^0.2.0",
     "css-loader": "^0.28.4",
     "cssnano": "^3.10.0",
     "extract-text-webpack-plugin": "^3.0.0",
@@ -71,14 +69,18 @@
     "style-loader": "^0.18.2",
     "url-loader": "^0.5.9",
     "webpack": "^3.6.0",
-    "webpack-assets-manifest": "^1.0.0",
     "webpack-dev-server": "^2.9.1",
+    "webpack-manifest-plugin": "^2.0.0-rc.1",
     "webpack-merge": "^4.1.0",
     "yargs": "^8.0.2",
     "yeoman-generator": "^1.1.1"
   },
   "jest": {
-    "testMatch": ["**/__tests__/**/*.test.js"],
-    "snapshotSerializers": ["./__tests__/__helpers__/serialisers"]
+    "testMatch": [
+      "**/__tests__/**/*.test.js"
+    ],
+    "snapshotSerializers": [
+      "./__tests__/__helpers__/serialisers"
+    ]
   }
 }

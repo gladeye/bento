@@ -44,7 +44,7 @@ exports[`scaffold/index.js Single Page Application folder structure matches the 
 ├── /public
 └── webpack.config.js
 
-directory: 9 file: 12 symboliclink: 1 
+directory: 9 file: 15 symboliclink: 1 
 
 [2K[1G"
 `;

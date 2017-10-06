@@ -128,9 +128,7 @@ Object {
         ],
       },
       Object {
-        "include": Array [
-          "<cwd>/assets",
-        ],
+        "include": /node_modules/,
         "test": /\\.(ttf|eot|woff2?|png|jpe?g|gif|svg)$/,
         "use": Array [
           Object {
@@ -167,39 +165,20 @@ Object {
         "<cwd>/public/assets",
       ],
     },
-     {
-      "disable": undefined,
-      "files": Array [],
-      "globOptions": Object {
-        "cwd": null,
-        "nodir": true,
-      },
-      "manifest": Object {},
-      "output": "[path][name].[ext]",
-      "pattern": "+(images|media)/**/*",
-      "watcher": null,
+    Object {
+      "apply": [Function apply],
     },
-    WebpackAssetsManifest {
-      "_events": Object {},
-      "_eventsCount": 0,
-      "_maxListeners": undefined,
-      "assets": Object {},
-      "compiler": null,
-      "domain": null,
-      "hmrRegex": null,
-      "options": Object {
-        "contextRelativeKeys": false,
-        "customize": [Function customize],
-        "fileExtRegex": /\\.\\w{2,4}\\.(?:map|gz)$|\\.\\w+$/i,
-        "merge": false,
-        "output": "manifest.json",
-        "publicPath": null,
-        "replacer": [Function replacer],
-        "sortManifest": true,
-        "space": 4,
-        "writeToDisk": true,
+    ManifestPlugin {
+      "opts": Object {
+        "basePath": "",
+        "fileName": "manifest.json",
+        "filter": null,
+        "generate": [Function generate],
+        "map": null,
+        "seed": Object {},
+        "transformExtensions": /^(gz|map)$/i,
+        "writeToFileEmit": true,
       },
-      "stats": null,
     },
     DefinePlugin {
       "definitions": Object {
@@ -222,28 +201,14 @@ Object {
 `;
 
 exports[`config/index.js Server Side Application bundles using webpack correctly 1`] = `
-"
-./
-├── /assets
-|  ├── /config
-|  |  └── /webpack
-|  ├── /fonts
-|  ├── /images
-|  ├── /media
-|  ├── /scripts
-|  |  └── main.js
-|  └── /styles
-|     └── main.scss
-├── /public
-|  └── /assets
-|     ├── manifest.json
-|     ├── /scripts
-|     └── /styles
-└── webpack.config.js
-
-directory: 12 file: 4 symboliclink: 1 
-
-[2K[1G"
+Object {
+  "images/background.jpg": "/assets/images/background.912ae359.jpg",
+  "images/nice.jpg": "/assets/images/nice.9c3c4150.jpg",
+  "scripts/_manifest.js": "/assets/scripts/_manifest.88fe3615.js",
+  "scripts/_vendor.js": "/assets/scripts/_vendor.d2ca492b.js",
+  "scripts/main.js": "/assets/scripts/main.d41964d5.js",
+  "styles/main.css": "/assets/styles/main.02b62d85.css",
+}
 `;
 
 exports[`config/index.js Single Page Application builds webpack config that matches the snapshot 1`] = `
@@ -374,9 +339,7 @@ Object {
         ],
       },
       Object {
-        "include": Array [
-          "<cwd>/app",
-        ],
+        "include": /node_modules/,
         "test": /\\.(ttf|eot|woff2?|png|jpe?g|gif|svg)$/,
         "use": Array [
           Object {
@@ -413,39 +376,20 @@ Object {
         "<cwd>/public",
       ],
     },
-     {
-      "disable": undefined,
-      "files": Array [],
-      "globOptions": Object {
-        "cwd": null,
-        "nodir": true,
-      },
-      "manifest": Object {},
-      "output": "[path][name].[ext]",
-      "pattern": "+(images|media)/**/*",
-      "watcher": null,
+    Object {
+      "apply": [Function apply],
     },
-    WebpackAssetsManifest {
-      "_events": Object {},
-      "_eventsCount": 0,
-      "_maxListeners": undefined,
-      "assets": Object {},
-      "compiler": null,
-      "domain": null,
-      "hmrRegex": null,
-      "options": Object {
-        "contextRelativeKeys": false,
-        "customize": [Function customize],
-        "fileExtRegex": /\\.\\w{2,4}\\.(?:map|gz)$|\\.\\w+$/i,
-        "merge": false,
-        "output": "manifest.json",
-        "publicPath": null,
-        "replacer": [Function replacer],
-        "sortManifest": true,
-        "space": 4,
-        "writeToDisk": true,
+    ManifestPlugin {
+      "opts": Object {
+        "basePath": "",
+        "fileName": "manifest.json",
+        "filter": null,
+        "generate": [Function generate],
+        "map": null,
+        "seed": Object {},
+        "transformExtensions": /^(gz|map)$/i,
+        "writeToFileEmit": true,
       },
-      "stats": null,
     },
     DefinePlugin {
       "definitions": Object {
@@ -485,31 +429,12 @@ Object {
 `;
 
 exports[`config/index.js Single Page Application bundles using webpack correctly 1`] = `
-"
-./
-├── /app
-|  ├── /config
-|  |  └── /webpack
-|  ├── /fonts
-|  ├── /images
-|  ├── index.ejs
-|  ├── /media
-|  ├── /scripts
-|  |  └── main.js
-|  └── /styles
-|     └── main.scss
-├── /public
-|  ├── index.html
-|  ├── manifest.json
-|  ├── /scripts
-|  |  ├── _manifest.d521cfe0.js
-|  |  ├── _vendor.d2ca492b.js
-|  |  └── main.e47ea44d.js
-|  └── /styles
-|     └── main.d41d8cd9.css
-└── webpack.config.js
-
-directory: 11 file: 10 symboliclink: 1 
-
-[2K[1G"
+Object {
+  "images/background.jpg": "/images/background.912ae359.jpg",
+  "images/nice.jpg": "/images/nice.9c3c4150.jpg",
+  "scripts/_manifest.js": "/scripts/_manifest.a8678b50.js",
+  "scripts/_vendor.js": "/scripts/_vendor.d2ca492b.js",
+  "scripts/main.js": "/scripts/main.d41964d5.js",
+  "styles/main.css": "/styles/main.02b62d85.css",
+}
 `;

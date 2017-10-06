@@ -200,9 +200,19 @@ module.exports = class extends Generator {
             this.props
         );
 
-        this.fs.copyTpl(
+        this.fs.copy(
             this.templatePath("assets/**/*"),
             this.destinationPath(this.props.input),
+            {
+                globOptions: {
+                    dot: true
+                }
+            }
+        );
+
+        this.fs.copyTpl(
+            this.templatePath("assets/config/**/*"),
+            this.destinationPath(`${this.props.input}/config`),
             this.props,
             {},
             {

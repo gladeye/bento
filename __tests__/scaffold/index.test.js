@@ -9,7 +9,7 @@ describe("scaffold/index.js", () => {
         it("folder structure matches the snapshot", () => {
             return scaffold("--default spa --no-confirm").then(dir => {
                 const result = tree(
-                    `./ --ignore "node_modules/, .gitkeep" -a -f -l 4`,
+                    `./ --ignore "node_modules/, .gitkeep, .DS_Store" -a -f -l 10`,
                     dir
                 );
                 expect(result.stdout).toMatchSnapshot();
@@ -20,7 +20,10 @@ describe("scaffold/index.js", () => {
     describe("Server Side Application", () => {
         it("folder structure matches the snapshot", () => {
             return scaffold("--default ssa --no-confirm").then(dir => {
-                const result = tree("./ --ignore node_modules/ -f -l 4", dir);
+                const result = tree(
+                    `./ --ignore "node_modules/, .gitkeep, .DS_Store" -f -l 10`,
+                    dir
+                );
                 expect(result.stdout).toMatchSnapshot();
             });
         });
