@@ -43,6 +43,7 @@ export function mainMedia(options) {
 
 export function vendorMedia(options) {
     const rule = mainMedia(options);
+    rule.include = /node_modules/;
     rule.use = [
         file(options, {
             options: {
