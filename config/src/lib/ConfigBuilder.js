@@ -1,12 +1,9 @@
 import { transform, select } from "~/lib/utils";
-import ManifestKeeper from "~/lib/ManifestKeeper";
 
 export default class ConfigBuilder {
     static create(options = {}) {
         return new ConfigBuilder(options);
     }
-
-    manifest = new ManifestKeeper();
 
     constructor(options = {}) {
         this._options = transform(options);
@@ -34,7 +31,7 @@ export default class ConfigBuilder {
 
             let config = {},
                 options = this._options,
-                utils = { select: select(options), manifest: this.manifest };
+                utils = { select: select(options) };
 
             (function next(result) {
                 let async;
