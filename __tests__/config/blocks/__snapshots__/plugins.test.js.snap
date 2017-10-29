@@ -14,9 +14,6 @@ Object {
         "<cwd>/public",
       ],
     },
-    Object {
-      "apply": [Function apply],
-    },
     ManifestPlugin {
       "opts": Object {
         "basePath": "",
@@ -24,7 +21,7 @@ Object {
         "filter": null,
         "generate": [Function generate],
         "map": null,
-        "seed": Object {},
+        "seed": null,
         "transformExtensions": /^(gz|map)$/i,
         "writeToFileEmit": true,
       },

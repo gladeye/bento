@@ -80,9 +80,6 @@ Object {
           Object {
             "loader": "sass-loader",
             "options": Object {
-              "importer": Array [
-                [Function importer],
-              ],
               "sourceMap": false,
             },
           },
@@ -165,9 +162,6 @@ Object {
         "<cwd>/public/assets",
       ],
     },
-    Object {
-      "apply": [Function apply],
-    },
     ManifestPlugin {
       "opts": Object {
         "basePath": "",
@@ -175,7 +169,7 @@ Object {
         "filter": null,
         "generate": [Function generate],
         "map": null,
-        "seed": Object {},
+        "seed": null,
         "transformExtensions": /^(gz|map)$/i,
         "writeToFileEmit": true,
       },
@@ -204,9 +198,9 @@ exports[`config/index.js Server Side Application bundles using webpack correctly
 Object {
   "images/background.jpg": "/assets/images/background.912ae359.jpg",
   "images/nice.jpg": "/assets/images/nice.9c3c4150.jpg",
-  "scripts/_manifest.js": "/assets/scripts/_manifest.88fe3615.js",
+  "scripts/_manifest.js": "/assets/scripts/_manifest.d5f6378e.js",
   "scripts/_vendor.js": "/assets/scripts/_vendor.d2ca492b.js",
-  "scripts/main.js": "/assets/scripts/main.d41964d5.js",
+  "scripts/main.js": "/assets/scripts/main.9c5645b4.js",
   "styles/main.css": "/assets/styles/main.02b62d85.css",
 }
 `;
@@ -291,9 +285,6 @@ Object {
           Object {
             "loader": "sass-loader",
             "options": Object {
-              "importer": Array [
-                [Function importer],
-              ],
               "sourceMap": false,
             },
           },
@@ -376,9 +367,6 @@ Object {
         "<cwd>/public",
       ],
     },
-    Object {
-      "apply": [Function apply],
-    },
     ManifestPlugin {
       "opts": Object {
         "basePath": "",
@@ -386,7 +374,7 @@ Object {
         "filter": null,
         "generate": [Function generate],
         "map": null,
-        "seed": Object {},
+        "seed": null,
         "transformExtensions": /^(gz|map)$/i,
         "writeToFileEmit": true,
       },
@@ -432,9 +420,9 @@ exports[`config/index.js Single Page Application bundles using webpack correctly
 Object {
   "images/background.jpg": "/images/background.912ae359.jpg",
   "images/nice.jpg": "/images/nice.9c3c4150.jpg",
-  "scripts/_manifest.js": "/scripts/_manifest.a8678b50.js",
+  "scripts/_manifest.js": "/scripts/_manifest.2082a84b.js",
   "scripts/_vendor.js": "/scripts/_vendor.d2ca492b.js",
-  "scripts/main.js": "/scripts/main.d41964d5.js",
+  "scripts/main.js": "/scripts/main.9c5645b4.js",
   "styles/main.css": "/styles/main.02b62d85.css",
 }
 `;

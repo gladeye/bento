@@ -1,5 +1,7 @@
 require("core-js");
-require("@/styles/main.scss");
+require("@/styles/registry");
+require("@/images/registry");
+require("@/media/registry");
 
 if (module.hot) {
     module.hot.accept();
