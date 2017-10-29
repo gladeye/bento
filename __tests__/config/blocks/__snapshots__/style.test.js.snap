@@ -44,9 +44,6 @@ Object {
           Object {
             "loader": "sass-loader",
             "options": Object {
-              "importer": Array [
-                [Function importer],
-              ],
               "sourceMap": undefined,
             },
           },
@@ -135,9 +132,6 @@ Object {
           Object {
             "loader": "sass-loader",
             "options": Object {
-              "importer": Array [
-                [Function importer],
-              ],
               "sourceMap": undefined,
             },
           },

@@ -21,9 +21,6 @@ describe("blocks/style", () => {
                 {
                     env: {
                         isProduction: false
-                    },
-                    enabled: {
-                        magicImporter: true
                     }
                 },
                 options
@@ -45,8 +42,7 @@ describe("blocks/style", () => {
                     },
 
                     enabled: {
-                        extractCSS: "@{env.isProduction}",
-                        magicImporter: true
+                        extractCSS: "@{env.isProduction}"
                     }
                 },
                 options

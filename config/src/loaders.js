@@ -62,18 +62,11 @@ export function url(options, override = {}) {
 }
 
 export function sass(options, override = {}) {
-    let importer;
-
-    if (options.get("enabled.magicImporter")) {
-        importer = [require("node-sass-magic-importer")()];
-    }
-
     return m(
         {
             loader: "sass-loader",
             options: {
-                sourceMap: options.get("enabled.sourceMap"),
-                importer
+                sourceMap: options.get("enabled.sourceMap")
             }
         },
         override
