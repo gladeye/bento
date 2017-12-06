@@ -1,6 +1,3 @@
-examples
-test
 yarn.lock
 *.sublime-*
 __tests__
-.tmp
