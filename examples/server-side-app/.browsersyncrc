@@ -7,6 +7,6 @@
         "cwd": "."
     },
     "files": [
-        // "{app,resources/views}/**/*.php"
+        "{app,resources/views}/**/*.php"
     ]
 }
