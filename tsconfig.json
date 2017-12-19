@@ -3,12 +3,13 @@
         "target": "es5",
         "module": "commonjs",
         "sourceMap": true,
-        "outDir": "dst"
+        "outDir": "dst",
+        "baseUrl": ".",
+        "lib": ["es2017", "dom"],
+        "paths": {
+            "~/*": ["src/*"]
+        }
     },
-    "include": [
-        "src/**/*"
-    ],
-    "exclude": [
-        "node_modules"
-    ]
+    "include": ["src/**/*", "__tests__/**/*"],
+    "exclude": ["node_modules"]
 }

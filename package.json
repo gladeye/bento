@@ -1,18 +1,35 @@
 {
-  "name": "@gladeye/bento",
-  "version": "1.1.0",
-  "main": "index.js",
-  "repository": "https://github.com/gladeye/bento",
-  "author": "Gladeye Team <point@gladeye.com>",
-  "license": "MIT",
-  "engines": {
-    "node": ">=7"
-  },
-  "scripts": {},
-  "peerDependencies": {
-    "webpack": "3.x",
-    "webpack-dev-server": "2.x"
-  },
-  "devDependencies": {},
-  "dependencies": {}
+    "name": "@gladeye/bento",
+    "version": "1.1.0",
+    "main": "index.js",
+    "repository": "https://github.com/gladeye/bento",
+    "author": "Gladeye Team <point@gladeye.com>",
+    "license": "MIT",
+    "engines": {
+        "node": ">=7"
+    },
+    "scripts": {},
+    "peerDependencies": {
+        "webpack": "3.x",
+        "webpack-dev-server": "2.x"
+    },
+    "devDependencies": {
+        "@types/jest": "^21.1.8",
+        "@types/node": "^8.0.55",
+        "@types/webpack": "^3.8.1",
+        "jest": "^21.2.1",
+        "ts-jest": "^21.2.4",
+        "typescript": "^2.6.2"
+    },
+    "dependencies": {},
+    "jest": {
+        "transform": {
+            "^.+\\.tsx?$": "ts-jest"
+        },
+        "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+        "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json"],
+        "moduleNameMapper": {
+            "~/(.*)": "<rootDir>/src/$1"
+        }
+    }
 }
