@@ -162,14 +162,12 @@ export default class Bento {
         return this;
     }
 
-    export(fn?: (description: {}) => void): {} {
+    export(middleware?: (manifest: {}) => void): void {
         const description = {
             rules: this.rules,
             plugins: this.plugins
         };
 
-        if (fn) fn(description);
-
-        return description;
+        if (middleware) middleware(description);
     }
 }

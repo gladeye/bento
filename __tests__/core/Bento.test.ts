@@ -12,7 +12,9 @@ describe("Bento", () => {
             });
 
             bento.addRule("js", "babel-loader");
-            expect(bento.export()).toMatchSnapshot();
+            bento.export(manifest => {
+                expect(manifest).toMatchSnapshot();
+            });
         });
     });
 
@@ -26,8 +28,44 @@ describe("Bento", () => {
                 }
             });
 
-            bento.addRules({ js: ["babel-loader"] });
-            expect(bento.export()).toMatchSnapshot();
+            bento.addRules({ js: ["babel-loader"], css: "style-loader" });
+            bento.export(manifest => {
+                expect(manifest).toMatchSnapshot();
+            });
+        });
+    });
+
+    describe(".addPlugin", () => {
+        it("works as expected", () => {
+            const bento = Bento.create({
+                homeDir: "app",
+                outputDir: "public",
+                entry: {
+                    main: "scripts/main.js"
+                }
+            });
+
+            bento.addPlugin("html-webpack-plugin");
+            bento.export(manifest => {
+                expect(manifest).toMatchSnapshot();
+            });
+        });
+    });
+
+    describe(".addPlugins", () => {
+        it("works as expected", () => {
+            const bento = Bento.create({
+                homeDir: "app",
+                outputDir: "public",
+                entry: {
+                    main: "scripts/main.js"
+                }
+            });
+
+            bento.addPlugins({ "html-webpack-plugin": [] });
+            bento.export(manifest => {
+                expect(manifest).toMatchSnapshot();
+            });
         });
     });
 });

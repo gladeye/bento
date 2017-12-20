@@ -1,5 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Bento .addPlugin works as expected 1`] = `
+Object {
+  "plugins": Array [
+    Object {
+      "args": Array [],
+      "name": "html-webpack-plugin",
+    },
+  ],
+  "rules": Array [],
+}
+`;
+
+exports[`Bento .addPlugins works as expected 1`] = `
+Object {
+  "plugins": Array [
+    Object {
+      "args": Array [],
+      "name": "html-webpack-plugin",
+    },
+  ],
+  "rules": Array [],
+}
+`;
+
 exports[`Bento .addRule() works as expected 1`] = `
 Object {
   "plugins": Array [],
@@ -34,6 +58,17 @@ Object {
         "use": Array [
           "babel-loader",
         ],
+      },
+    },
+    Object {
+      "ext": Array [
+        "css",
+      ],
+      "rule": Object {
+        "include": Array [
+          "<cwd>/app",
+        ],
+        "use": "style-loader",
       },
     },
   ],
