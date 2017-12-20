@@ -18,6 +18,7 @@
         "@types/node": "^8.0.55",
         "@types/webpack": "^3.8.1",
         "jest": "^21.2.1",
+        "pretty-format": "^22.0.3",
         "ts-jest": "^21.2.4",
         "typescript": "^2.6.2"
     },
@@ -26,10 +27,21 @@
         "transform": {
             "^.+\\.tsx?$": "ts-jest"
         },
-        "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-        "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json"],
+        "testMatch": [
+            "**/__tests__/**/*.test.ts"
+        ],
+        "moduleFileExtensions": [
+            "ts",
+            "tsx",
+            "js",
+            "jsx",
+            "json"
+        ],
         "moduleNameMapper": {
             "~/(.*)": "<rootDir>/src/$1"
-        }
+        },
+        "snapshotSerializers": [
+            "./__tests__/serialiser.ts"
+        ]
     }
 }

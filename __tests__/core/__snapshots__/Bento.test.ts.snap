@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Bento .addRule() works as expected 1`] = `
+Object {
+  "plugins": Array [],
+  "rules": Array [
+    Object {
+      "ext": Array [
+        "js",
+      ],
+      "rule": Object {
+        "include": Array [
+          "<cwd>/app",
+        ],
+        "use": "babel-loader",
+      },
+    },
+  ],
+}
+`;
+
+exports[`Bento .addRules() works as expected 1`] = `
+Object {
+  "plugins": Array [],
+  "rules": Array [
+    Object {
+      "ext": Array [
+        "js",
+      ],
+      "rule": Object {
+        "include": Array [
+          "<cwd>/app",
+        ],
+        "use": Array [
+          "babel-loader",
+        ],
+      },
+    },
+  ],
+}
+`;
