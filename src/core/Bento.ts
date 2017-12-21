@@ -1,10 +1,14 @@
 import { resolve } from "path";
-import { Loader, Condition } from "webpack";
+import { Loader, Condition, Configuration, Resolve } from "webpack";
+import { selector } from "~/utils/env";
+import { instantiate } from "~/utils/lang";
+import * as resolveModule from "resolve";
 
 export interface BaseConfig {
     homeDir: string;
     outputDir: string;
     entry: {};
+    publicPath?: string;
 }
 
 export interface RuleMap {
@@ -28,6 +32,10 @@ export interface PluginMap {
 export interface PluginDescriptor {
     name: string;
     args: any[];
+}
+
+export interface Features {
+    sourceMap: boolean;
 }
 
 /**
@@ -67,31 +75,59 @@ export default class Bento {
 
     /**
      * @private
+     * @type {Features}
+     * @memberof Bento
+     */
+    private features: Features = {
+        sourceMap: true
+    };
+
+    /**
+     * @private
      * @memberof Bento
      */
     private resolve: (path: string) => string;
+
+    /**
+     * @private
+     * @memberof Bento
+     */
+    private select: (choice: {}) => any;
 
     /**
      * Convenient method to create an instance of Bento
      *
      * @static
      * @param {BaseConfig} config
+     * @param {string} [context]
+     * @param {string} [env]
      * @returns {Bento}
      * @memberof Bento
      */
-    public static create(config: BaseConfig, context?: string): Bento {
-        return new Bento(config, context);
+    public static create(
+        config: BaseConfig,
+        env?: string,
+        context?: string
+    ): Bento {
+        return new Bento(config, env, context);
     }
 
     /**
      * Creates an instance of Bento.
-     *
      * @param {BaseConfig} config
+     * @param {string} [context]
+     * @param {string} [env]
      * @memberof Bento
      */
-    public constructor(config: BaseConfig, context: string = process.cwd()) {
+    public constructor(
+        config: BaseConfig,
+        env: string = process.env.NODE_ENV,
+        context: string = process.cwd()
+    ) {
+        this.context = context;
         this.config = config;
-        this.resolve = resolve.bind(this, context);
+        this.resolve = resolve.bind(this, this.context);
+        this.select = selector(env);
     }
 
     /**
@@ -162,12 +198,74 @@ export default class Bento {
         return this;
     }
 
-    export(middleware?: (manifest: {}) => void): void {
+    /**
+     * Export information to a standard consumable webpack config file
+     *
+     * @param {(manifest: {}) => void} [override]
+     * @returns {Promise<Configuration>}
+     * @memberof Bento
+     */
+    export(override?: (manifest: {}) => void): Promise<Configuration> {
         const description = {
             rules: this.rules,
             plugins: this.plugins
         };
 
-        if (middleware) middleware(description);
+        if (override) override(description);
+
+        const config = {
+            name: "bento",
+            context: this.context,
+            entry: this.config.entry,
+            output: {
+                path: this.resolve(this.config.outputDir),
+                filename: this.select({
+                    default: "[name].js",
+                    production: "[name].[chunkhash].js"
+                }),
+                publicPath: this.config.publicPath || "/"
+            },
+            devtool: this.select({
+                default: this.features.sourceMap
+                    ? "cheap-module-eval-source-map"
+                    : null,
+                production: this.features.sourceMap ? "source-map" : null
+            }),
+            resolve: {
+                alias: {
+                    "~": this.resolve(this.config.homeDir)
+                }
+            },
+            module: {
+                rules: this.rules.map(desc => {
+                    return Object.assign({}, desc.rule, {
+                        test: new RegExp(`\\.(${desc.ext.join("|")})$`)
+                    });
+                })
+            },
+            plugins: this.plugins.map(desc => {
+                const module = resolveModule.sync(desc.name, {
+                    basedir: this.context
+                });
+
+                const Plugin = require(module);
+                return instantiate(Plugin, desc.args);
+            })
+        };
+
+        return Promise.resolve(config);
+    }
+
+    /**
+     * Enable / disable available features
+     *
+     * @param {string} flag
+     * @param {boolean} value
+     * @returns {this}
+     * @memberof Bento
+     */
+    set(flag: string, value: boolean): this {
+        this.features[flag] = value;
+        return this;
     }
 }
