@@ -237,7 +237,7 @@ export default class Bento {
                 default: this.features.sourceMap
                     ? "cheap-module-eval-source-map"
                     : null,
-                production: this.features.sourceMap ? "source-map" : null
+                production: this.features.sourceMap ? "source-map" : false
             }),
             resolve: {
                 alias: {
