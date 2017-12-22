@@ -57,6 +57,13 @@ export default class Bento {
      * @type {string}
      * @memberof Bento
      */
+    private cwd: string;
+
+    /**
+     * @private
+     * @type {string}
+     * @memberof Bento
+     */
     private context: string;
 
     /**
@@ -99,8 +106,8 @@ export default class Bento {
      *
      * @static
      * @param {BaseConfig} config
-     * @param {string} [context]
      * @param {string} [env]
+     * @param {string} [cwd]
      * @returns {Bento}
      * @memberof Bento
      */
@@ -115,17 +122,18 @@ export default class Bento {
     /**
      * Creates an instance of Bento.
      * @param {BaseConfig} config
-     * @param {string} [context]
      * @param {string} [env]
+     * @param {string} [cwd]
      * @memberof Bento
      */
     public constructor(
         config: BaseConfig,
         env: string = process.env.NODE_ENV,
-        context: string = process.cwd()
+        cwd: string = process.cwd()
     ) {
-        this.context = context;
         this.config = config;
+        this.cwd = cwd;
+        this.context = this.cwd;
         this.resolve = resolve.bind(this, this.context);
         this.select = selector(env);
     }
