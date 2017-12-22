@@ -227,6 +227,10 @@ export default class Bento {
             entry: this.config.entry,
             output: {
                 path: this.resolve(this.config.outputDir),
+                pathinfo: this.select({
+                    default: true,
+                    production: false
+                }),
                 filename: this.select({
                     default: "[name].js",
                     production: "[name].[chunkhash].js"

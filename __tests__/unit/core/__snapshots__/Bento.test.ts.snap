@@ -89,6 +89,7 @@ Object {
   "output": Object {
     "filename": "[name].js",
     "path": "<cwd>/public",
+    "pathinfo": true,
     "publicPath": "/",
   },
   "plugins": Array [
@@ -132,6 +133,7 @@ Object {
   "output": Object {
     "filename": "[name].[chunkhash].js",
     "path": "<cwd>/public",
+    "pathinfo": true,
     "publicPath": "/",
   },
   "plugins": Array [],
@@ -157,6 +159,7 @@ Object {
   "output": Object {
     "filename": "[name].js",
     "path": "<cwd>/public",
+    "pathinfo": true,
     "publicPath": "/",
   },
   "plugins": Array [],
