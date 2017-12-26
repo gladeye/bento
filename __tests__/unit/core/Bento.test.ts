@@ -1,17 +1,11 @@
-import Bento from "~/core/Bento";
+import Bento, { Env } from "~/core/Bento";
 
 describe("Bento", () => {
-    function create(env?: string) {
-        return Bento.create(
-            {
-                homeDir: "./app",
-                outputDir: "./public",
-                entry: {
-                    main: "./app/scripts/main.js"
-                }
-            },
-            env
-        );
+    function create() {
+        return Bento.create({
+            homeDir: "./app",
+            outputDir: "./public"
+        }).bundle("main", "~/scripts/main.js");
     }
 
     describe(".addRule()", () => {
@@ -19,7 +13,7 @@ describe("Bento", () => {
             const bento = create();
 
             bento.addRule("js", "babel-loader");
-            bento.export(manifest => {
+            bento.tinker(manifest => {
                 expect(manifest).toMatchSnapshot();
             });
         });
@@ -30,7 +24,7 @@ describe("Bento", () => {
             const bento = create();
 
             bento.addRules({ js: ["babel-loader"], css: "style-loader" });
-            bento.export(manifest => {
+            bento.tinker(manifest => {
                 expect(manifest).toMatchSnapshot();
             });
         });
@@ -41,7 +35,7 @@ describe("Bento", () => {
             const bento = create();
 
             bento.addPlugin("html-webpack-plugin", []);
-            bento.export(manifest => {
+            bento.tinker(manifest => {
                 expect(manifest).toMatchSnapshot();
             });
         });
@@ -52,7 +46,7 @@ describe("Bento", () => {
             const bento = create();
 
             bento.addPlugins({ "html-webpack-plugin": [] });
-            bento.export(manifest => {
+            bento.tinker(manifest => {
                 expect(manifest).toMatchSnapshot();
             });
         });
@@ -74,9 +68,9 @@ describe("Bento", () => {
         });
 
         it("works as expected in `production` env", () => {
-            const bento = create("production");
+            const bento = create();
 
-            return bento.export().then(config => {
+            return bento.export(Env.Production).then(config => {
                 expect(config).toMatchSnapshot();
             });
         });

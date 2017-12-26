@@ -5,9 +5,8 @@ describe("build", () => {
     it.only("webpack uses `config` object and build as expected", () => {
         const bento = Bento.create({
             homeDir: "./__tests__",
-            outputDir: "/",
-            entry: "./__tests__/fixtures/main1.js"
-        });
+            outputDir: "/"
+        }).bundle("main", "~/fixtures/main1.js");
 
         const compiler = new WebpackCompiler();
         const files = {};

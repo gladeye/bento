@@ -1,13 +1,11 @@
 import { resolve } from "path";
-import { Loader, Condition, Configuration, Resolve } from "webpack";
-import { selector } from "~/utils/env";
-import { instantiate } from "~/utils/lang";
+import { Loader, Condition, Configuration, Resolve, Entry } from "webpack";
+import { instantiate, selector } from "~/utils/lang";
 import * as resolveModule from "resolve";
 
 export interface BaseConfig {
     homeDir: string;
     outputDir: string;
-    entry: {};
     publicPath?: string;
 }
 
@@ -38,6 +36,11 @@ export interface Features {
     sourceMap: boolean;
 }
 
+export enum Env {
+    Development = "development",
+    Production = "production"
+}
+
 /**
  * Main class of the library
  *
@@ -61,13 +64,6 @@ export default class Bento {
 
     /**
      * @private
-     * @type {string}
-     * @memberof Bento
-     */
-    private context: string;
-
-    /**
-     * @private
      * @type {RuleDescriptor[]}
      * @memberof Bento
      */
@@ -79,6 +75,13 @@ export default class Bento {
      * @memberof Bento
      */
     private plugins: PluginDescriptor[] = [];
+
+    /**
+     * @private
+     * @type {Entry}
+     * @memberof Bento
+     */
+    private entry: Entry = {};
 
     /**
      * @private
@@ -96,46 +99,63 @@ export default class Bento {
     private resolve: (path: string) => string;
 
     /**
-     * @private
-     * @memberof Bento
-     */
-    private select: (choice: {}) => any;
-
-    /**
      * Convenient method to create an instance of Bento
      *
      * @static
      * @param {BaseConfig} config
-     * @param {string} [env]
      * @param {string} [cwd]
      * @returns {Bento}
      * @memberof Bento
      */
-    public static create(
-        config: BaseConfig,
-        env?: string,
-        context?: string
-    ): Bento {
-        return new Bento(config, env, context);
+    public static create(config: BaseConfig, cwd?: string): Bento {
+        return new Bento(config, cwd);
     }
 
     /**
      * Creates an instance of Bento.
      * @param {BaseConfig} config
-     * @param {string} [env]
      * @param {string} [cwd]
      * @memberof Bento
      */
-    public constructor(
-        config: BaseConfig,
-        env: string = process.env.NODE_ENV,
-        cwd: string = process.cwd()
-    ) {
+    constructor(config: BaseConfig, cwd: string = process.cwd()) {
         this.config = config;
         this.cwd = cwd;
-        this.context = this.cwd;
-        this.resolve = resolve.bind(this, this.context);
-        this.select = selector(env);
+        this.resolve = resolve.bind(this, this.cwd);
+    }
+
+    /**
+     * Define `entry` value for webpack config
+     *
+     * @param {string} name
+     * @param {...string[]} files
+     * @returns {this}
+     * @memberof Bento
+     */
+    bundle(name: string, ...files: string[]): this {
+        this.entry[name] = files.map(file =>
+            file.replace("~/", `${this.config.homeDir}/`)
+        );
+        return this;
+    }
+
+    /**
+     * Allow all configuration to be modified before webpack configuration
+     * is built
+     *
+     * @param {(manifest: {}) => void} [fn]
+     * @returns {this}
+     * @memberof Bento
+     */
+    tinker(fn?: (manifest: {}) => void): this {
+        const manifest = {
+            rules: this.rules,
+            plugins: this.plugins,
+            entry: this.entry
+        };
+
+        fn(manifest);
+
+        return this;
     }
 
     /**
@@ -207,37 +227,31 @@ export default class Bento {
     }
 
     /**
-     * Export information to a standard consumable webpack config file
+     * Export data to a standard consumable webpack config file
      *
-     * @param {(manifest: {}) => void} [override]
+     * @param {Env} [env]
      * @returns {Promise<Configuration>}
      * @memberof Bento
      */
-    export(override?: (manifest: {}) => void): Promise<Configuration> {
-        const description = {
-            rules: this.rules,
-            plugins: this.plugins
-        };
-
-        if (override) override(description);
+    export(env?: Env): Promise<Configuration> {
+        const select = selector(env);
 
         const config = {
             name: "bento",
-            context: this.context,
-            entry: this.config.entry,
+            entry: this.entry,
             output: {
                 path: this.resolve(this.config.outputDir),
-                pathinfo: this.select({
+                pathinfo: select({
                     default: true,
                     production: false
                 }),
-                filename: this.select({
+                filename: select({
                     default: "[name].js",
                     production: "[name].[chunkhash].js"
                 }),
                 publicPath: this.config.publicPath || "/"
             },
-            devtool: this.select({
+            devtool: select({
                 default: this.features.sourceMap
                     ? "cheap-module-eval-source-map"
                     : null,
@@ -257,7 +271,7 @@ export default class Bento {
             },
             plugins: this.plugins.map(desc => {
                 const module = resolveModule.sync(desc.name, {
-                    basedir: this.context
+                    basedir: this.cwd
                 });
 
                 const Plugin = require(module);
