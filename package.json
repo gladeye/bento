@@ -25,7 +25,9 @@
         "webpack": "^3.10.0"
     },
     "dependencies": {
+        "css-loader": "^0.28.7",
         "resolve": "^1.5.0",
+        "style-loader": "^0.19.1",
         "webpack-promise": "^1.2.0"
     },
     "jest": {

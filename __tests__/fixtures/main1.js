@@ -1,3 +1,4 @@
+require("./style.css");
 var a = require("./a");
 if (x) {
     for (var i = 0; i < 100; i++) {
