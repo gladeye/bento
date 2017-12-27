@@ -39,6 +39,15 @@ describe("Bento", () => {
                 expect(manifest).toMatchSnapshot();
             });
         });
+
+        it("works as expected with the `env` parameter", () => {
+            const bento = create();
+
+            bento.addPlugin("html-webpack-plugin", [], "random");
+            bento.tinker(manifest => {
+                expect(manifest).toMatchSnapshot();
+            });
+        });
     });
 
     describe(".addPlugins()", () => {
@@ -53,7 +62,7 @@ describe("Bento", () => {
     });
 
     describe(".export()", () => {
-        it("works as expected in `developement` env", () => {
+        it("works as expected", () => {
             const bento = create();
 
             bento.addPlugin("html-webpack-plugin", [
@@ -69,6 +78,18 @@ describe("Bento", () => {
 
         it("works as expected in `production` env", () => {
             const bento = create();
+
+            bento.addPlugins({ "html-webpack-plugin": [] });
+            bento.addPlugins(
+                {
+                    "html-webpack-plugin": [{ title: "should load" }]
+                },
+                Env.Production
+            );
+            bento.addPlugins(
+                { "html-webpack-plugin": [{ title: "should not load" }] },
+                "staging"
+            );
 
             return bento.export(Env.Production).then(config => {
                 expect(config).toMatchSnapshot();

@@ -7,12 +7,33 @@ Object {
       "./app/scripts/main.js",
     ],
   },
-  "plugins": Array [
-    Object {
-      "args": Array [],
-      "name": "html-webpack-plugin",
-    },
-  ],
+  "plugins": Object {
+    "all": Array [
+      Object {
+        "args": Array [],
+        "name": "html-webpack-plugin",
+      },
+    ],
+  },
+  "rules": Array [],
+}
+`;
+
+exports[`Bento .addPlugin() works as expected with the \`env\` parameter 1`] = `
+Object {
+  "entry": Object {
+    "main": Array [
+      "./app/scripts/main.js",
+    ],
+  },
+  "plugins": Object {
+    "random": Array [
+      Object {
+        "args": Array [],
+        "name": "html-webpack-plugin",
+      },
+    ],
+  },
   "rules": Array [],
 }
 `;
@@ -24,12 +45,14 @@ Object {
       "./app/scripts/main.js",
     ],
   },
-  "plugins": Array [
-    Object {
-      "args": Array [],
-      "name": "html-webpack-plugin",
-    },
-  ],
+  "plugins": Object {
+    "all": Array [
+      Object {
+        "args": Array [],
+        "name": "html-webpack-plugin",
+      },
+    ],
+  },
   "rules": Array [],
 }
 `;
@@ -41,7 +64,7 @@ Object {
       "./app/scripts/main.js",
     ],
   },
-  "plugins": Array [],
+  "plugins": Object {},
   "rules": Array [
     Object {
       "ext": Array [
@@ -65,7 +88,7 @@ Object {
       "./app/scripts/main.js",
     ],
   },
-  "plugins": Array [],
+  "plugins": Object {},
   "rules": Array [
     Object {
       "ext": Array [
@@ -95,7 +118,7 @@ Object {
 }
 `;
 
-exports[`Bento .export() works as expected in \`developement\` env 1`] = `
+exports[`Bento .export() works as expected 1`] = `
 Object {
   "devtool": "cheap-module-eval-source-map",
   "entry": Object {
@@ -158,7 +181,42 @@ Object {
     "pathinfo": true,
     "publicPath": "/",
   },
-  "plugins": Array [],
+  "plugins": Array [
+    HtmlWebpackPlugin {
+      "options": Object {
+        "cache": true,
+        "chunks": "all",
+        "compile": true,
+        "excludeChunks": Array [],
+        "favicon": false,
+        "filename": "index.html",
+        "hash": false,
+        "inject": true,
+        "minify": false,
+        "showErrors": true,
+        "template": "<cwd>/node_modules/html-webpack-plugin/default_index.ejs",
+        "title": "Webpack App",
+        "xhtml": false,
+      },
+    },
+    HtmlWebpackPlugin {
+      "options": Object {
+        "cache": true,
+        "chunks": "all",
+        "compile": true,
+        "excludeChunks": Array [],
+        "favicon": false,
+        "filename": "index.html",
+        "hash": false,
+        "inject": true,
+        "minify": false,
+        "showErrors": true,
+        "template": "<cwd>/node_modules/html-webpack-plugin/default_index.ejs",
+        "title": "should load",
+        "xhtml": false,
+      },
+    },
+  ],
   "resolve": Object {
     "alias": Object {
       "~": "<cwd>/app",

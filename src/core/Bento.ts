@@ -32,12 +32,15 @@ export interface PluginDescriptor {
     args: any[];
 }
 
+export interface PluginCollection {
+    [env: string]: PluginDescriptor[];
+}
+
 export interface Features {
     sourceMap: boolean;
 }
 
 export enum Env {
-    Development = "development",
     Production = "production"
 }
 
@@ -71,10 +74,10 @@ export default class Bento {
 
     /**
      * @private
-     * @type {PluginDescriptor[]}
+     * @type {PluginCollection}
      * @memberof Bento
      */
-    private plugins: PluginDescriptor[] = [];
+    private plugins: PluginCollection = {};
 
     /**
      * @private
@@ -199,11 +202,16 @@ export default class Bento {
      *
      * @param {string} name Plugin module name to resolve
      * @param {any[]} args Plugin constructor arguments
+     * @param {string} env Env this plugin should be loaded to
      * @returns {this}
      * @memberof Bento
      */
-    addPlugin(name: string, args: any[] = []): this {
-        this.plugins.push({
+    addPlugin(name: string, args: any[] = [], env?: string): this {
+        let key = env || "all";
+
+        if (!this.plugins[key]) this.plugins[key] = [];
+
+        this.plugins[key].push({
             name,
             args
         });
@@ -215,12 +223,13 @@ export default class Bento {
      * Convenient method to add multiple plugins
      *
      * @param {PluginMap} map
+     * @param {string} env Env this plugin should be loaded to
      * @returns {this}
      * @memberof Bento
      */
-    addPlugins(map: PluginMap = {}): this {
+    addPlugins(map: PluginMap = {}, env?: string): this {
         for (let p in map) {
-            this.addPlugin(p, map[p]);
+            this.addPlugin(p, map[p], env);
         }
 
         return this;
@@ -235,6 +244,11 @@ export default class Bento {
      */
     export(env?: Env): Promise<Configuration> {
         const select = selector(env);
+
+        const plugins = [].concat(
+            this.plugins.all || [],
+            this.plugins[env] || []
+        );
 
         const config = {
             name: "bento",
@@ -269,7 +283,7 @@ export default class Bento {
                     });
                 })
             },
-            plugins: this.plugins.map(desc => {
+            plugins: plugins.map(desc => {
                 const module = resolveModule.sync(desc.name, {
                     basedir: this.cwd
                 });
