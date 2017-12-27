@@ -1,6 +1,6 @@
-import WebpackError from "webpack-promise/js/WebpackError";
 import * as webpack from "webpack";
 import { Compiler } from "webpack";
+import WebpackCompilationError from "~/errors/WebpackCompilationError";
 
 /**
  * Simple wraper for `webpack`
@@ -26,9 +26,13 @@ export default class WebpackCompiler {
     compile(config: webpack.Configuration): Promise<webpack.Stats> {
         return new Promise((resolve, reject) => {
             this.webpack = webpack(config, (err, stats) => {
-                if (err || stats.hasErrors() || stats.hasWarnings())
-                    reject(new WebpackError(err, stats));
-                else resolve(stats);
+                if (err) return reject(err);
+                if (stats.hasErrors())
+                    return reject(new WebpackCompilationError(stats));
+                if (stats.hasWarnings()) {
+                    console.warn(stats.toJson().warnings);
+                }
+                resolve(stats);
             });
         });
     }
