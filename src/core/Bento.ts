@@ -44,13 +44,17 @@ export enum Env {
     Production = "production"
 }
 
+interface Constructor<M> {
+    new (...args: any[]): M;
+}
+
 /**
  * Main class of the library
  *
  * @export
  * @class Bento
  */
-export default class Bento {
+export default abstract class Bento {
     /**
      * @private
      * @type {BaseConfig}
@@ -111,6 +115,25 @@ export default class Bento {
         this.config = config;
         this.cwd = cwd;
         this.resolve = resolve.bind(this, this.cwd);
+
+        this.configure();
+    }
+
+    /**
+     * Factory method to create an instance of Bento
+     *
+     * @static
+     * @param {BaseConfig} config
+     * @param {string} [cwd]
+     * @returns {T}
+     * @memberof T
+     */
+    static create<T extends Bento>(
+        this: Constructor<T>,
+        config: BaseConfig,
+        cwd?: string
+    ): T {
+        return new this(config, cwd);
     }
 
     /**
@@ -295,4 +318,12 @@ export default class Bento {
         this.features[flag] = value;
         return this;
     }
+
+    /**
+     * Placeholder method for subclass to configure rules & plugins
+     *
+     * @protected
+     * @memberof Bento
+     */
+    protected configure(): void {}
 }
