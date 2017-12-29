@@ -1,7 +1,7 @@
 import { resolve } from "path";
 import { Loader, Condition, Configuration, Resolve, Entry } from "webpack";
 import { instantiate, selector } from "~/utils/lang";
-import * as resolveModule from "resolve";
+import { sync as resolveModuleSync } from "resolve";
 
 export interface BaseConfig {
     homeDir: string;
@@ -298,7 +298,7 @@ export default abstract class Bento {
                 })
             },
             plugins: plugins.map(desc => {
-                const module = resolveModule.sync(desc.name, {
+                const module = resolveModuleSync(desc.name, {
                     basedir: this.cwd
                 });
 
