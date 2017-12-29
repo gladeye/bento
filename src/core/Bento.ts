@@ -102,19 +102,6 @@ export default class Bento {
     private resolve: (path: string) => string;
 
     /**
-     * Convenient method to create an instance of Bento
-     *
-     * @static
-     * @param {BaseConfig} config
-     * @param {string} [cwd]
-     * @returns {Bento}
-     * @memberof Bento
-     */
-    public static create(config: BaseConfig, cwd?: string): Bento {
-        return new Bento(config, cwd);
-    }
-
-    /**
      * Creates an instance of Bento.
      * @param {BaseConfig} config
      * @param {string} [cwd]

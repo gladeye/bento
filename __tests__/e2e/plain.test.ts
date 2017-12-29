@@ -1,14 +1,12 @@
-import Bento from "~/core/Bento";
+import PlainBento from "~/presets/PlainBento";
 import WebpackCompiler from "~/core/WebpackCompiler";
 
 describe("build", () => {
     const build = function(entry) {
-        const bento = Bento.create({
+        const bento = PlainBento.create({
             homeDir: "./__tests__",
             outputDir: "/"
-        })
-            .addRule("css", ["style-loader", "css-loader"])
-            .bundle("main", `~/fixtures/${entry}.js`);
+        }).bundle("main", `~/fixtures/${entry}.js`);
 
         const compiler = new WebpackCompiler();
         const files = {};
@@ -39,7 +37,6 @@ describe("build", () => {
 
             expect(bundle).toContain("function __webpack_require__(");
             expect(bundle).toContain("__webpack_require__(/*! ./a */");
-            expect(bundle).toContain("__webpack_require__(/*! ./style.css */");
             expect(bundle).toContain("./__tests__/fixtures/main1.js");
             expect(bundle).toContain("./__tests__/fixtures/a.js");
             expect(bundle).toContain("./__tests__/fixtures/b.js");
@@ -50,7 +47,7 @@ describe("build", () => {
             expect(bundle).toContain("This is b");
             expect(bundle).toContain("This is m1/a");
             expect(bundle).not.toContain("4: function(");
-            // expect(bundle).not.toContain("window");
+            expect(bundle).not.toContain("window");
             expect(bundle).not.toContain("jsonp");
         });
     });

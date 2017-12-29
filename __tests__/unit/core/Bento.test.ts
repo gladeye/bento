@@ -2,7 +2,7 @@ import Bento, { Env } from "~/core/Bento";
 
 describe("Bento", () => {
     function create() {
-        return Bento.create({
+        return new Bento({
             homeDir: "./app",
             outputDir: "./public"
         }).bundle("main", "~/scripts/main.js");
