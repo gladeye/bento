@@ -29,7 +29,7 @@ export interface PluginMap {
 
 export interface PluginDescriptor {
     name: string;
-    args: any[];
+    args: any[] | ((env?: string) => any[]);
 }
 
 export interface PluginCollection {
@@ -208,7 +208,7 @@ export default abstract class Bento {
     }
 
     /**
-     * Create a new PluginDescriptor by given data and add it to plugin list
+     * Add to plugin list a new PluginDescriptor by given data
      *
      * @param {string} name Plugin module name to resolve
      * @param {any[]} args Plugin constructor arguments
@@ -216,7 +216,11 @@ export default abstract class Bento {
      * @returns {this}
      * @memberof Bento
      */
-    addPlugin(name: string, args: any[] = [], env?: string): this {
+    addPlugin(
+        name: string,
+        args: any[] | ((env?: string) => any[]) = [],
+        env?: string
+    ): this {
         let key = env || "all";
 
         if (!this.plugins[key]) this.plugins[key] = [];
@@ -299,7 +303,10 @@ export default abstract class Bento {
                 });
 
                 const Plugin = require(module);
-                return instantiate(Plugin, desc.args);
+                return instantiate(
+                    Plugin,
+                    typeof desc.args === "function" ? desc.args(env) : desc.args
+                );
             })
         };
 

@@ -48,6 +48,30 @@ describe("Bento", () => {
                 expect(manifest).toMatchSnapshot();
             });
         });
+
+        it("works as expected with second parameter is a function", () => {
+            const bento = create();
+
+            let called = false;
+
+            bento.addPlugin(
+                "html-webpack-plugin",
+                function(env?: string): any[] {
+                    called = true;
+                    expect(env).toBe(Env.Production);
+                    return [];
+                },
+                Env.Production
+            );
+
+            bento.tinker(manifest => {
+                expect(manifest).toMatchSnapshot();
+            });
+
+            return bento.export(Env.Production).then(() => {
+                expect(called).toBe(true);
+            });
+        });
     });
 
     describe(".addPlugins()", () => {

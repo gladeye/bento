@@ -19,6 +19,25 @@ Object {
 }
 `;
 
+exports[`Bento .addPlugin() works as expected with second parameter is a function 1`] = `
+Object {
+  "entry": Object {
+    "main": Array [
+      "./app/scripts/main.js",
+    ],
+  },
+  "plugins": Object {
+    "production": Array [
+      Object {
+        "args": [Function anonymous],
+        "name": "html-webpack-plugin",
+      },
+    ],
+  },
+  "rules": Array [],
+}
+`;
+
 exports[`Bento .addPlugin() works as expected with the \`env\` parameter 1`] = `
 Object {
   "entry": Object {
