@@ -11,7 +11,7 @@ Object {
     "all": Array [
       Object {
         "args": Array [],
-        "name": "html-webpack-plugin",
+        "plugin": "html-webpack-plugin",
       },
     ],
   },
@@ -19,7 +19,7 @@ Object {
 }
 `;
 
-exports[`Bento .addPlugin() works as expected with second parameter is a function 1`] = `
+exports[`Bento .addPlugin() works as expected with \`args\` as a function 1`] = `
 Object {
   "entry": Object {
     "main": Array [
@@ -30,7 +30,32 @@ Object {
     "production": Array [
       Object {
         "args": [Function anonymous],
-        "name": "html-webpack-plugin",
+        "plugin": "html-webpack-plugin",
+      },
+    ],
+  },
+  "rules": Array [],
+}
+`;
+
+exports[`Bento .addPlugin() works as expected with \`name\` as constructor 1`] = `
+Object {
+  "entry": Object {
+    "main": Array [
+      "./app/scripts/main.js",
+    ],
+  },
+  "plugins": Object {
+    "all": Array [
+      Object {
+        "args": Array [
+          Object {
+            "process.env": Object {
+              "NODE_ENV": "\\"test\\"",
+            },
+          },
+        ],
+        "plugin": [Function DefinePlugin],
       },
     ],
   },
@@ -49,7 +74,7 @@ Object {
     "random": Array [
       Object {
         "args": Array [],
-        "name": "html-webpack-plugin",
+        "plugin": "html-webpack-plugin",
       },
     ],
   },
@@ -68,7 +93,7 @@ Object {
     "all": Array [
       Object {
         "args": Array [],
-        "name": "html-webpack-plugin",
+        "plugin": "html-webpack-plugin",
       },
     ],
   },

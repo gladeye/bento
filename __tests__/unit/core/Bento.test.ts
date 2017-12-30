@@ -1,3 +1,4 @@
+import { DefinePlugin } from "webpack";
 import Bento, { Env } from "~/core/Bento";
 
 describe("Bento", () => {
@@ -49,7 +50,7 @@ describe("Bento", () => {
             });
         });
 
-        it("works as expected with second parameter is a function", () => {
+        it("works as expected with `args` as a function", () => {
             const bento = create();
 
             let called = false;
@@ -70,6 +71,25 @@ describe("Bento", () => {
 
             return bento.export(Env.Production).then(() => {
                 expect(called).toBe(true);
+            });
+        });
+
+        it("works as expected with `name` as constructor", () => {
+            const bento = create();
+            bento.addPlugin(DefinePlugin, [
+                {
+                    "process.env": {
+                        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+                    }
+                }
+            ]);
+
+            bento.tinker(manifest => {
+                expect(manifest).toMatchSnapshot();
+            });
+
+            return bento.export().then(config => {
+                expect(config.plugins[0] instanceof DefinePlugin).toBe(true);
             });
         });
     });

@@ -1,5 +1,12 @@
 import { resolve } from "path";
-import { Loader, Condition, Configuration, Resolve, Entry } from "webpack";
+import {
+    Loader,
+    Condition,
+    Configuration,
+    Resolve,
+    Entry,
+    Plugin
+} from "webpack";
 import { instantiate, selector } from "~/utils/lang";
 import { sync as resolveModuleSync } from "resolve";
 
@@ -24,7 +31,7 @@ export interface PluginMap {
 }
 
 export interface PluginDescriptor {
-    name: string;
+    plugin: string | Constructor<Plugin>;
     args: any[] | ((env?: string) => any[]);
 }
 
@@ -209,14 +216,14 @@ export default class Bento {
     /**
      * Add to plugin list a new PluginDescriptor by given data
      *
-     * @param {string} name Plugin module name to resolve
+     * @param {string | Constructor<Plugin>} plugin Plugin constructor
      * @param {any[]} args Plugin constructor arguments
      * @param {string} env Env this plugin should be loaded to
      * @returns {this}
      * @memberof Bento
      */
     addPlugin(
-        name: string,
+        plugin: string | Constructor<Plugin>,
         args: any[] | ((env?: string) => any[]) = [],
         env?: string
     ): this {
@@ -225,7 +232,7 @@ export default class Bento {
         if (!this.plugins[key]) this.plugins[key] = [];
 
         this.plugins[key].push({
-            name,
+            plugin,
             args
         });
 
@@ -302,11 +309,16 @@ export default class Bento {
                 })
             },
             plugins: plugins.map(desc => {
-                const module = resolveModuleSync(desc.name, {
-                    basedir: this.cwd
-                });
+                let Plugin;
+                if (typeof desc.plugin === "function") Plugin = desc.plugin;
+                else {
+                    const module = resolveModuleSync(desc.plugin, {
+                        basedir: this.cwd
+                    });
 
-                const Plugin = require(module);
+                    Plugin = require(module);
+                }
+
                 return instantiate(
                     Plugin,
                     typeof desc.args === "function" ? desc.args(env) : desc.args
@@ -330,14 +342,35 @@ export default class Bento {
         return this;
     }
 
+    /**
+     * Resolved homeDir
+     *
+     * @readonly
+     * @type {string}
+     * @memberof Bento
+     */
     get homeDir(): string {
         return this.resolve(this.config.homeDir);
     }
 
+    /**
+     * Resolved outputDir
+     *
+     * @readonly
+     * @type {string}
+     * @memberof Bento
+     */
     get outputDir(): string {
         return this.resolve(this.config.outputDir);
     }
 
+    /**
+     * Default publicPath
+     *
+     * @readonly
+     * @type {string}
+     * @memberof Bento
+     */
     get publicPath(): string {
         return this.config.publicPath || "/";
     }
