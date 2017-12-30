@@ -13,14 +13,10 @@ export interface RuleMap {
     [ext: string]: Loader | Loader[];
 }
 
-export interface Rule {
-    include: Condition[];
-    use: Loader | Loader[];
-}
-
 export interface RuleDescriptor {
     ext: string[];
-    rule: Rule;
+    include: Condition | Condition[];
+    loaders: Loader | Loader[] | ((env?: string) => Loader | Loader[]);
 }
 
 export interface PluginMap {
@@ -54,48 +50,48 @@ interface Constructor<M> {
  * @export
  * @class Bento
  */
-export default abstract class Bento {
+export default class Bento {
     /**
      * @private
      * @type {BaseConfig}
      * @memberof Bento
      */
-    private config: BaseConfig;
+    protected config: BaseConfig;
 
     /**
      * @private
      * @type {string}
      * @memberof Bento
      */
-    private cwd: string;
+    protected cwd: string;
 
     /**
      * @private
      * @type {RuleDescriptor[]}
      * @memberof Bento
      */
-    private rules: RuleDescriptor[] = [];
+    protected rules: RuleDescriptor[] = [];
 
     /**
      * @private
      * @type {PluginCollection}
      * @memberof Bento
      */
-    private plugins: PluginCollection = {};
+    protected plugins: PluginCollection = {};
 
     /**
      * @private
      * @type {Entry}
      * @memberof Bento
      */
-    private entry: Entry = {};
+    protected entry: Entry = {};
 
     /**
      * @private
      * @type {Features}
      * @memberof Bento
      */
-    private features: Features = {
+    protected features: Features = {
         sourceMap: true
     };
 
@@ -103,7 +99,7 @@ export default abstract class Bento {
      * @private
      * @memberof Bento
      */
-    private resolve: (path: string) => string;
+    protected resolve: (path: string) => string;
 
     /**
      * Creates an instance of Bento.
@@ -176,17 +172,20 @@ export default abstract class Bento {
      *
      * @param {string} ext  File extension
      * @param {Loader | Loader[]} loaders Loaders to use
+     * @param {Condition | Condition[]} include Specify path inclusion
      * @returns {this}
      * @memberof Bento
      */
-    addRule(ext: string | string[], loaders: Loader | Loader[]): this {
+    addRule(
+        ext: string | string[],
+        loaders: Loader | Loader[] | ((env?: string) => Loader | Loader[]),
+        include?: Condition | Condition[]
+    ): this {
         if (typeof ext === "string") ext = [ext];
         this.rules.push({
             ext,
-            rule: {
-                include: [this.resolve(this.config.homeDir)],
-                use: loaders
-            }
+            include: include || [this.homeDir],
+            loaders
         });
 
         return this;
@@ -268,16 +267,16 @@ export default abstract class Bento {
             name: "bento",
             entry: this.entry,
             output: {
-                path: this.resolve(this.config.outputDir),
+                path: this.outputDir,
                 pathinfo: select({
                     default: true,
                     production: false
                 }),
                 filename: select({
                     default: "[name].js",
-                    production: "[name].[chunkhash].js"
+                    production: "[name].[chunkhash:8].js"
                 }),
-                publicPath: this.config.publicPath || "/"
+                publicPath: this.publicPath
             },
             devtool: select({
                 default: this.features.sourceMap
@@ -287,14 +286,19 @@ export default abstract class Bento {
             }),
             resolve: {
                 alias: {
-                    "~": this.resolve(this.config.homeDir)
+                    "~": this.homeDir
                 }
             },
             module: {
                 rules: this.rules.map(desc => {
-                    return Object.assign({}, desc.rule, {
-                        test: new RegExp(`\\.(${desc.ext.join("|")})$`)
-                    });
+                    return {
+                        test: new RegExp(`\\.(${desc.ext.join("|")})$`),
+                        include: desc.include,
+                        use:
+                            typeof desc.loaders === "function"
+                                ? desc.loaders(env)
+                                : desc.loaders
+                    };
                 })
             },
             plugins: plugins.map(desc => {
@@ -324,6 +328,18 @@ export default abstract class Bento {
     set(flag: string, value: boolean): this {
         this.features[flag] = value;
         return this;
+    }
+
+    get homeDir(): string {
+        return this.resolve(this.config.homeDir);
+    }
+
+    get outputDir(): string {
+        return this.resolve(this.config.outputDir);
+    }
+
+    get publicPath(): string {
+        return this.config.publicPath || "/";
     }
 
     /**

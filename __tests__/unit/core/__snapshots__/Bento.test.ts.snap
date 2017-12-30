@@ -89,12 +89,10 @@ Object {
       "ext": Array [
         "js",
       ],
-      "rule": Object {
-        "include": Array [
-          "<cwd>/app",
-        ],
-        "use": "babel-loader",
-      },
+      "include": Array [
+        "<cwd>/app",
+      ],
+      "loaders": "babel-loader",
     },
   ],
 }
@@ -113,25 +111,21 @@ Object {
       "ext": Array [
         "js",
       ],
-      "rule": Object {
-        "include": Array [
-          "<cwd>/app",
-        ],
-        "use": Array [
-          "babel-loader",
-        ],
-      },
+      "include": Array [
+        "<cwd>/app",
+      ],
+      "loaders": Array [
+        "babel-loader",
+      ],
     },
     Object {
       "ext": Array [
         "css",
       ],
-      "rule": Object {
-        "include": Array [
-          "<cwd>/app",
-        ],
-        "use": "style-loader",
-      },
+      "include": Array [
+        "<cwd>/app",
+      ],
+      "loaders": "style-loader",
     },
   ],
 }
@@ -195,7 +189,7 @@ Object {
   },
   "name": "bento",
   "output": Object {
-    "filename": "[name].[chunkhash].js",
+    "filename": "[name].[chunkhash:8].js",
     "path": "<cwd>/public",
     "pathinfo": true,
     "publicPath": "/",

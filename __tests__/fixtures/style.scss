@@ -1,0 +1,12 @@
+@import "~m1/s.css";
+$color: red;
+
+@font-face {
+    font-family: "Roboto Mono";
+    font-style: normal;
+    src: url("./fonts/RobotoMono-Regular.ttf");
+}
+
+body {
+    background: $color;
+}
