@@ -1,0 +1,120 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StandardBento works as expected 1`] = `
+Object {
+  "entry": Object {},
+  "plugins": Object {
+    "all": Array [
+      Object {
+        "args": [Function anonymous],
+        "plugin": [Function DefinePlugin],
+      },
+      Object {
+        "args": Array [
+          "public",
+          Object {
+            "root": "<cwd>",
+          },
+        ],
+        "plugin": "clean-webpack-plugin",
+      },
+      Object {
+        "args": [Function anonymous],
+        "plugin": "extract-text-webpack-plugin",
+      },
+    ],
+    "production": Array [
+      Object {
+        "args": Array [
+          Object {
+            "minChunks": [Function minChunks],
+            "name": "vendor",
+          },
+        ],
+        "plugin": [Function CommonsChunkPlugin],
+      },
+      Object {
+        "args": Array [
+          Object {
+            "name": "manifest",
+          },
+        ],
+        "plugin": [Function CommonsChunkPlugin],
+      },
+    ],
+  },
+  "rules": Array [
+    Object {
+      "ext": Array [
+        "js",
+        "jsx",
+      ],
+      "include": Array [
+        "<cwd>/app",
+      ],
+      "loaders": Object {
+        "loader": "babel-loader",
+        "options": Object {
+          "presets": Array [
+            Array [
+              "@babel/preset-env",
+              Object {
+                "useBuiltIns": "usage",
+              },
+            ],
+          ],
+        },
+      },
+    },
+    Object {
+      "ext": Array [
+        "scss",
+      ],
+      "include": Array [
+        "<cwd>/app",
+      ],
+      "loaders": [Function anonymous],
+    },
+    Object {
+      "ext": Array [
+        "css",
+      ],
+      "include": /node_modules/,
+      "loaders": Array [
+        Object {
+          "loader": "style-loader",
+          "options": Object {
+            "sourceMap": true,
+          },
+        },
+        Object {
+          "loader": "css-loader",
+          "options": Object {
+            "sourceMap": true,
+          },
+        },
+      ],
+    },
+    Object {
+      "ext": Array [
+        "ttf",
+        "eot",
+        "woff",
+        "woff2",
+        "jpeg",
+        "jpg",
+        "png",
+        "gif",
+        "svg",
+        "mp4",
+        "webm",
+      ],
+      "include": Array [
+        "<cwd>/app",
+        /node_modules/,
+      ],
+      "loaders": [Function anonymous],
+    },
+  ],
+}
+`;
