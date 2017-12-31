@@ -67,7 +67,13 @@ export default class StandardBento extends Bento {
                         }
                     }
                 ];
-            });
+            })
+            .addPlugin("clean-webpack-plugin", [
+                this.config.outputDir,
+                {
+                    root: this.cwd
+                }
+            ]);
 
         // STYLE
         this.addRule("scss", (env?: string): Loader | Loader[] => {

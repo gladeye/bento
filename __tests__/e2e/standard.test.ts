@@ -68,11 +68,11 @@ describe("build", () => {
         });
     });
 
-    // it.only("exports a correct `config` for webpack in production", () => {
-    //     return build("main2", "production").then(([files, stats]) => {
-    //         console.log(Object.keys(files));
+    it("exports a correct `config` for webpack in production", () => {
+        return build("main2", Env.Production).then(([files, stats]) => {
+            console.log(Object.keys(files));
 
-    //         console.log(files["/main.e9e46029.css"]);
-    //     });
-    // });
+            // console.log(files["/main.9ca73de5.js"]);
+        });
+    });
 });
