@@ -35,19 +35,22 @@ describe("build", () => {
         return build("main2").then(([files, stats]) => {
             expect(Object.keys(files)).toEqual([
                 "/RobotoMono-Regular.ttf",
+                "/giphy.gif",
+                "/cat.gif",
+                "/nice.jpg",
                 "/main.js"
             ]);
             const bundle = files["/main.js"];
 
             expect(bundle).toContain("function __webpack_require__(");
-            expect(bundle).toContain("__webpack_require__(/*! ./a */");
+            expect(bundle).toContain("__webpack_require__(/*! ~/fixtures/a */");
+            expect(bundle).toContain("__webpack_require__(/*! ./style.scss */");
             expect(bundle).toContain("./__tests__/fixtures/main2.js");
             expect(bundle).toContain("./__tests__/fixtures/a.js");
             expect(bundle).toContain("./__tests__/fixtures/b.js");
             expect(bundle).toContain(
                 "./__tests__/fixtures/node_modules/m1/a.js"
             );
-            expect(bundle).toContain("./style.scss");
             expect(bundle).toContain(
                 "./__tests__/fixtures/node_modules/m1/s.css"
             );
@@ -55,7 +58,7 @@ describe("build", () => {
             expect(bundle).toContain("This is b");
             expect(bundle).toContain("This is m1/a");
             expect(bundle).toContain("var x = 1;");
-            expect(bundle).toContain("background: red;");
+            expect(bundle).toContain("color: red;");
             expect(bundle).toContain("font-size: 12px;");
             expect(bundle).toContain("console.log(undefined);");
 

@@ -1,5 +1,7 @@
 import "./style.scss";
-import a from "./a";
+import cat from "m1/cat.gif";
+import nice from "~/fixtures/images/nice.jpg";
+import a from "~/fixtures/a";
 const x = 1;
 
 console.log(process.env.NODE_ENV);
