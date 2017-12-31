@@ -1,4 +1,4 @@
-import { Loader } from "webpack";
+import { optimize, Loader } from "webpack";
 import { extract } from "extract-text-webpack-plugin";
 import Bento, { Features as BaseFeatures, Env } from "~/core/Bento";
 import { selector } from "~/utils/lang";
@@ -37,7 +37,28 @@ export default class StandardBento extends Bento {
                     ]
                 ]
             }
-        });
+        })
+            .addPlugin(
+                optimize.CommonsChunkPlugin,
+                [
+                    {
+                        name: "vendor",
+                        minChunks(module) {
+                            return /node_modules/.test(module.resource);
+                        }
+                    }
+                ],
+                Env.Production
+            )
+            .addPlugin(
+                optimize.CommonsChunkPlugin,
+                [
+                    {
+                        name: "manifest"
+                    }
+                ],
+                Env.Production
+            );
 
         // STYLE
         this.addRule("scss", (env?: string): Loader | Loader[] => {
