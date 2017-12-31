@@ -57,6 +57,7 @@ describe("build", () => {
             expect(bundle).toContain("var x = 1;");
             expect(bundle).toContain("background: red;");
             expect(bundle).toContain("font-size: 12px;");
+            expect(bundle).toContain("console.log(undefined);");
 
             expect(bundle).not.toContain("4: function(");
             // expect(bundle).not.toContain("window");
