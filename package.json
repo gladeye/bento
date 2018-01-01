@@ -8,6 +8,9 @@
     "engines": {
         "node": ">=7"
     },
+    "bin": {
+        "bento": "./dst/cli.js"
+    },
     "scripts": {},
     "peerDependencies": {
         "webpack": "3.x",
@@ -29,6 +32,7 @@
         "@babel/preset-env": "^7.0.0-beta.36",
         "autoprefix": "^1.0.1",
         "babel-loader": "8.0.0-beta.0",
+        "chalk": "^2.3.0",
         "clean-webpack-plugin": "^0.1.17",
         "css-loader": "^0.28.7",
         "extract-text-webpack-plugin": "^3.0.2",
@@ -42,7 +46,9 @@
         "style-loader": "^0.19.1",
         "uglifyjs-webpack-plugin": "^1.1.5",
         "url-loader": "^0.6.2",
-        "webpack-manifest-plugin": "2.0.0-rc.1"
+        "webpack-manifest-plugin": "2.0.0-rc.1",
+        "yargs": "^10.0.3",
+        "yargs-promise-handler": "^1.0.1"
     },
     "jest": {
         "transform": {
