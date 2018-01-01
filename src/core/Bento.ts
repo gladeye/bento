@@ -258,11 +258,11 @@ export default class Bento {
     /**
      * Export data to a standard consumable webpack config file
      *
-     * @param {Env} [env]
+     * @param {string} [env]
      * @returns {Promise<Configuration>}
      * @memberof Bento
      */
-    export(env?: Env): Promise<Configuration> {
+    export(env?: string): Promise<Configuration> {
         const select = selector(env);
 
         const plugins = [].concat(
