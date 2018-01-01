@@ -5,11 +5,20 @@
         "sourceMap": true,
         "outDir": "dst",
         "baseUrl": ".",
-        "lib": ["es2017", "dom"],
+        "lib": [
+            "es2017",
+            "dom"
+        ],
         "paths": {
-            "~/*": ["src/*"]
+            "~/*": [
+                "src/*"
+            ]
         }
     },
-    "include": ["src/**/*", "__tests__/**/*"],
-    "exclude": ["node_modules"]
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
 }
