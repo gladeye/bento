@@ -12,6 +12,8 @@ describe("build", () => {
         const compiler = new WebpackCompiler();
         const files = {};
 
+        bento.set("writeManifest", false);
+
         return bento.export(env).then(config => {
             config.devtool = false;
             const promise = compiler.compile(config);
@@ -38,7 +40,8 @@ describe("build", () => {
                 "/giphy.gif",
                 "/cat.gif",
                 "/nice.jpg",
-                "/main.js"
+                "/main.js",
+                "/manifest.json"
             ]);
             const bundle = files["/main.js"];
 
@@ -65,6 +68,8 @@ describe("build", () => {
             expect(bundle).not.toContain("4: function(");
             // expect(bundle).not.toContain("window");
             expect(bundle).not.toContain("jsonp");
+
+            expect(JSON.parse(files["/manifest.json"])).toMatchSnapshot();
         });
     });
 
@@ -78,7 +83,8 @@ describe("build", () => {
                 "/vendor.aa28852f.js",
                 "/main.cc632d2b.js",
                 "/manifest.9805c81b.js",
-                "/main.0bf666a4.css"
+                "/main.0bf666a4.css",
+                "/manifest.json"
             ]);
 
             expect(files["/main.cc632d2b.js"]).toContain(
@@ -86,6 +92,7 @@ describe("build", () => {
             );
             expect(files["/main.0bf666a4.css"]).toContain("color:red");
             expect(files["/main.0bf666a4.css"]).toContain("@-webkit-keyframes");
+            expect(JSON.parse(files["/manifest.json"])).toMatchSnapshot();
         });
     });
 });

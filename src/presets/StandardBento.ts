@@ -5,6 +5,7 @@ import { selector } from "~/utils/lang";
 
 export interface Features extends BaseFeatures {
     extractCss: boolean;
+    writeManifest: boolean;
 }
 
 export default class StandardBento extends Bento {
@@ -22,7 +23,7 @@ export default class StandardBento extends Bento {
      */
     protected configure() {
         // set default addtional features flag
-        this.set("extractCss", true);
+        this.set("extractCss", true).set("writeManifest", true);
 
         // SCRIPT
         this.addRule(["js", "jsx"], {
@@ -74,10 +75,17 @@ export default class StandardBento extends Bento {
                     root: this.cwd
                 }
             ])
+            .addPlugin("webpack-manifest-plugin", (env?: string): any[] => {
+                return [
+                    {
+                        writeToFileEmit: this.features.writeManifest
+                    }
+                ];
+            })
             .addPlugin("uglifyjs-webpack-plugin", [], Env.Production);
 
         // STYLE
-        this.addRule("scss", (env?: string): Loader | Loader[] => {
+        this.addRule("scss", (env?: string): Loader[] => {
             return extract({
                 fallback: {
                     loader: "style-loader",

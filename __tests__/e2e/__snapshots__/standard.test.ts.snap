@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`build exports a correct \`config\` for webpack 1`] = `
+Object {
+  "RobotoMono-Regular.ttf": "/RobotoMono-Regular.ttf",
+  "cat.gif": "/cat.gif",
+  "giphy.gif": "/giphy.gif",
+  "main.js": "/main.js",
+  "nice.jpg": "/nice.jpg",
+}
+`;
+
+exports[`build exports a correct \`config\` for webpack in production 1`] = `
+Object {
+  "RobotoMono-Regular.ttf": "/RobotoMono-Regular.a48ac416.ttf",
+  "cat.gif": "/cat.5082946a.gif",
+  "giphy.gif": "/giphy.a47e713b.gif",
+  "main.css": "/main.0bf666a4.css",
+  "main.js": "/main.cc632d2b.js",
+  "manifest.js": "/manifest.9805c81b.js",
+  "nice.jpg": "/nice.9c3c4150.jpg",
+  "vendor.js": "/vendor.aa28852f.js",
+}
+`;
