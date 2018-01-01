@@ -41,6 +41,10 @@ Object {
         ],
         "plugin": [Function CommonsChunkPlugin],
       },
+      Object {
+        "args": Array [],
+        "plugin": "uglifyjs-webpack-plugin",
+      },
     ],
   },
   "rules": Array [

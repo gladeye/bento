@@ -73,7 +73,8 @@ export default class StandardBento extends Bento {
                 {
                     root: this.cwd
                 }
-            ]);
+            ])
+            .addPlugin("uglifyjs-webpack-plugin", [], Env.Production);
 
         // STYLE
         this.addRule("scss", (env?: string): Loader | Loader[] => {
@@ -88,7 +89,11 @@ export default class StandardBento extends Bento {
                     {
                         loader: "css-loader",
                         options: {
-                            sourceMap: this.features.sourceMap
+                            sourceMap: this.features.sourceMap,
+                            minimize:
+                                env === Env.Production
+                                    ? { preset: "default" }
+                                    : false
                         }
                     },
                     {

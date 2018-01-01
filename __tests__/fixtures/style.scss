@@ -7,6 +7,18 @@ $color: red;
     src: url("./fonts/RobotoMono-Regular.ttf");
 }
 
+@keyframes MyAnimation {
+    0% {
+        left: 0;
+    }
+    50% {
+        left: 200px;
+    }
+    100% {
+        left: 20px;
+    }
+}
+
 body {
     background: url("./images/giphy.gif");
     color: $color;

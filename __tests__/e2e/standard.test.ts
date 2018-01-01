@@ -70,9 +70,22 @@ describe("build", () => {
 
     it("exports a correct `config` for webpack in production", () => {
         return build("main2", Env.Production).then(([files, stats]) => {
-            console.log(Object.keys(files));
+            expect(Object.keys(files)).toEqual([
+                "/RobotoMono-Regular.a48ac416.ttf",
+                "/giphy.a47e713b.gif",
+                "/cat.5082946a.gif",
+                "/nice.9c3c4150.jpg",
+                "/vendor.aa28852f.js",
+                "/main.cc632d2b.js",
+                "/manifest.9805c81b.js",
+                "/main.0bf666a4.css"
+            ]);
 
-            // console.log(files["/main.9ca73de5.js"]);
+            expect(files["/main.cc632d2b.js"]).toContain(
+                `function(n,o){n.exports=function(){return"This is a"}}`
+            );
+            expect(files["/main.0bf666a4.css"]).toContain("color:red");
+            expect(files["/main.0bf666a4.css"]).toContain("@-webkit-keyframes");
         });
     });
 });
