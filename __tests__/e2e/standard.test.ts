@@ -1,9 +1,14 @@
+import { Configuration } from "webpack";
 import StandardBento from "~/presets/StandardBento";
 import WebpackCompiler from "~/core/WebpackCompiler";
 import { Env } from "~/core/Bento";
 
 describe("build", () => {
-    const build = function(entry, env?: Env) {
+    const build = function(
+        entry,
+        env?: Env,
+        overwrite?: (config: Configuration) => any
+    ) {
         const bento = StandardBento.create({
             homeDir: "./__tests__",
             outputDir: "/"
@@ -15,6 +20,8 @@ describe("build", () => {
         bento.set("writeManifest", false);
 
         return bento.export(env).then(config => {
+            if (overwrite) overwrite(config);
+
             config.devtool = false;
             const promise = compiler.compile(config);
 
@@ -28,18 +35,18 @@ describe("build", () => {
             };
 
             return promise.then(stats => {
-                return [files, stats];
+                return { files, stats };
             });
         });
     };
 
     it("exports a correct `config` for webpack", () => {
-        return build("main2").then(([files, stats]) => {
+        return build("main2").then(({ files, stats }) => {
             expect(Object.keys(files)).toEqual([
                 "/RobotoMono-Regular.ttf",
                 "/giphy.gif",
-                "/cat.gif",
                 "/nice.jpg",
+                "/cat.gif",
                 "/main.js",
                 "/manifest.json"
             ]);
@@ -74,25 +81,52 @@ describe("build", () => {
     });
 
     it("exports a correct `config` for webpack in production", () => {
-        return build("main2", Env.Production).then(([files, stats]) => {
+        return build("main2", Env.Production).then(({ files, stats }) => {
             expect(Object.keys(files)).toEqual([
                 "/RobotoMono-Regular.a48ac416.ttf",
                 "/giphy.a47e713b.gif",
                 "/cat.5082946a.gif",
                 "/nice.9c3c4150.jpg",
-                "/vendor.aa28852f.js",
-                "/main.cc632d2b.js",
-                "/manifest.9805c81b.js",
+                "/main.3725e6c4.js",
+                "/runtime.9b99d594.js",
+                "/vendor.82d73bc4.js",
                 "/main.0bf666a4.css",
                 "/manifest.json"
             ]);
 
-            expect(files["/main.cc632d2b.js"]).toContain(
-                `function(n,o){n.exports=function(){return"This is a"}}`
-            );
+            expect(files["/main.3725e6c4.js"]).toContain(`return\"This is a\"`);
             expect(files["/main.0bf666a4.css"]).toContain("color:red");
             expect(files["/main.0bf666a4.css"]).toContain("@-webkit-keyframes");
             expect(JSON.parse(files["/manifest.json"])).toMatchSnapshot();
         });
+    });
+
+    // ref: https://medium.com/webpack/predictable-long-term-caching-with-webpack-d3eee1d3fa31
+    it("keeps `vendor` chunk hash as static as possible", async () => {
+        const find = (name, files) => {
+            return Object.keys(files)
+                .filter(item => {
+                    return item.indexOf(`/${name}`) === 0;
+                })
+                .shift();
+        };
+
+        // default
+        const a = await build("main3-a", Env.Production);
+        // change to entry
+        const b = await build("main3-b", Env.Production);
+        // load additional module async
+        const c = await build("main3-c", Env.Production);
+        // define `externals`
+        const d = await build("main3-d", Env.Production, config => {
+            config.externals = {
+                jquery: "jQuery"
+            };
+            return config;
+        });
+
+        expect(find("vendor", b.files)).toBe(find("vendor", a.files));
+        expect(find("vendor", c.files)).toBe(find("vendor", a.files));
+        expect(find("vendor", d.files)).toBe(find("vendor", a.files));
     });
 });

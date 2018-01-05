@@ -1,5 +1,12 @@
-import { optimize, DefinePlugin, Loader } from "webpack";
+import {
+    optimize,
+    DefinePlugin,
+    Loader,
+    NamedModulesPlugin,
+    NamedChunksPlugin
+} from "webpack";
 import { extract } from "extract-text-webpack-plugin";
+import { basename, extname } from "path";
 import Bento, { Features as BaseFeatures, Env } from "~/core/Bento";
 import { selector } from "~/utils/lang";
 
@@ -39,6 +46,31 @@ export default class StandardBento extends Bento {
                 ]
             }
         })
+            .addPlugin("clean-webpack-plugin", [
+                this.config.outputDir,
+                {
+                    root: this.cwd
+                }
+            ])
+            .addPlugin("webpack-manifest-plugin", (env?: string): any[] => {
+                return [
+                    {
+                        writeToFileEmit: this.features.writeManifest
+                    }
+                ];
+            })
+            .addPlugin(NamedChunksPlugin, [
+                chunk => {
+                    if (chunk.name) {
+                        return chunk.name;
+                    }
+
+                    return chunk.mapModules(m => {
+                        return basename(m.request, extname(m.request));
+                    });
+                }
+            ])
+            .addPlugin(NamedModulesPlugin, [])
             .addPlugin(
                 optimize.CommonsChunkPlugin,
                 [
@@ -55,7 +87,7 @@ export default class StandardBento extends Bento {
                 optimize.CommonsChunkPlugin,
                 [
                     {
-                        name: "manifest"
+                        name: "runtime"
                     }
                 ],
                 Env.Production
@@ -69,19 +101,7 @@ export default class StandardBento extends Bento {
                     }
                 ];
             })
-            .addPlugin("clean-webpack-plugin", [
-                this.config.outputDir,
-                {
-                    root: this.cwd
-                }
-            ])
-            .addPlugin("webpack-manifest-plugin", (env?: string): any[] => {
-                return [
-                    {
-                        writeToFileEmit: this.features.writeManifest
-                    }
-                ];
-            })
+
             .addPlugin("uglifyjs-webpack-plugin", [], Env.Production);
 
         // STYLE

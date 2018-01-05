@@ -6,10 +6,6 @@ Object {
   "plugins": Object {
     "all": Array [
       Object {
-        "args": [Function anonymous],
-        "plugin": [Function DefinePlugin],
-      },
-      Object {
         "args": Array [
           "public",
           Object {
@@ -21,6 +17,20 @@ Object {
       Object {
         "args": [Function anonymous],
         "plugin": "webpack-manifest-plugin",
+      },
+      Object {
+        "args": Array [
+          [Function anonymous],
+        ],
+        "plugin": [Function NamedChunksPlugin],
+      },
+      Object {
+        "args": Array [],
+        "plugin": [Function NamedModulesPlugin],
+      },
+      Object {
+        "args": [Function anonymous],
+        "plugin": [Function DefinePlugin],
       },
       Object {
         "args": [Function anonymous],
@@ -40,7 +50,7 @@ Object {
       Object {
         "args": Array [
           Object {
-            "name": "manifest",
+            "name": "runtime",
           },
         ],
         "plugin": [Function CommonsChunkPlugin],
