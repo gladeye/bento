@@ -1,6 +1,6 @@
 import { Configuration } from "webpack";
 import StandardBento from "~/presets/StandardBento";
-import WebpackCompiler from "~/core/WebpackCompiler";
+import WebpackController from "~/core/WebpackController";
 import { Env } from "~/core/Bento";
 
 describe("build", () => {
@@ -14,7 +14,6 @@ describe("build", () => {
             outputDir: "/"
         }).bundle("main", `~/fixtures/${entry}.js`);
 
-        const compiler = new WebpackCompiler();
         const files = {};
 
         bento.set("writeManifest", false);
@@ -23,9 +22,10 @@ describe("build", () => {
             if (overwrite) overwrite(config);
 
             config.devtool = false;
-            const promise = compiler.compile(config);
+            const controller = new WebpackController(config);
+            const promise = controller.compile();
 
-            compiler.webpack.outputFileSystem.writeFile = function(
+            controller.compiler.outputFileSystem.writeFile = function(
                 name,
                 content,
                 callback

@@ -1,5 +1,5 @@
 import PlainBento from "~/presets/PlainBento";
-import WebpackCompiler from "~/core/WebpackCompiler";
+import WebpackController from "~/core/WebpackController";
 
 describe("build", () => {
     const build = function(entry) {
@@ -7,15 +7,14 @@ describe("build", () => {
             homeDir: "./__tests__",
             outputDir: "/"
         }).bundle("main", `~/fixtures/${entry}.js`);
-
-        const compiler = new WebpackCompiler();
         const files = {};
 
         return bento.export().then(config => {
             config.devtool = false;
-            const promise = compiler.compile(config);
+            const controller = new WebpackController(config);
+            const promise = controller.compile();
 
-            compiler.webpack.outputFileSystem.writeFile = function(
+            controller.compiler.outputFileSystem.writeFile = function(
                 name,
                 content,
                 callback
