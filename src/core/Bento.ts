@@ -7,7 +7,7 @@ import {
     Entry,
     Plugin
 } from "webpack";
-import { instantiate, selector } from "~/utils/lang";
+import { instantiate, selector } from "../utils/lang";
 import { sync as resolveModuleSync } from "resolve";
 
 export interface BaseConfig {

@@ -7,8 +7,8 @@ import {
 } from "webpack";
 import { extract } from "extract-text-webpack-plugin";
 import { basename, extname } from "path";
-import Bento, { Features as BaseFeatures, Env } from "~/core/Bento";
-import { selector } from "~/utils/lang";
+import Bento, { Features as BaseFeatures, Env } from "../core/Bento";
+import { selector } from "../utils/lang";
 
 export interface Features extends BaseFeatures {
     extractCss: boolean;

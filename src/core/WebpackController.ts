@@ -1,6 +1,6 @@
 import * as webpack from "webpack";
 import { Compiler, Configuration, Stats } from "webpack";
-import WebpackCompilationError from "~/errors/WebpackCompilationError";
+import WebpackCompilationError from "../errors/WebpackCompilationError";
 
 /**
  * Simple controller for `webpack`

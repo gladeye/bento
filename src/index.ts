@@ -1,7 +1,7 @@
 import { Configuration } from "webpack";
-import Bento, { BaseConfig } from "~/core/Bento";
-import StandardBento from "~/presets/StandardBento";
-import PlainBento from "~/presets/PlainBento";
+import Bento, { BaseConfig } from "./core/Bento";
+import StandardBento from "./presets/StandardBento";
+import PlainBento from "./presets/PlainBento";
 
 export default function bento(
     config: BaseConfig,
