@@ -4716,10 +4716,6 @@ p-map@^1.1.1:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/p-map/-/p-map-1.2.0.tgz#e4e94f311eabbc8633a1e79908165fca26241b6b"
 
-p-try@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/p-try/-/p-try-1.0.0.tgz#cbc79cdbaf8fd4228e13f621f2b1a237c1b207b3"
-
 pako@~1.0.5:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.6.tgz#0101211baa70c4bca4a0f63f2206e97b7dfaf258"
@@ -6932,12 +6928,6 @@ yargs-parser@^8.0.0:
   resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-8.0.0.tgz#21d476330e5a82279a4b881345bf066102e219c6"
   dependencies:
     camelcase "^4.1.0"
-
-yargs-promise-handler@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/yargs-promise-handler/-/yargs-promise-handler-1.0.1.tgz#578e240b1c2ed26a0bc9c17eb3f27aaf37ea85c0"
-  dependencies:
-    p-try "^1.0.0"
 
 yargs@^10.0.3:
   version "10.0.3"

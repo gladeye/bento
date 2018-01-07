@@ -49,28 +49,17 @@
         "uglifyjs-webpack-plugin": "^1.1.5",
         "url-loader": "^0.6.2",
         "webpack-manifest-plugin": "2.0.0-rc.1",
-        "yargs": "^10.0.3",
-        "yargs-promise-handler": "^1.0.1"
+        "yargs": "^10.0.3"
     },
     "jest": {
         "transform": {
             "^.+\\.tsx?$": "ts-jest"
         },
-        "testMatch": [
-            "**/__tests__/**/*.test.ts"
-        ],
-        "moduleFileExtensions": [
-            "ts",
-            "tsx",
-            "js",
-            "jsx",
-            "json"
-        ],
+        "testMatch": ["**/__tests__/**/*.test.ts"],
+        "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json"],
         "moduleNameMapper": {
             "~/(.*)": "<rootDir>/src/$1"
         },
-        "snapshotSerializers": [
-            "./__tests__/serialiser.ts"
-        ]
+        "snapshotSerializers": ["./__tests__/serialiser.ts"]
     }
 }
