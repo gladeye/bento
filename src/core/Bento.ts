@@ -147,7 +147,8 @@ export default class Bento {
      * @returns {this}
      * @memberof Bento
      */
-    bundle(name: string, ...files: string[]): this {
+    bundle(name: string, files: string | string[]): this {
+        if (typeof files === "string") files = [files];
         this.entry[name] = files.map(file =>
             file.replace("~/", `${this.config.homeDir}/`)
         );
