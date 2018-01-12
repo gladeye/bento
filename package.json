@@ -8,9 +8,6 @@
     "engines": {
         "node": ">=7"
     },
-    "bin": {
-        "bento": "./dst/cli.js"
-    },
     "scripts": {},
     "peerDependencies": {
         "webpack": "3.x",
@@ -48,8 +45,7 @@
         "style-loader": "^0.19.1",
         "uglifyjs-webpack-plugin": "^1.1.5",
         "url-loader": "^0.6.2",
-        "webpack-manifest-plugin": "2.0.0-rc.1",
-        "yargs": "^10.0.3"
+        "webpack-manifest-plugin": "2.0.0-rc.1"
     },
     "jest": {
         "transform": {
