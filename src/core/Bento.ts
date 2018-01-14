@@ -7,8 +7,8 @@ import {
     Entry,
     Plugin
 } from "webpack";
-import { instantiate, selector } from "../utils/lang";
 import { sync as resolveModuleSync } from "resolve";
+import { instantiate, selector } from "../utils/lang";
 
 export interface BaseConfig {
     homeDir: string;
@@ -119,7 +119,7 @@ export default class Bento {
         this.cwd = cwd;
         this.resolve = resolve.bind(this, this.cwd);
 
-        this.configure();
+        this.load();
     }
 
     /**
@@ -327,7 +327,7 @@ export default class Bento {
             })
         };
 
-        return Promise.resolve(config);
+        return Promise.resolve(this.configure(config, env));
     }
 
     /**
@@ -377,10 +377,23 @@ export default class Bento {
     }
 
     /**
-     * Placeholder method for subclass to configure rules & plugins
+     * Placeholder method for subclass to add in rules & plugins
      *
      * @protected
      * @memberof Bento
      */
-    protected configure(): void {}
+    protected load(): void {}
+
+    /**
+     * Placeholder method for subclass to overwrite `config`
+     *
+     * @protected
+     * @param {Configuration} config
+     * @param {string} env
+     * @returns {Configuration}
+     * @memberof Bento
+     */
+    protected configure(config: Configuration, env?: string): Configuration {
+        return config;
+    }
 }

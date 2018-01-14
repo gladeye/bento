@@ -24,11 +24,11 @@ export default class StandardBento extends Bento {
     protected features: Features;
 
     /**
-     * @see Bento#configure
+     * @see Bento#load
      * @protected
      * @memberof StandardBento
      */
-    protected configure() {
+    protected load() {
         // set default addtional features flag
         this.set("extractCss", true).set("writeManifest", true);
 
@@ -71,6 +71,15 @@ export default class StandardBento extends Bento {
                 }
             ])
             .addPlugin(NamedModulesPlugin, [])
+            .addPlugin(DefinePlugin, (env?: Env): any[] => {
+                return [
+                    {
+                        "process.env": {
+                            NODE_ENV: JSON.stringify(env)
+                        }
+                    }
+                ];
+            })
             .addPlugin(
                 optimize.CommonsChunkPlugin,
                 [
@@ -92,16 +101,6 @@ export default class StandardBento extends Bento {
                 ],
                 Env.Production
             )
-            .addPlugin(DefinePlugin, (env?: Env): any[] => {
-                return [
-                    {
-                        "process.env": {
-                            NODE_ENV: JSON.stringify(env)
-                        }
-                    }
-                ];
-            })
-
             .addPlugin("uglifyjs-webpack-plugin", [], Env.Production);
 
         // STYLE
