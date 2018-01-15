@@ -25,7 +25,7 @@ export interface RuleMap {
 export interface RuleDescriptor {
     ext: string[];
     include: Condition | Condition[];
-    loaders: Loader | Loader[] | ((env?: string) => Loader | Loader[]);
+    loaders: Loader | Loader[] | ((env: string | void) => Loader | Loader[]);
 }
 
 export interface PluginMap {
@@ -400,11 +400,14 @@ export default class Bento {
      *
      * @protected
      * @param {Configuration} config
-     * @param {string} env
+     * @param {string | void} env
      * @returns {Configuration}
      * @memberof Bento
      */
-    protected configure(config: Configuration, env?: string): Configuration {
+    protected configure(
+        config: Configuration,
+        env: string | void
+    ): Configuration {
         return config;
     }
 
