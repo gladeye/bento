@@ -88,7 +88,7 @@ describe("Bento", () => {
                 expect(manifest).toMatchSnapshot();
             });
 
-            return bento.export().then(config => {
+            return bento.export(null).then(config => {
                 expect(config.plugins[0] instanceof DefinePlugin).toBe(true);
             });
         });
@@ -115,7 +115,7 @@ describe("Bento", () => {
                 }
             ]);
 
-            return bento.export().then(config => {
+            return bento.export(null).then(config => {
                 expect(config).toMatchSnapshot();
             });
         });
@@ -147,7 +147,7 @@ describe("Bento", () => {
 
             bento.set("sourceMap", false);
 
-            return bento.export().then(config => {
+            return bento.export(null).then(config => {
                 expect(config).toMatchSnapshot();
             });
         });
