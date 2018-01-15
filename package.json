@@ -1,7 +1,7 @@
 {
     "name": "@gladeye/bento",
-    "version": "1.1.0",
-    "main": "index.js",
+    "version": "1.2.0",
+    "main": "dst/index.js",
     "repository": "https://github.com/gladeye/bento",
     "author": "Gladeye Team <point@gladeye.com>",
     "license": "MIT",
@@ -13,6 +13,9 @@
         "clean": "rimraf dst/*",
         "build": "yarn run clean && tsc -p ./tsconfig.json",
         "prepublishOnly": "run-s test build"
+    },
+    "publishConfig": {
+        "access": "public"
     },
     "peerDependencies": {
         "webpack": "3.x",
