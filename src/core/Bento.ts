@@ -1,4 +1,4 @@
-import { resolve } from "path";
+import { resolve, basename } from "path";
 import {
     Loader,
     Condition,
@@ -8,9 +8,10 @@ import {
     Plugin
 } from "webpack";
 import { sync as resolveModuleSync } from "resolve";
+import { isString } from "lodash";
 import { instantiate, selector } from "../utils/lang";
 
-export interface BaseConfig {
+export interface Config {
     homeDir: string;
     outputDir: string;
     publicPath?: string;
@@ -47,6 +48,11 @@ export enum Env {
     Production = "production"
 }
 
+export enum Command {
+    Bundle = "webpack",
+    Serve = "webpack-dev-server"
+}
+
 interface Constructor<M> {
     new (...args: any[]): M;
 }
@@ -60,10 +66,10 @@ interface Constructor<M> {
 export default class Bento {
     /**
      * @private
-     * @type {BaseConfig}
+     * @type {Config}
      * @memberof Bento
      */
-    protected config: BaseConfig;
+    protected config: Config;
 
     /**
      * @private
@@ -110,11 +116,11 @@ export default class Bento {
 
     /**
      * Creates an instance of Bento.
-     * @param {BaseConfig} config
+     * @param {Config} config
      * @param {string} [cwd]
      * @memberof Bento
      */
-    constructor(config: BaseConfig, cwd: string = process.cwd()) {
+    constructor(config: Config, cwd: string = process.cwd()) {
         this.config = config;
         this.cwd = cwd;
         this.resolve = resolve.bind(this, this.cwd);
@@ -126,14 +132,14 @@ export default class Bento {
      * Factory method to create an instance of Bento
      *
      * @static
-     * @param {BaseConfig} config
+     * @param {Config} config
      * @param {string} [cwd]
      * @returns {T}
      * @memberof T
      */
     static create<T extends Bento>(
         this: Constructor<T>,
-        config: BaseConfig,
+        config: Config,
         cwd?: string
     ): T {
         return new this(config, cwd);
@@ -148,8 +154,8 @@ export default class Bento {
      * @memberof Bento
      */
     bundle(name: string, files: string | string[]): this {
-        if (typeof files === "string") files = [files];
-        this.entry[name] = files.map(file =>
+        if (isString(files)) files = [files as string];
+        this.entry[name] = (files as string[]).map(file =>
             file.replace("~/", `${this.config.homeDir}/`)
         );
         return this;
@@ -189,9 +195,9 @@ export default class Bento {
         loaders: Loader | Loader[] | ((env?: string) => Loader | Loader[]),
         include?: Condition | Condition[]
     ): this {
-        if (typeof ext === "string") ext = [ext];
+        if (isString(ext)) ext = [ext as string];
         this.rules.push({
-            ext,
+            ext: ext as string[],
             include: include || [this.homeDir],
             loaders
         });
@@ -395,5 +401,15 @@ export default class Bento {
      */
     protected configure(config: Configuration, env?: string): Configuration {
         return config;
+    }
+
+    /**
+     * @readonly
+     * @protected
+     * @type {string}
+     * @memberof StandardBento
+     */
+    protected get command(): string {
+        return basename(process.argv[1]);
     }
 }

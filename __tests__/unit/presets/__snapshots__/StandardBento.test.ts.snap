@@ -10,6 +10,7 @@ Object {
           "public",
           Object {
             "root": "<cwd>",
+            "verbose": false,
           },
         ],
         "plugin": "clean-webpack-plugin",

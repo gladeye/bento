@@ -2,13 +2,26 @@ import {
     optimize,
     DefinePlugin,
     Loader,
+    Configuration,
     NamedModulesPlugin,
-    NamedChunksPlugin
+    NamedChunksPlugin,
+    HotModuleReplacementPlugin
 } from "webpack";
 import { extract } from "extract-text-webpack-plugin";
 import { basename, extname } from "path";
-import Bento, { Features as BaseFeatures, Env } from "../core/Bento";
+import { isObject, isString } from "lodash";
+import Bento, {
+    Config as BaseConfig,
+    Features as BaseFeatures,
+    Command,
+    Env
+} from "../core/Bento";
 import { selector } from "../utils/lang";
+
+export interface Config extends BaseConfig {
+    html?: string | {};
+    proxy?: string | {};
+}
 
 export interface Features extends BaseFeatures {
     extractCss: boolean;
@@ -16,6 +29,13 @@ export interface Features extends BaseFeatures {
 }
 
 export default class StandardBento extends Bento {
+    /**
+     * @protected
+     * @type {Config}
+     * @memberof StandardBento
+     */
+    protected config: Config;
+
     /**
      * @protected
      * @type {Features}
@@ -49,7 +69,8 @@ export default class StandardBento extends Bento {
             .addPlugin("clean-webpack-plugin", [
                 this.config.outputDir,
                 {
-                    root: this.cwd
+                    root: this.cwd,
+                    verbose: false
                 }
             ])
             .addPlugin("webpack-manifest-plugin", (env?: string): any[] => {
@@ -213,5 +234,67 @@ export default class StandardBento extends Bento {
             },
             [this.homeDir, /node_modules/]
         );
+
+        // HTML
+        if (this.html) {
+            this.addPlugin("html-webpack-plugin", [this.html]);
+        }
+    }
+
+    /**
+     * @see Bento#configure
+     * @protected
+     * @memberof StandardBento
+     */
+    protected configure(config: Configuration, env?: string): Configuration {
+        if (this.command !== Command.Serve) return config;
+        config.devServer = {
+            disableHostCheck: true,
+            historyApiFallback: true,
+            noInfo: true,
+            overlay: true
+        };
+
+        if (this.proxy) config.devServer.proxy = this.proxy;
+
+        return config;
+    }
+
+    /**
+     * @readonly
+     * @protected
+     * @type {({} | void)}
+     * @memberof StandardBento
+     */
+    protected get html(): {} | void {
+        let output = null;
+        if (isString(this.config.html)) {
+            output = {
+                filename: this.config.html
+            };
+        } else if (isObject(this.config.html)) {
+            output = this.config.html;
+        }
+
+        return output;
+    }
+
+    /**
+     * @readonly
+     * @protected
+     * @type {({} | void)}
+     * @memberof StandardBento
+     */
+    protected get proxy(): {} | void {
+        let output = null;
+        if (isString(this.config.proxy)) {
+            output = {
+                "**": this.config.proxy
+            };
+        } else if (isObject(this.config.proxy)) {
+            output = this.config.proxy;
+        }
+
+        return output;
     }
 }
