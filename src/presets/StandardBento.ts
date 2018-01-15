@@ -92,7 +92,7 @@ export default class StandardBento extends Bento {
                 }
             ])
             .addPlugin(NamedModulesPlugin, [])
-            .addPlugin(DefinePlugin, (env?: Env): any[] => {
+            .addPlugin(DefinePlugin, (env?: string): any[] => {
                 return [
                     {
                         "process.env": {
@@ -246,7 +246,7 @@ export default class StandardBento extends Bento {
      * @protected
      * @memberof StandardBento
      */
-    protected configure(config: Configuration, env?: string): Configuration {
+    protected configure(config: Configuration): Configuration {
         if (this.command !== Command.Serve) return config;
         config.devServer = {
             disableHostCheck: true,

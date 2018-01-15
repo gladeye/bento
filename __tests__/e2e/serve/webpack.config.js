@@ -1,7 +1,7 @@
 require("ts-node").register();
-const bento = require("../../../src/index");
+const make = require("../../../src/index");
 
-module.exports = bento(
+module.exports = make(
     {
         homeDir: "./app",
         outputDir: "./public",
@@ -13,6 +13,5 @@ module.exports = bento(
             }
         }
     },
-    ["~/main.js"],
-    process.env.NODE_ENV
+    ["~/main.js"]
 );

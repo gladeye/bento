@@ -79,7 +79,7 @@ describe("serve", () => {
 describe("build", () => {
     const build = function(
         entry,
-        env?: Env,
+        env?: string,
         overwrite?: (config: Configuration) => any
     ) {
         const bento = StandardBento.create({

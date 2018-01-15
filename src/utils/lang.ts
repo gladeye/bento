@@ -8,9 +8,9 @@ interface SelectorOptions {
     [key: string]: any;
 }
 
-export function selector(env?: string): (choice: SelectorOptions) => any {
+export function selector(env: string | void): (choice: SelectorOptions) => any {
     return function(choice: SelectorOptions = {}) {
-        return choice[env]
+        return env && choice[env]
             ? choice[env]
             : choice.default ? choice.default : null;
     };

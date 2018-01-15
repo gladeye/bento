@@ -8,7 +8,9 @@
     "engines": {
         "node": ">=7"
     },
-    "scripts": {},
+    "scripts": {
+        "test": "jest"
+    },
     "peerDependencies": {
         "webpack": "3.x",
         "webpack-dev-server": "2.x"
@@ -56,21 +58,11 @@
         "transform": {
             "^.+\\.tsx?$": "ts-jest"
         },
-        "testMatch": [
-            "**/__tests__/**/*.test.ts"
-        ],
-        "moduleFileExtensions": [
-            "ts",
-            "tsx",
-            "js",
-            "jsx",
-            "json"
-        ],
+        "testMatch": ["**/__tests__/**/*.test.ts"],
+        "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json"],
         "moduleNameMapper": {
             "~/(.*)": "<rootDir>/src/$1"
         },
-        "snapshotSerializers": [
-            "./__tests__/serialiser.ts"
-        ]
+        "snapshotSerializers": ["./__tests__/serialiser.ts"]
     }
 }
