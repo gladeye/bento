@@ -1,12 +1,11 @@
-language: node_js
 cache:
   yarn: true
   directories:
   - node_modules
+language: node_js
 node_js:
   - '8'
 install:
-  - yarn install
+  yarn install
 script:
-  - yarn link
-  - yarn test
+  yarn test ./__tests__/unit/**/*.test.ts
