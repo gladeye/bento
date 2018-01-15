@@ -12,6 +12,7 @@ import { isString } from "lodash";
 import { instantiate, selector } from "../utils/lang";
 
 export interface Config {
+    cwd?: string;
     homeDir: string;
     outputDir: string;
     publicPath?: string;
@@ -73,13 +74,6 @@ export default class Bento {
 
     /**
      * @private
-     * @type {string}
-     * @memberof Bento
-     */
-    protected cwd: string;
-
-    /**
-     * @private
      * @type {RuleDescriptor[]}
      * @memberof Bento
      */
@@ -117,12 +111,10 @@ export default class Bento {
     /**
      * Creates an instance of Bento.
      * @param {Config} config
-     * @param {string} [cwd]
      * @memberof Bento
      */
-    constructor(config: Config, cwd: string = process.cwd()) {
+    constructor(config: Config) {
         this.config = config;
-        this.cwd = cwd;
         this.resolve = resolve.bind(this, this.cwd);
 
         this.load();
@@ -353,10 +345,11 @@ export default class Bento {
      * Resolved homeDir
      *
      * @readonly
+     * @protected
      * @type {string}
      * @memberof Bento
      */
-    get homeDir(): string {
+    protected get homeDir(): string {
         return this.resolve(this.config.homeDir);
     }
 
@@ -364,10 +357,11 @@ export default class Bento {
      * Resolved outputDir
      *
      * @readonly
+     * @protected
      * @type {string}
      * @memberof Bento
      */
-    get outputDir(): string {
+    protected get outputDir(): string {
         return this.resolve(this.config.outputDir);
     }
 
@@ -375,11 +369,22 @@ export default class Bento {
      * Default publicPath
      *
      * @readonly
+     * @protected
      * @type {string}
      * @memberof Bento
      */
-    get publicPath(): string {
+    protected get publicPath(): string {
         return this.config.publicPath || "/";
+    }
+
+    /**
+     * @readonly
+     * @protected
+     * @type {string}
+     * @memberof Bento
+     */
+    protected get cwd(): string {
+        return this.config.cwd || process.cwd();
     }
 
     /**
