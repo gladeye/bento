@@ -6,18 +6,16 @@
 
 ```js
 // webpack.config.js
+const make = require("@gladeye/bento");
 
-import Bento from "@gladeye/bento";
-
-const bento = Bento.init({
-    homeDir: "app"
-    outputDir: "public"
-    entry: {
-        main: ["app/main.js"]
-    }
+const bento = make({
+    homeDir: "./app"
+    outputDir: "./public"
 });
 
-module.exports = bento.export();
+bento.bundle("main", ["~/main.js"];
+
+module.exports = bento.export(process.env.NODE_ENV);
 ```
 
 ## License
