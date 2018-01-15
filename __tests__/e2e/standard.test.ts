@@ -72,7 +72,7 @@ describe("serve", () => {
                 done();
             });
         },
-        60000
+        120000
     );
 });
 
@@ -155,7 +155,9 @@ describe("build", () => {
 
     it("exports a correct `config` for webpack in production", () => {
         return build("main2", Env.Production).then(({ files, stats }) => {
-            expect(Object.keys(files)).toEqual([
+            const keys = Object.keys(files);
+
+            expect(keys).toEqual([
                 "/RobotoMono-Regular.a48ac416.ttf",
                 "/giphy.a47e713b.gif",
                 "/cat.5082946a.gif",

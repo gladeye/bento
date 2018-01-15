@@ -6,7 +6,7 @@
     "author": "Gladeye Team <point@gladeye.com>",
     "license": "MIT",
     "engines": {
-        "node": ">=7"
+        "node": ">=8"
     },
     "scripts": {
         "test": "jest"
