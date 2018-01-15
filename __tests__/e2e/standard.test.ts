@@ -1,7 +1,80 @@
+import { resolve as resolvePath } from "path";
+import * as execa from "execa";
 import { Configuration } from "webpack";
+import * as express from "express";
+import * as fetch from "node-fetch";
 import StandardBento from "~/presets/StandardBento";
 import WebpackController from "~/core/WebpackController";
 import { Env } from "~/core/Bento";
+
+describe("serve", () => {
+    const serve = function(cb) {
+        return new Promise((resolve, reject) => {
+            const cliPath = resolvePath(
+                __dirname,
+                "../../node_modules/.bin/webpack-dev-server"
+            );
+            const fixturePath = resolvePath(__dirname, "./serve");
+            const nodePath = execa.shellSync("which node").stdout;
+
+            const proc = execa(
+                nodePath,
+                [cliPath, "--hot", "--inline", "--port", "8000"],
+                {
+                    cwd: fixturePath
+                }
+            );
+
+            proc.stdout.on("data", cb.bind(null, proc));
+            proc.on("exit", resolve);
+            proc.on("error", reject);
+        });
+    };
+
+    const proxy = function() {
+        const server = express();
+        server.get("/", (req, res) => {
+            res.send("proxy says hi");
+        });
+
+        return server.listen(9000);
+    };
+
+    it(
+        "should work as expected",
+        async () => {
+            const server = proxy();
+
+            await serve(async (proc, data) => {
+                const done = function() {
+                    server.close();
+                    proc.kill("SIGINT");
+                };
+
+                const output = data.toString();
+                if (!/Compiled successfully/.test(output)) return;
+
+                const mainBody = await (await fetch(
+                    "http://localhost:8000"
+                )).text();
+
+                const proxyBody = await (await fetch(
+                    "http://localhost:8000/api"
+                )).text();
+
+                expect(mainBody).toContain("<title>Webpack App</title>");
+                expect(mainBody).toContain(
+                    `<script type="text/javascript" src="/main.js"></script>`
+                );
+
+                expect(proxyBody).toContain("proxy says hi");
+
+                done();
+            });
+        },
+        15000
+    );
+});
 
 describe("build", () => {
     const build = function(

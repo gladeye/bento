@@ -1,4 +1,5 @@
-const bento = require("../../../dst/index");
+require("ts-node").register();
+const bento = require("../../../src/index");
 
 module.exports = bento(
     {
@@ -7,7 +8,7 @@ module.exports = bento(
         html: "index.html",
         proxy: {
             "/api": {
-                target: "http://localhost:3000",
+                target: "http://[::1]:9000",
                 pathRewrite: { "^/api": "" }
             }
         }
