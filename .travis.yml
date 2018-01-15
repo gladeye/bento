@@ -1,11 +1,9 @@
 language: node_js
-cache:
-  yarn: true
-  directories:
-  - node_modules
+language:
+  node_js
 node_js:
   - '7'
 install:
-  - yarn install
+  yarn install
 script:
-  - yarn test
+  yarn test
