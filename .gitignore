@@ -1,3 +1,4 @@
 node_modules
 !__tests__/fixtures/node_modules
 dst
+__tests__/e2e/serve/public

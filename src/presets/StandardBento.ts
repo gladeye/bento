@@ -251,7 +251,6 @@ export default class StandardBento extends Bento {
         config.devServer = {
             disableHostCheck: true,
             historyApiFallback: true,
-            noInfo: true,
             overlay: true
         };
 

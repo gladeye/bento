@@ -26,6 +26,7 @@ describe("serve", () => {
             );
 
             proc.stdout.on("data", cb.bind(null, proc));
+            proc.stderr.on("data", reject);
             proc.on("exit", resolve);
             proc.on("error", reject);
         });

@@ -1,17 +1,18 @@
 require("ts-node").register();
-const make = require("../../../src/index");
+const { create } = require("../../../src/index");
 
-module.exports = make(
-    {
-        homeDir: "./app",
-        outputDir: "./public",
-        html: "index.html",
-        proxy: {
-            "/api": {
-                target: "http://[::1]:9000",
-                pathRewrite: { "^/api": "" }
-            }
+const bento = create({
+    homeDir: "./app",
+    outputDir: "./public",
+    html: "index.html",
+    proxy: {
+        "/api": {
+            target: "http://[::1]:9000",
+            pathRewrite: { "^/api": "" }
         }
-    },
-    ["~/main.js"]
-);
+    }
+});
+
+bento.bundle("main", "~/main.js");
+
+module.exports = bento.export(process.env.NODE_ENV);
