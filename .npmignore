@@ -1,3 +1,5 @@
 yarn.lock
 *.code-*
 __tests__
+.vscode
+.travis.yml
