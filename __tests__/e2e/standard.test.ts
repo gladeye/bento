@@ -165,13 +165,13 @@ describe("build", () => {
                 "/main.3725e6c4.js",
                 "/runtime.9b99d594.js",
                 "/vendor.82d73bc4.js",
-                "/main.0bf666a4.css",
+                "/main.bd753fff.css",
                 "/manifest.json"
             ]);
 
             expect(files["/main.3725e6c4.js"]).toContain(`return\"This is a\"`);
-            expect(files["/main.0bf666a4.css"]).toContain("color:red");
-            expect(files["/main.0bf666a4.css"]).toContain("@-webkit-keyframes");
+            expect(files["/main.bd753fff.css"]).toContain("color:red");
+            expect(files["/main.bd753fff.css"]).toContain("@-webkit-keyframes");
             expect(JSON.parse(files["/manifest.json"])).toMatchSnapshot();
         });
     });

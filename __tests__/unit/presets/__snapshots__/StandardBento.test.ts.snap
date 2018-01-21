@@ -16,8 +16,12 @@ Object {
         "plugin": "clean-webpack-plugin",
       },
       Object {
-        "args": [Function anonymous],
+        "args": Array [],
         "plugin": "webpack-manifest-plugin",
+      },
+      Object {
+        "args": [Function anonymous],
+        "plugin": "write-file-webpack-plugin",
       },
       Object {
         "args": Array [
@@ -35,7 +39,7 @@ Object {
       },
       Object {
         "args": [Function anonymous],
-        "plugin": "extract-text-webpack-plugin",
+        "plugin": [Function ExtractTextPlugin],
       },
     ],
     "production": Array [

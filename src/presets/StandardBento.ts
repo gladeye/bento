@@ -7,7 +7,7 @@ import {
     NamedChunksPlugin,
     HotModuleReplacementPlugin
 } from "webpack";
-import { extract } from "extract-text-webpack-plugin";
+import * as ExtractTextWebpackPlugin from "extract-text-webpack-plugin";
 import { basename, extname } from "path";
 import { isObject, isString } from "lodash";
 import Bento, {
@@ -81,10 +81,10 @@ export default class StandardBento extends Bento {
                 if (this.features.emitFiles === true) args = [];
                 if (this.features.emitFiles instanceof RegExp)
                     args = [
-                    {
+                        {
                             test: this.features.emitFiles
-                    }
-                ];
+                        }
+                    ];
 
                 return args;
             })
@@ -134,7 +134,8 @@ export default class StandardBento extends Bento {
 
         // STYLE
         this.addRule("scss", (env?: string): Loader[] => {
-            return extract({
+            return ExtractTextWebpackPlugin.extract({
+                publicPath: "./",
                 fallback: {
                     loader: "style-loader",
                     options: {
@@ -196,7 +197,7 @@ export default class StandardBento extends Bento {
                 ],
                 /node_modules/
             )
-            .addPlugin("extract-text-webpack-plugin", (env?: string): any[] => {
+            .addPlugin(ExtractTextWebpackPlugin, (env?: string): any[] => {
                 const select = selector(env);
 
                 return [
