@@ -15,4 +15,6 @@ const bento = create({
 
 bento.bundle("main", "~/main.js");
 
+bento.set("emitFiles", /\.json$/);
+
 module.exports = bento.export(process.env.NODE_ENV);

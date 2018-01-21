@@ -8,7 +8,7 @@ import {
     Plugin
 } from "webpack";
 import { sync as resolveModuleSync } from "resolve";
-import { isString } from "lodash";
+import { isString, isArray } from "lodash";
 import { instantiate, selector } from "../utils/lang";
 
 export interface Config {
@@ -34,7 +34,7 @@ export interface PluginMap {
 
 export interface PluginDescriptor {
     plugin: string | Constructor<Plugin>;
-    args: any[] | ((env?: string) => any[]);
+    args: any[] | ((env?: string) => any[] | void);
 }
 
 export interface PluginCollection {
@@ -223,7 +223,7 @@ export default class Bento {
      */
     addPlugin(
         plugin: string | Constructor<Plugin>,
-        args: any[] | ((env?: string) => any[]) = [],
+        args: any[] | ((env?: string) => any[] | void) = [],
         env?: string
     ): this {
         let key = env || "all";
@@ -307,22 +307,26 @@ export default class Bento {
                     };
                 })
             },
-            plugins: plugins.map(desc => {
-                let Plugin;
-                if (typeof desc.plugin === "function") Plugin = desc.plugin;
-                else {
-                    const module = resolveModuleSync(desc.plugin, {
-                        basedir: this.cwd
-                    });
+            plugins: plugins
+                .map(desc => {
+                    let Plugin;
+                    if (typeof desc.plugin === "function") Plugin = desc.plugin;
+                    else {
+                        const module = resolveModuleSync(desc.plugin, {
+                            basedir: this.cwd
+                        });
 
-                    Plugin = require(module);
-                }
+                        Plugin = require(module);
+                    }
 
-                return instantiate(
-                    Plugin,
-                    typeof desc.args === "function" ? desc.args(env) : desc.args
-                );
-            })
+                    const args =
+                        typeof desc.args === "function"
+                            ? desc.args(env)
+                            : desc.args;
+
+                    return isArray(args) ? instantiate(Plugin, args) : null;
+                })
+                .filter(Boolean)
         };
 
         return Promise.resolve(this.configure(config, env));
@@ -332,11 +336,11 @@ export default class Bento {
      * Enable / disable available features
      *
      * @param {string} flag
-     * @param {boolean} value
+     * @param {any} value
      * @returns {this}
      * @memberof Bento
      */
-    set(flag: string, value: boolean): this {
+    set(flag: string, value: any): this {
         this.features[flag] = value;
         return this;
     }

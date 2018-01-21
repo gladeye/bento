@@ -25,7 +25,7 @@ export interface Config extends BaseConfig {
 
 export interface Features extends BaseFeatures {
     extractCss: boolean;
-    writeManifest: boolean;
+    emitFiles: boolean | RegExp;
 }
 
 export default class StandardBento extends Bento {
@@ -50,7 +50,7 @@ export default class StandardBento extends Bento {
      */
     protected load() {
         // set default addtional features flag
-        this.set("extractCss", true).set("writeManifest", true);
+        this.set("extractCss", true).set("emitFiles", false);
 
         // SCRIPT
         this.addRule(["js", "jsx"], {
@@ -73,12 +73,20 @@ export default class StandardBento extends Bento {
                     verbose: false
                 }
             ])
-            .addPlugin("webpack-manifest-plugin", (env?: string): any[] => {
-                return [
+            .addPlugin("webpack-manifest-plugin", [])
+            .addPlugin("write-file-webpack-plugin", (env?: string):
+                | void
+                | any[] => {
+                let args = null;
+                if (this.features.emitFiles === true) args = [];
+                if (this.features.emitFiles instanceof RegExp)
+                    args = [
                     {
-                        writeToFileEmit: this.features.writeManifest
+                            test: this.features.emitFiles
                     }
                 ];
+
+                return args;
             })
             .addPlugin(NamedChunksPlugin, [
                 chunk => {
