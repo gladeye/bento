@@ -90,8 +90,6 @@ describe("build", () => {
 
         const files = {};
 
-        bento.set("writeManifest", false);
-
         return bento.export(env).then(config => {
             if (overwrite) overwrite(config);
 

@@ -130,7 +130,17 @@ export default class StandardBento extends Bento {
                 ],
                 Env.Production
             )
-            .addPlugin("uglifyjs-webpack-plugin", [], Env.Production);
+            .addPlugin(
+                "uglifyjs-webpack-plugin",
+                (env?: string): any[] => {
+                    return [
+                        {
+                            sourceMap: this.features.sourceMap
+                        }
+                    ];
+                },
+                Env.Production
+            );
 
         // STYLE
         this.addRule("scss", (env?: string): Loader[] => {
