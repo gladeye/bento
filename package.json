@@ -1,6 +1,6 @@
 {
     "name": "@gladeye/bento",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "main": "dst/index.js",
     "repository": "https://github.com/gladeye/bento",
     "author": "Gladeye Team <point@gladeye.com>",
