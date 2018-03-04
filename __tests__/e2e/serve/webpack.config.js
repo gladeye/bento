@@ -13,6 +13,13 @@ const bento = create({
     }
 });
 
+bento.findLoader("babel-loader", ({ loader }) => {
+    if (loader.options) {
+        if (!loader.options.presets) loader.options.presets = [];
+        loader.options.presets.push(["@babel/preset-stage-0", { loose: true }]);
+    }
+});
+
 bento.bundle("main", "~/main.js");
 
 bento.set("emitFiles", /\.json$/);

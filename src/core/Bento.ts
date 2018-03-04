@@ -25,7 +25,7 @@ export interface RuleMap {
 export interface RuleDescriptor {
     ext: string[];
     include: Condition | Condition[];
-    loaders: Loader | Loader[] | ((env: string | void) => Loader | Loader[]);
+    loaders: Loader[] | ((env: string | void) => Loader | Loader[]);
 }
 
 export interface PluginMap {
@@ -188,6 +188,14 @@ export default class Bento {
         include?: Condition | Condition[]
     ): this {
         if (isString(ext)) ext = [ext as string];
+        if (typeof loaders !== "function") {
+            if (!Array.isArray(loaders)) loaders = [loaders as Loader];
+            loaders = loaders.map(loader => {
+                if (typeof loader === "string") return { loader };
+                return loader;
+            });
+        }
+
         this.rules.push({
             ext: ext as string[],
             include: include || [this.homeDir],
@@ -303,7 +311,11 @@ export default class Bento {
                         use:
                             typeof desc.loaders === "function"
                                 ? desc.loaders(env)
-                                : desc.loaders
+                                : desc.loaders.map(loader => {
+                                      return typeof loader === "function"
+                                          ? loader(env)
+                                          : loader;
+                                  })
                     };
                 })
             },
@@ -343,6 +355,25 @@ export default class Bento {
     set(flag: string, value: any): this {
         this.features[flag] = value;
         return this;
+    }
+
+    /**
+     * Find loader with a given `name`, `cb` will be triggered if found.
+     *
+     * @param {string} name
+     * @param {({ loader, ext, include }) => void} cb
+     * @memberof Bento
+     */
+    findLoader(name: string, cb: ({ loader, ext, include }) => void) {
+        this.rules.forEach(rule => {
+            const trigger = loader => {
+                if (loader.loader && loader.loader === name)
+                    cb({ loader, ext: rule.ext, include: rule.include });
+            };
+
+            if (typeof rule.loaders === "function") return;
+            rule.loaders.forEach(trigger);
+        });
     }
 
     /**
