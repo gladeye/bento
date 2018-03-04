@@ -6,14 +6,14 @@
 
 ```js
 // webpack.config.js
-const make = require("@gladeye/bento");
+const create = require("@gladeye/bento");
 
-const bento = make({
-    homeDir: "./app"
+const bento = create({
+    homeDir: "./app",
     outputDir: "./public"
 });
 
-bento.bundle("main", ["~/main.js"];
+bento.bundle("main", ["~/main.js"]);
 
 module.exports = bento.export(process.env.NODE_ENV);
 ```
