@@ -117,7 +117,11 @@ Object {
       "include": Array [
         "<cwd>/app",
       ],
-      "loaders": "babel-loader",
+      "loaders": Array [
+        Object {
+          "loader": "babel-loader",
+        },
+      ],
     },
   ],
 }
@@ -140,7 +144,9 @@ Object {
         "<cwd>/app",
       ],
       "loaders": Array [
-        "babel-loader",
+        Object {
+          "loader": "babel-loader",
+        },
       ],
     },
     Object {
@@ -150,7 +156,11 @@ Object {
       "include": Array [
         "<cwd>/app",
       ],
-      "loaders": "style-loader",
+      "loaders": Array [
+        Object {
+          "loader": "style-loader",
+        },
+      ],
     },
   ],
 }

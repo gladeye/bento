@@ -19,6 +19,7 @@
         "webpack-dev-server": "2.x"
     },
     "devDependencies": {
+        "@babel/preset-stage-0": "^7.0.0-beta.40",
         "@types/jest": "^21.1.8",
         "@types/node": "^8.0.55",
         "@types/webpack": "^3.8.1",
@@ -37,8 +38,8 @@
         "webpack-dev-server": "^2.10.0"
     },
     "dependencies": {
-        "@babel/core": "^7.0.0-beta.36",
-        "@babel/preset-env": "^7.0.0-beta.36",
+        "@babel/core": "^7.0.0-beta.40",
+        "@babel/preset-env": "^7.0.0-beta.40",
         "autoprefix": "^1.0.1",
         "babel-loader": "8.0.0-beta.0",
         "chalk": "^2.3.0",

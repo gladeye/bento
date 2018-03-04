@@ -152,4 +152,27 @@ describe("Bento", () => {
             });
         });
     });
+
+    describe(".findLoader()", () => {
+        it("works as expected", () => {
+            const bento = create();
+
+            bento.addRule("js", "babel-loader");
+            bento.addRule("jsx", [
+                { loader: "babel-loader", options: { foo: "baz" } }
+            ]);
+            bento.addRule("vue", function(env) {
+                return ["babel-loader"];
+            });
+
+            let count = 0;
+
+            bento.findLoader("babel-loader", ({ loader, ext }) => {
+                expect(loader.loader).toBeDefined();
+                count++;
+            });
+
+            expect(count).toEqual(2);
+        });
+    });
 });
