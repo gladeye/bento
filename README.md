@@ -6,7 +6,7 @@
 
 ```js
 // webpack.config.js
-const create = require("@gladeye/bento");
+const { create } = require("@gladeye/bento");
 
 const bento = create({
     homeDir: "./app",
