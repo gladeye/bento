@@ -90,7 +90,7 @@ describe("build", () => {
 
         const files = {};
 
-        return bento.export(env).then(config => {
+        return bento.export(env).then((config) => {
             if (overwrite) overwrite(config);
 
             config.devtool = false;
@@ -106,7 +106,7 @@ describe("build", () => {
                 callback();
             };
 
-            return promise.then(stats => {
+            return promise.then((stats) => {
                 return { files, stats };
             });
         });
@@ -160,14 +160,14 @@ describe("build", () => {
                 "/giphy.a47e713b.gif",
                 "/cat.5082946a.gif",
                 "/nice.9c3c4150.jpg",
-                "/main.3725e6c4.js",
-                "/runtime.9b99d594.js",
-                "/vendor.82d73bc4.js",
+                "/main.d8732cfc.js",
+                "/runtime.631fbc64.js",
+                "/vendor.a9d97159.js",
                 "/main.bd753fff.css",
                 "/manifest.json"
             ]);
 
-            expect(files["/main.3725e6c4.js"]).toContain(`return\"This is a\"`);
+            expect(files["/main.d8732cfc.js"]).toContain(`return\"This is a\"`);
             expect(files["/main.bd753fff.css"]).toContain("color:red");
             expect(files["/main.bd753fff.css"]).toContain("@-webkit-keyframes");
             expect(JSON.parse(files["/manifest.json"])).toMatchSnapshot();
@@ -178,7 +178,7 @@ describe("build", () => {
     it("keeps `vendor` chunk hash as static as possible", async () => {
         const find = (name, files) => {
             return Object.keys(files)
-                .filter(item => {
+                .filter((item) => {
                     return item.indexOf(`/${name}`) === 0;
                 })
                 .shift();
@@ -191,7 +191,7 @@ describe("build", () => {
         // load additional module async
         const c = await build("main3-c", Env.Production);
         // define `externals`
-        const d = await build("main3-d", Env.Production, config => {
+        const d = await build("main3-d", Env.Production, (config) => {
             config.externals = {
                 jquery: "jQuery"
             };

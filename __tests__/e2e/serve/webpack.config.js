@@ -15,8 +15,11 @@ const bento = create({
 
 bento.findLoader("babel-loader", ({ loader }) => {
     if (loader.options) {
-        if (!loader.options.presets) loader.options.presets = [];
-        loader.options.presets.push(["@babel/preset-stage-0", { loose: true }]);
+        if (!loader.options.plugins) loader.options.plugins = [];
+        loader.options.plugins.push([
+            "@babel/plugin-proposal-class-properties",
+            { loose: true }
+        ]);
     }
 });
 
