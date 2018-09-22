@@ -74,41 +74,45 @@ export default class StandardBento extends Bento {
                 }
             ])
             .addPlugin("webpack-manifest-plugin", [])
-            .addPlugin("write-file-webpack-plugin", (env?: string):
-                | void
-                | any[] => {
-                let args = null;
-                if (this.features.emitFiles === true) args = [];
-                if (this.features.emitFiles instanceof RegExp)
-                    args = [
-                        {
-                            test: this.features.emitFiles
-                        }
-                    ];
+            .addPlugin(
+                "write-file-webpack-plugin",
+                (env?: string): void | any[] => {
+                    let args = null;
+                    if (this.features.emitFiles === true) args = [];
+                    if (this.features.emitFiles instanceof RegExp)
+                        args = [
+                            {
+                                test: this.features.emitFiles
+                            }
+                        ];
 
-                return args;
-            })
+                    return args;
+                }
+            )
             .addPlugin(NamedChunksPlugin, [
-                chunk => {
+                (chunk) => {
                     if (chunk.name) {
                         return chunk.name;
                     }
 
-                    return chunk.mapModules(m => {
+                    return chunk.mapModules((m) => {
                         return basename(m.request, extname(m.request));
                     });
                 }
             ])
             .addPlugin(NamedModulesPlugin, [])
-            .addPlugin(DefinePlugin, (env?: string): any[] => {
-                return [
-                    {
-                        "process.env": {
-                            NODE_ENV: JSON.stringify(env)
+            .addPlugin(
+                DefinePlugin,
+                (env?: string): any[] => {
+                    return [
+                        {
+                            "process.env": {
+                                NODE_ENV: JSON.stringify(env)
+                            }
                         }
-                    }
-                ];
-            })
+                    ];
+                }
+            )
             .addPlugin(
                 optimize.CommonsChunkPlugin,
                 [
@@ -143,52 +147,55 @@ export default class StandardBento extends Bento {
             );
 
         // STYLE
-        this.addRule("scss", (env?: string): Loader[] => {
-            return ExtractTextWebpackPlugin.extract({
-                publicPath: "./",
-                fallback: {
-                    loader: "style-loader",
-                    options: {
-                        sourceMap: this.features.sourceMap
-                    }
-                },
-                use: [
-                    {
-                        loader: "css-loader",
-                        options: {
-                            sourceMap: this.features.sourceMap,
-                            minimize:
-                                env === Env.Production
-                                    ? { preset: "default" }
-                                    : false
-                        }
-                    },
-                    {
-                        loader: "postcss-loader",
-                        options: {
-                            ident: "postcss",
-                            plugins() {
-                                const autoprefixer = require("autoprefixer");
-                                return [autoprefixer()];
-                            },
-                            sourceMap: this.features.sourceMap
-                        }
-                    },
-                    {
-                        loader: "resolve-url-loader",
+        this.addRule(
+            "scss",
+            (env?: string): Loader[] => {
+                return ExtractTextWebpackPlugin.extract({
+                    publicPath: "./",
+                    fallback: {
+                        loader: "style-loader",
                         options: {
                             sourceMap: this.features.sourceMap
                         }
                     },
-                    {
-                        loader: "sass-loader",
-                        options: {
-                            sourceMap: this.features.sourceMap
+                    use: [
+                        {
+                            loader: "css-loader",
+                            options: {
+                                sourceMap: this.features.sourceMap,
+                                minimize:
+                                    env === Env.Production
+                                        ? { preset: "default" }
+                                        : false
+                            }
+                        },
+                        {
+                            loader: "postcss-loader",
+                            options: {
+                                ident: "postcss",
+                                plugins() {
+                                    const autoprefixer = require("autoprefixer");
+                                    return [autoprefixer()];
+                                },
+                                sourceMap: this.features.sourceMap
+                            }
+                        },
+                        {
+                            loader: "resolve-url-loader",
+                            options: {
+                                sourceMap: this.features.sourceMap
+                            }
+                        },
+                        {
+                            loader: "sass-loader",
+                            options: {
+                                sourceMap: this.features.sourceMap
+                            }
                         }
-                    }
-                ]
-            });
-        })
+                    ]
+                });
+            }
+        )
             .addRule(
                 "css",
                 [
@@ -207,21 +214,25 @@ export default class StandardBento extends Bento {
                 ],
                 /node_modules/
             )
-            .addPlugin(ExtractTextWebpackPlugin, (env?: string): any[] => {
-                const select = selector(env);
+            .addPlugin(
+                ExtractTextWebpackPlugin,
+                (env?: string): any[] => {
+                    const select = selector(env);
 
-                return [
-                    {
-                        filename: select({
-                            default: "[name].css",
-                            production: "[name].[contenthash:8].css"
-                        }),
-                        disable: !(
-                            this.features.extractCss && env === Env.Production
-                        )
-                    }
-                ];
-            });
+                    return [
+                        {
+                            filename: select({
+                                default: "[name].css",
+                                production: "[name].[contenthash:8].css"
+                            }),
+                            disable: !(
+                                this.features.extractCss &&
+                                env === Env.Production
+                            )
+                        }
+                    ];
+                }
+            );
 
         // FONTS & MEDIA
         this.addRule(
