@@ -39,30 +39,7 @@ Object {
       },
       Object {
         "args": [Function anonymous],
-        "plugin": [Function ExtractTextPlugin],
-      },
-    ],
-    "production": Array [
-      Object {
-        "args": Array [
-          Object {
-            "minChunks": [Function minChunks],
-            "name": "vendor",
-          },
-        ],
-        "plugin": [Function CommonsChunkPlugin],
-      },
-      Object {
-        "args": Array [
-          Object {
-            "name": "runtime",
-          },
-        ],
-        "plugin": [Function CommonsChunkPlugin],
-      },
-      Object {
-        "args": [Function anonymous],
-        "plugin": "uglifyjs-webpack-plugin",
+        "plugin": [Function MiniCssExtractPlugin],
       },
     ],
   },

@@ -26,7 +26,10 @@ describe("serve", () => {
             );
 
             proc.stdout.on("data", cb.bind(null, proc));
-            proc.stderr.on("data", reject);
+            proc.stderr.on("data", function(data) {
+                if (data.indexOf("DeprecationWarning") < 0) reject(data);
+                else console.log(data.toString());
+            });
             proc.on("exit", resolve);
             proc.on("error", reject);
         });
@@ -94,6 +97,7 @@ describe("build", () => {
             if (overwrite) overwrite(config);
 
             config.devtool = false;
+            config.cache = false;
             const controller = new WebpackController(config);
             const promise = controller.compile();
 
@@ -156,20 +160,23 @@ describe("build", () => {
         return build("main2", Env.Production).then(({ files, stats }) => {
             const keys = Object.keys(files);
             expect(keys).toEqual([
-                "/RobotoMono-Regular.a48ac416.ttf",
-                "/giphy.a47e713b.gif",
-                "/cat.5082946a.gif",
                 "/nice.9c3c4150.jpg",
-                "/main.d8732cfc.js",
-                "/runtime.631fbc64.js",
-                "/vendor.a9d97159.js",
-                "/main.bd753fff.css",
+                "/cat.5082946a.gif",
+                "/giphy.a47e713b.gif",
+                "/RobotoMono-Regular.a48ac416.ttf",
+                "/main.8610a24b.css",
+                "/main.97d26e8e.js",
+                "/runtime.22d41c18.js",
+                "/vendor.95cc41f3.css",
+                "/vendor.2a94de0c.js",
                 "/manifest.json"
             ]);
 
-            expect(files["/main.d8732cfc.js"]).toContain(`return\"This is a\"`);
-            expect(files["/main.bd753fff.css"]).toContain("color:red");
-            expect(files["/main.bd753fff.css"]).toContain("@-webkit-keyframes");
+            expect(files["/main.97d26e8e.js"]).toContain(`return\"This is a\"`);
+            expect(files["/main.8610a24b.css"]).toContain("color:red");
+            expect(files["/main.8610a24b.css"]).toContain("@-webkit-keyframes");
+            expect(files["/vendor.95cc41f3.css"]).toContain("font-size:12px");
+            expect(files["/vendor.2a94de0c.js"]).toContain("lodash");
             expect(JSON.parse(files["/manifest.json"])).toMatchSnapshot();
         });
     });
