@@ -193,7 +193,8 @@ export default class StandardBento extends Bento {
                     loaders.unshift({
                         loader: MiniCssExtractPlugin.loader,
                         options: {
-                            publicPath: "./"
+                            publicPath: "./",
+                            sourceMap: this.features.sourceMap
                         }
                     });
                 } else {

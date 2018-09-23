@@ -277,10 +277,14 @@ export default class Bento {
             env ? this.plugins[env] || [] : []
         );
 
+        type WebpackMode = "development" | "production" | "none";
+
         const config = {
             name: "bento",
             entry: this.entry,
-            mode: env === Env.Production ? "production" : "development",
+            mode: (env === Env.Production
+                ? "production"
+                : "development") as WebpackMode,
             output: {
                 path: this.outputDir,
                 pathinfo: select({
