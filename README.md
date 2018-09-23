@@ -6,7 +6,7 @@
 
 ```shell
 # package
-yarn add @gladeye/bento@next -D
+yarn add @gladeye/bento@beta -D
 # peer dependencies
 yarn add webpack webpack-dev-server webpack-cli -D
 yarn add core-js
