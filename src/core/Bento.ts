@@ -147,7 +147,7 @@ export default class Bento {
      */
     bundle(name: string, files: string | string[]): this {
         if (isString(files)) files = [files as string];
-        this.entry[name] = (files as string[]).map(file =>
+        this.entry[name] = (files as string[]).map((file) =>
             file.replace("~/", `${this.config.homeDir}/`)
         );
         return this;
@@ -190,7 +190,7 @@ export default class Bento {
         if (isString(ext)) ext = [ext as string];
         if (typeof loaders !== "function") {
             if (!Array.isArray(loaders)) loaders = [loaders as Loader];
-            loaders = loaders.map(loader => {
+            loaders = loaders.map((loader) => {
                 if (typeof loader === "string") return { loader };
                 return loader;
             });
@@ -305,14 +305,14 @@ export default class Bento {
                 }
             },
             module: {
-                rules: this.rules.map(desc => {
+                rules: this.rules.map((desc) => {
                     return {
                         test: new RegExp(`\\.(${desc.ext.join("|")})$`),
                         include: desc.include,
                         use:
                             typeof desc.loaders === "function"
                                 ? desc.loaders(env)
-                                : desc.loaders.map(loader => {
+                                : desc.loaders.map((loader) => {
                                       return typeof loader === "function"
                                           ? loader(env)
                                           : loader;
@@ -321,7 +321,7 @@ export default class Bento {
                 })
             },
             plugins: plugins
-                .map(desc => {
+                .map((desc) => {
                     let Plugin;
                     if (typeof desc.plugin === "function") Plugin = desc.plugin;
                     else {
@@ -366,8 +366,8 @@ export default class Bento {
      * @memberof Bento
      */
     findLoader(name: string, cb: ({ loader, ext, include }) => void) {
-        this.rules.forEach(rule => {
-            const trigger = loader => {
+        this.rules.forEach((rule) => {
+            const trigger = (loader) => {
                 if (loader.loader && loader.loader === name)
                     cb({ loader, ext: rule.ext, include: rule.include });
             };
