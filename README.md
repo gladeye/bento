@@ -2,6 +2,16 @@
 
 [![Build Status](https://travis-ci.org/gladeye/bento.svg?branch=master)](https://travis-ci.org/gladeye/bento) [![dependencies](https://david-dm.org/gladeye/bento.svg?theme=shields.io)](https://david-dm.org/gladeye/bento)
 
+## Installation
+
+```shell
+# package
+yarn add @gladeye/bento@next -D
+# peer dependencies
+yarn add webpack webpack-dev-server webpack-cli -D
+yarn add core-js
+```
+
 ## API
 
 ```js
