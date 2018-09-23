@@ -17,7 +17,8 @@
     "peerDependencies": {
         "webpack": "^4",
         "webpack-cli": "^3",
-        "webpack-dev-server": "^3"
+        "webpack-dev-server": "^3",
+        "core-js": "^2"
     },
     "devDependencies": {
         "@babel/plugin-proposal-class-properties": "^7.0.0",
