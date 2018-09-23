@@ -269,7 +269,7 @@ export default class Bento {
      * @returns {Promise<Configuration>}
      * @memberof Bento
      */
-    export(env: string | void): Promise<Configuration> {
+    export(env?: string | void): Promise<Configuration> {
         const select = selector(env);
 
         const plugins = [].concat(
@@ -280,6 +280,7 @@ export default class Bento {
         const config = {
             name: "bento",
             entry: this.entry,
+            mode: env === Env.Production ? "production" : "development",
             output: {
                 path: this.outputDir,
                 pathinfo: select({
