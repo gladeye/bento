@@ -1,13 +1,14 @@
 import {
-    optimize,
     DefinePlugin,
     Loader,
     Configuration,
     NamedModulesPlugin,
-    NamedChunksPlugin,
-    HotModuleReplacementPlugin
+    NamedChunksPlugin
 } from "webpack";
-import * as ExtractTextWebpackPlugin from "extract-text-webpack-plugin";
+// import * as ExtractTextWebpackPlugin from "extract-text-webpack-plugin";
+import * as MiniCssExtractPlugin from "mini-css-extract-plugin";
+import * as UglifyJsPlugin from "uglifyjs-webpack-plugin";
+import * as OptimizeCSSAssetsPlugin from "optimize-css-assets-webpack-plugin";
 import { basename, extname } from "path";
 import { isObject, isString } from "lodash";
 import Bento, {
@@ -95,9 +96,11 @@ export default class StandardBento extends Bento {
                         return chunk.name;
                     }
 
-                    return chunk.mapModules((m) => {
-                        return basename(m.request, extname(m.request));
-                    });
+                    return chunk
+                        .mapModules((m) => {
+                            return basename(m.request, extname(m.request));
+                        })
+                        .join("_");
                 }
             ])
             .addPlugin(NamedModulesPlugin, [])
@@ -112,88 +115,97 @@ export default class StandardBento extends Bento {
                         }
                     ];
                 }
-            )
-            .addPlugin(
-                optimize.CommonsChunkPlugin,
-                [
-                    {
-                        name: "vendor",
-                        minChunks(module) {
-                            return /node_modules/.test(module.resource);
-                        }
-                    }
-                ],
-                Env.Production
-            )
-            .addPlugin(
-                optimize.CommonsChunkPlugin,
-                [
-                    {
-                        name: "runtime"
-                    }
-                ],
-                Env.Production
-            )
-            .addPlugin(
-                "uglifyjs-webpack-plugin",
-                (env?: string): any[] => {
-                    return [
-                        {
-                            sourceMap: this.features.sourceMap
-                        }
-                    ];
-                },
-                Env.Production
             );
+        // .addPlugin(
+        //     optimize.CommonsChunkPlugin,
+        //     [
+        //         {
+        //             name: "vendor",
+        //             minChunks(module) {
+        //                 return /node_modules/.test(module.resource);
+        //             }
+        //         }
+        //     ],
+        //     Env.Production
+        // )
+        // .addPlugin(
+        //     optimize.CommonsChunkPlugin,
+        //     [
+        //         {
+        //             name: "runtime"
+        //         }
+        //     ],
+        //     Env.Production
+        // )
+        // .addPlugin(
+        //     "uglifyjs-webpack-plugin",
+        //     (env?: string): any[] => {
+        //         return [
+        //             {
+        //                 sourceMap: this.features.sourceMap
+        //             }
+        //         ];
+        //     },
+        //     Env.Production
+        // );
 
         // STYLE
         this.addRule(
             "scss",
             (env?: string): Loader[] => {
-                return ExtractTextWebpackPlugin.extract({
-                    publicPath: "./",
-                    fallback: {
-                        loader: "style-loader",
+                const loaders = [
+                    {
+                        loader: "css-loader",
+                        options: {
+                            sourceMap: this.features.sourceMap,
+                            minimize:
+                                env === Env.Production
+                                    ? { preset: "default" }
+                                    : false
+                        }
+                    },
+                    {
+                        loader: "postcss-loader",
+                        options: {
+                            ident: "postcss",
+                            plugins() {
+                                const autoprefixer = require("autoprefixer");
+                                return [autoprefixer()];
+                            },
+                            sourceMap: this.features.sourceMap
+                        }
+                    },
+                    {
+                        loader: "resolve-url-loader",
                         options: {
                             sourceMap: this.features.sourceMap
                         }
                     },
-                    use: [
-                        {
-                            loader: "css-loader",
-                            options: {
-                                sourceMap: this.features.sourceMap,
-                                minimize:
-                                    env === Env.Production
-                                        ? { preset: "default" }
-                                        : false
-                            }
-                        },
-                        {
-                            loader: "postcss-loader",
-                            options: {
-                                ident: "postcss",
-                                plugins() {
-                                    const autoprefixer = require("autoprefixer");
-                                    return [autoprefixer()];
-                                },
-                                sourceMap: this.features.sourceMap
-                            }
-                        },
-                        {
-                            loader: "resolve-url-loader",
-                            options: {
-                                sourceMap: this.features.sourceMap
-                            }
-                        },
-                        {
-                            loader: "sass-loader",
-                            options: {
-                                sourceMap: this.features.sourceMap
-                            }
+                    {
+                        loader: "sass-loader",
+                        options: {
+                            sourceMap: this.features.sourceMap
                         }
-                    ]
-                });
+                    }
+                ];
+
+                if (env === Env.Production && this.features.extractCss) {
+                    loaders.unshift({
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            publicPath: "./"
+                        }
+                    });
+                } else {
+                    loaders.unshift({
+                        loader: "style-loader",
+                        options: {
+                            sourceMap: this.features.sourceMap
+                        }
+                    });
+                }
+
+                return loaders;
             }
         )
             .addRule(
@@ -215,7 +227,7 @@ export default class StandardBento extends Bento {
                 /node_modules/
             )
             .addPlugin(
-                ExtractTextWebpackPlugin,
+                MiniCssExtractPlugin,
                 (env?: string): any[] => {
                     const select = selector(env);
 
@@ -224,11 +236,7 @@ export default class StandardBento extends Bento {
                             filename: select({
                                 default: "[name].css",
                                 production: "[name].[contenthash:8].css"
-                            }),
-                            disable: !(
-                                this.features.extractCss &&
-                                env === Env.Production
-                            )
+                            })
                         }
                     ];
                 }
@@ -276,8 +284,39 @@ export default class StandardBento extends Bento {
      * @protected
      * @memberof StandardBento
      */
-    protected configure(config: Configuration): Configuration {
+    protected configure(
+        config: Configuration,
+        env: string | void
+    ): Configuration {
+        if (env === Env.Production) {
+            if (!config.optimization) config.optimization = {};
+
+            config.optimization.splitChunks = {
+                cacheGroups: {
+                    commons: {
+                        test: /[\\/]node_modules[\\/]/,
+                        name: "vendor",
+                        chunks: "all"
+                    }
+                }
+            };
+
+            config.optimization.runtimeChunk = {
+                name: "runtime"
+            };
+
+            config.optimization.minimizer = [
+                new UglifyJsPlugin({
+                    cache: true,
+                    parallel: true,
+                    sourceMap: this.features.sourceMap
+                }),
+                new OptimizeCSSAssetsPlugin({})
+            ];
+        }
+
         if (this.command !== Command.Serve) return config;
+
         config.devServer = {
             disableHostCheck: true,
             historyApiFallback: true,
