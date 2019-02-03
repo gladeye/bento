@@ -316,7 +316,7 @@ export default class Bento {
                         use:
                             typeof desc.loaders === "function"
                                 ? desc.loaders(env)
-                                : desc.loaders.map((loader) => {
+                                : desc.loaders.map((loader: any) => {
                                       return typeof loader === "function"
                                           ? loader(env)
                                           : loader;
