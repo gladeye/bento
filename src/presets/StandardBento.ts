@@ -96,8 +96,8 @@ export default class StandardBento extends Bento {
                         return chunk.name;
                     }
 
-                    return chunk
-                        .mapModules((m) => {
+                    return Array.from(chunk.modulesIterable)
+                        .map((m: any) => {
                             return basename(m.request, extname(m.request));
                         })
                         .join("_");
