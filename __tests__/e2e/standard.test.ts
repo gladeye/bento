@@ -44,40 +44,36 @@ describe("serve", () => {
         return server.listen(9000);
     };
 
-    it(
-        "should work as expected",
-        async () => {
-            const server = proxy();
+    it("should work as expected", async () => {
+        const server = proxy();
 
-            await serve(async (proc, data) => {
-                const done = function() {
-                    server.close();
-                    proc.kill("SIGINT");
-                };
+        await serve(async (proc, data) => {
+            const done = function() {
+                server.close();
+                proc.kill("SIGINT");
+            };
 
-                const output = data.toString();
-                if (!/Compiled successfully/.test(output)) return;
+            const output = data.toString();
+            if (!/Compiled successfully/.test(output)) return;
 
-                const mainBody = await (await fetch(
-                    "http://localhost:8000"
-                )).text();
+            const mainBody = await (await fetch(
+                "http://localhost:8000"
+            )).text();
 
-                const proxyBody = await (await fetch(
-                    "http://localhost:8000/api"
-                )).text();
+            const proxyBody = await (await fetch(
+                "http://localhost:8000/api"
+            )).text();
 
-                expect(mainBody).toContain("<title>Webpack App</title>");
-                expect(mainBody).toContain(
-                    `<script type="text/javascript" src="/main.js"></script>`
-                );
+            expect(mainBody).toContain("<title>Webpack App</title>");
+            expect(mainBody).toContain(
+                `<script type="text/javascript" src="/main.js"></script>`
+            );
 
-                expect(proxyBody).toContain("proxy says hi");
+            expect(proxyBody).toContain("proxy says hi");
 
-                done();
-            });
-        },
-        120000
-    );
+            done();
+        });
+    }, 120000);
 });
 
 describe("build", () => {
@@ -95,6 +91,8 @@ describe("build", () => {
 
         return bento.export(env).then((config) => {
             if (overwrite) overwrite(config);
+
+            config.performance = { hints: false };
 
             config.devtool = false;
             config.cache = false;
@@ -162,21 +160,21 @@ describe("build", () => {
             expect(keys).toEqual([
                 "/nice.9c3c4150.jpg",
                 "/cat.5082946a.gif",
-                "/giphy.a47e713b.gif",
                 "/RobotoMono-Regular.a48ac416.ttf",
-                "/main.8610a24b.css",
-                "/main.97d26e8e.js",
-                "/runtime.22d41c18.js",
-                "/vendor.95cc41f3.css",
-                "/vendor.2a94de0c.js",
+                "/giphy.a47e713b.gif",
+                "/main.04d8cdd3.css",
+                "/main.fcc39b91.js",
+                "/runtime.ae3ec808.js",
+                "/vendor.eb592cd8.css",
+                "/vendor.9e956fd5.js",
                 "/manifest.json"
             ]);
 
-            expect(files["/main.97d26e8e.js"]).toContain(`return\"This is a\"`);
-            expect(files["/main.8610a24b.css"]).toContain("color:red");
-            expect(files["/main.8610a24b.css"]).toContain("@-webkit-keyframes");
-            expect(files["/vendor.95cc41f3.css"]).toContain("font-size:12px");
-            expect(files["/vendor.2a94de0c.js"]).toContain("lodash");
+            expect(files["/main.fcc39b91.js"]).toContain(`return\"This is a\"`);
+            expect(files["/main.04d8cdd3.css"]).toContain("color:red");
+            expect(files["/main.04d8cdd3.css"]).toContain("@-webkit-keyframes");
+            expect(files["/vendor.eb592cd8.css"]).toContain("font-size:12px");
+            expect(files["/vendor.9e956fd5.js"]).toContain("lodash");
             expect(JSON.parse(files["/manifest.json"])).toMatchSnapshot();
         });
     });

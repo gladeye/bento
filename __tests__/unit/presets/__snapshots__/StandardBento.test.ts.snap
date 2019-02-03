@@ -16,7 +16,11 @@ Object {
         "plugin": "clean-webpack-plugin",
       },
       Object {
-        "args": Array [],
+        "args": Array [
+          Object {
+            "filter": [Function filter],
+          },
+        ],
         "plugin": "webpack-manifest-plugin",
       },
       Object {

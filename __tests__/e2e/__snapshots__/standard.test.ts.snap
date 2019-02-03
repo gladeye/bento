@@ -13,12 +13,11 @@ Object {
 exports[`build exports a correct \`config\` for webpack in production 1`] = `
 Object {
   "cat.gif": "/cat.5082946a.gif",
-  "main.css": "/main.8610a24b.css",
-  "main.js": "/main.97d26e8e.js",
+  "main.css": "/main.04d8cdd3.css",
+  "main.js": "/main.fcc39b91.js",
   "nice.jpg": "/nice.9c3c4150.jpg",
-  "runtime.js": "/runtime.22d41c18.js",
-  "style.scss": "/RobotoMono-Regular.a48ac416.ttf",
-  "vendor.css": "/vendor.95cc41f3.css",
-  "vendor.js": "/vendor.2a94de0c.js",
+  "runtime.js": "/runtime.ae3ec808.js",
+  "vendor.css": "/vendor.eb592cd8.css",
+  "vendor.js": "/vendor.9e956fd5.js",
 }
 `;
