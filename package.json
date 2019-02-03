@@ -89,6 +89,7 @@
         },
         "snapshotSerializers": [
             "./__tests__/serialiser.ts"
-        ]
+        ],
+        "testEnvironment": "node"
     }
 }
