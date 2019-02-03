@@ -74,7 +74,16 @@ export default class StandardBento extends Bento {
                     verbose: false
                 }
             ])
-            .addPlugin("webpack-manifest-plugin", [])
+            .addPlugin("webpack-manifest-plugin", [
+                {
+                    filter(descriptor) {
+                        const pathExt = extname(descriptor.path),
+                            nameExt = extname(descriptor.name);
+
+                        return pathExt === nameExt;
+                    }
+                }
+            ])
             .addPlugin(
                 "write-file-webpack-plugin",
                 (env?: string): void | any[] => {
